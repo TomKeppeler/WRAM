@@ -2,7 +2,7 @@
 
 <hr width="30%">
 
-Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom, Keppeler](https://git.fslab.de/tkeppe2s), [Leo Wagner](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Kilian Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Katarina Letic](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Khalid, Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Sala Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc)
+Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom, Keppeler](https://git.fslab.de/tkeppe2s), [Leon Wagner](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Kilian Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Katarina Letic](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Khalid Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Salah Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc)
 
 <hr width="30%">
 
