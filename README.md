@@ -42,3 +42,5 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 ### Software-Architekt
 
 ### Datenbank-Experte
+
+[ERDiagramm]([docs/diagram/ERDiagramm-Semantisch.svg](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg))<br>
