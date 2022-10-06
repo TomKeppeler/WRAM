@@ -33,6 +33,7 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 
 ### Scrum Master und Product Owner
 
+[Product Backlog](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Product-Backlog.pdf)
 ### Senior-Programmer
 
 ### Test-Manager
