@@ -41,6 +41,8 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 ### Usability-Experte & Quality-Manager
 
 ### Software-Architekt
+[UseCaseDiagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/UseCaseDiagramm.svg) <br>
+
 
 ### Datenbank-Experte
 
