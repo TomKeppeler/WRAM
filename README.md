@@ -2,7 +2,7 @@
 
 <hr width="30%">
 
-Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom, Keppeler](https://git.fslab.de/tkeppe2s), [Leon Wagner](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Kilian Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Katarina Letic](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Khalid Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Salah Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc)
+Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom Keppeler](https://git.fslab.de/tkeppe2s), [Leon Wagner](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Kilian Villa](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Katarina Letic](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Khalid Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Salah Khalosi](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc)
 
 <hr width="30%">
 
@@ -22,9 +22,9 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 <li><h4>Datenbank-Experte</h4><span>Tom, Lukas, Sophia</span></li>
 <li><h4>Software-Architekt</h4><span>Sophia, Lukas, Fabio</span></li>
 <li><h4>Usability-Experte & Quality-Manager</h4><span>Leon, Kilian</span></li>
-<li><h4>Test-Manager</h4><span>Salah, Khalid, Fabio</span></li>
+<li><h4>Test-Manager</h4><span>Khalid, Fabio</span></li>
 <li><h4>Senior-Programmer</h4><span>Lukas, Sophia, Tom, Fabio, Sala</span></li>
-<li><h4>Scrum-Master</h4><span>Katerina</span></li>
+<li><h4>Scrum-Master</h4><span>Salah</span></li>
 <li><h4>Product Owner</h4><span>Tom</span></li>
 </ul>
 
