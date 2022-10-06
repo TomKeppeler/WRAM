@@ -23,7 +23,7 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 <li><h4>Software-Architekt</h4><span>Sophia, Lukas, Fabio</span></li>
 <li><h4>Usability-Experte & Quality-Manager</h4><span>Leon, Kilian</span></li>
 <li><h4>Test-Manager</h4><span>Khalid, Fabio</span></li>
-<li><h4>Senior-Programmer</h4><span>Lukas, Sophia, Tom, Fabio, Sala</span></li>
+<li><h4>Senior-Programmer</h4><span>Lukas, Sophia, Tom, Fabio, Salah</span></li>
 <li><h4>Scrum-Master</h4><span>Salah</span></li>
 <li><h4>Product Owner</h4><span>Tom</span></li>
 </ul>
@@ -43,4 +43,4 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 
 ### Datenbank-Experte
 
-[ERDiagramm]([docs/diagram/ERDiagramm-Semantisch.svg](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg))<br>
+[ER-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
