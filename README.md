@@ -12,7 +12,8 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 [Scrum Master und Product Owner](#scrum-master-und-product-owner)<br>
 [Senior-Programmer](#senior-programmer)<br>
 [Test-Manager](#test-manager)<br>
-[Usability-Experte & Quality-Manager](#usability-experte-&-quality-manager)<br>
+[Usability-Experte](#usability-experte)<br>
+[Quality-Manager](#quality-manager)<br>
 [Software-Architekt](#software-architekt)<br>
 [Datenbank-Experte](#datenbank-experte)<br>
 
@@ -54,7 +55,10 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 <hr width="50%" align="left">
 
-### Usability-Experte & Quality-Manager
+### Usability-Experte
+
+
+### Quality-Manager
 
 <hr width="50%" align="left">
 
