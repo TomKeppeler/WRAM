@@ -34,7 +34,7 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 
 ### Vision
 
-Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von Software Projekten bieten. So werden wir eine funktionale Übersicht für alle Beteiligten an einem Projekt bereitstellen.<br>
+Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von Software Projekten bieten. So werden wir eine funktionale Übersicht für alle Beteiligten an einem Projekt bereitstellen. So soll die Zusammenarbeit und Zuteilung der Entwickler zentral gesteuert werden. Unser Ziel ist es, die Zusammenarbeit zwischen Manager, Reviewer und Entwickler zu fördern.
 
 <hr width="50%" align="left">
 
