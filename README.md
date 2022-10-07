@@ -23,7 +23,8 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 <ul>
 <li><h4>Datenbank-Experte</h4><span>Tom, Lukas, Sophia</span></li>
 <li><h4>Software-Architekt</h4><span>Sophia, Lukas, Fabio</span></li>
-<li><h4>Usability-Experte & Quality-Manager</h4><span>Leon, Kilian</span></li>
+<li><h4>Usability-Experte</h4><span>Leon</span></li>
+<li><h4>Quality-Manager</h4><span> Kilian</span></li>
 <li><h4>Test-Manager</h4><span>Fabio</span></li>
 <li><h4>Senior-Programmer</h4><span>Lukas, Sophia, Tom, Fabio, Salah</span></li>
 <li><h4>Scrum-Master</h4><span>Salah</span></li>
