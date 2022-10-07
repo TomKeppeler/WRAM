@@ -1,10 +1,10 @@
 ## 2022 WS - Wirtschaftsinformatik-Projekt (Prof. Dr. Goodarz Mahbobi)
 
-<hr width="30%">
+<hr width="50%" align="left">
 
 Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom Keppeler](https://git.fslab.de/tkeppe2s), [Leon Wagner](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Kilian Villa](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Katarina Letic](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Khalid Name](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc), [Salah Khalosi](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc)
 
-<hr width="30%">
+<hr width="50%" align="left">
 
 ### Inhaltsverzeichnis
 [Rollenverteilung](#rollenverteilung)<br>
@@ -15,6 +15,8 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 [Usability-Experte & Quality-Manager](#usability-experte-&-quality-manager)<br>
 [Software-Architekt](#software-architekt)<br>
 [Datenbank-Experte](#datenbank-experte)<br>
+
+<hr width="50%" align="left">
 
 
 ### Rollenverteilung
@@ -28,22 +30,40 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 <li><h4>Product Owner</h4><span>Tom</span></li>
 </ul>
 
+<hr width="50%" align="left">
+
 ### Vision
 
+Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von Software Projekten bieten. So werden wir eine funktionale Übersicht für alle Beteiligten an einem Projekt bereitstellen.<br>
+
+<hr width="50%" align="left">
 
 ### Scrum Master und Product Owner
 
 [Product Backlog](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Product-Backlog.pdf)
+
+<hr width="50%" align="left">
+
 ### Senior-Programmer
+
+
+<hr width="50%" align="left">
 
 ### Test-Manager
 
+<hr width="50%" align="left">
+
 ### Usability-Experte & Quality-Manager
+
+<hr width="50%" align="left">
 
 ### Software-Architekt
 [UseCaseDiagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/UseCaseDiagramm.svg) <br>
 
+<hr width="50%" align="left">
 
 ### Datenbank-Experte
 
 [ER-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
+
+<hr width="50%" align="left">
