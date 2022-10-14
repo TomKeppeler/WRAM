@@ -44,6 +44,12 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Product Backlog](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Product-Backlog.pdf)
 
+[Artefact](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Artefact.pdf)
+
+[Technical Stroys](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Technical-Storys.pdf)
+
+[Rollenverteilung Präsentation](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/WI-Projekt-Mahbobi-Rollen.pdf)
+
 <hr width="50%" align="left">
 
 ### Senior-Programmer
@@ -59,6 +65,9 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 
 ### Quality-Manager
+
+[Requirements Matrix](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Requirements-Matrix.pdf)
+
 
 <hr width="50%" align="left">
 
