@@ -1,6 +1,7 @@
-##
+## WRAM - Webbasiertes Rationalisierungsmittel
 ### 2022 WS - Wirtschaftsinformatik-Projekt (Prof. Dr. Goodarz Mahbobi)
 
+![Web application Company Logo](/docs/usability/WAC_Logo.png)
 
 <hr width="50%" align="left">
 
