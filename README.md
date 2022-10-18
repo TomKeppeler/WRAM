@@ -1,4 +1,6 @@
-## 2022 WS - Wirtschaftsinformatik-Projekt (Prof. Dr. Goodarz Mahbobi)
+##
+### 2022 WS - Wirtschaftsinformatik-Projekt (Prof. Dr. Goodarz Mahbobi)
+
 
 <hr width="50%" align="left">
 
@@ -48,7 +50,11 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Technical Stroys](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Technical-Storys.pdf)
 
-[Rollenverteilung Präsentation](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/WI-Projekt-Mahbobi-Rollen.pdf)
+[Rollenverteilung Präsentation](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/WI-Projekt-Mahbobi-Rollen.pdf)
+
+[Präsentation Meeting 3](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/Meeting3.pdf)
+
+[Präsentation Meeting 4](https://docs.google.com/presentation/d/1Npsb0DNNMbyxFxFP2RCQ6Jd1_-LedqOWROqIhq1oMnQ/edit?usp=sharing)
 
 <hr width="50%" align="left">
 
@@ -66,7 +72,7 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Quality-Manager
 
-[Requirements Matrix](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Requirements-Matrix.pdf)
+[Requirements Matrix](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Quality-Manager/Requirements-Matrix.pdf)
 
 
 <hr width="50%" align="left">
