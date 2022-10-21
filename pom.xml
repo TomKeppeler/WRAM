@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.hbrs.se2.project</groupId>
-    <artifactId>hellocarapp</artifactId> <!-- Place your team name here! -->
+    <groupId>org.hbrs.project</groupId>
+    <artifactId>WAC</artifactId> <!-- Place your team name here! -->
     <version>0.0.1-SNAPSHOT</version>
-    <name>hellocar</name>
-    <description>Demo project for SE-2</description>
+    <name>WRAM</name>
+    <description>Webbasiertes Rationalisierungsmittel</description>
     <packaging>war</packaging>
     
     <properties>
@@ -34,12 +34,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
 
         <dependency>

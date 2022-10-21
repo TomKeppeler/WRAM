@@ -1,8 +1,8 @@
-package org.hbrs.se2.project.hellocar.util;
+package org.hbrs.project.wram.util;
 
 import com.vaadin.flow.component.Component;
 
-public class Globals {
+public class Constant {
     public static String CURRENT_USER = "current_User";
 
     public static class Pages {
