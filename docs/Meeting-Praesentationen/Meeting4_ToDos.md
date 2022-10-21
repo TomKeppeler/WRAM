@@ -1,13 +1,14 @@
-# Meeting No. 4
-am 21.10.2022
+# Meeting No. 5
+am 28.10.2022
 <hr>
 
-### To Dos
+### To Dos bis dahin
 
 <ol>
-    <li>relationales DB-Modell</li>
-    <li>Zu erreichende Meilensteine als wieder erkennbares Selected Product Backlog präsentieren</li>
-    <li>Folie NFA zweite Spalte, wie diese Funktionen zu testen sind.</li>
-    <li>Meilensteinplan bis Ende des Projekts: Wer macht was und wann, nach Anforderungen</li>
-    <li>Statusampel und dazu konkrete Details</li>
+    <li><b>Relationales DB-Modell</b>  erstellen und in Readme einbinden</li>
+    <li>Anzahl und Beginn der <b>Sprints</b> neu planen (max. Dauer von 3 Wochen)</li>
+    <li><b>Anpassung</b> des <b>Selected Backlogs</b> an Sprints</li>
+    <li><b>Meilensteinplan</b> bis Ende des Projekts: Wer macht was und wann, nach Anforderungen</li>
+    <li>Zum <b>Statusbericht</b>: Kriterien sind Scope (Welche Anforderungen wurden umgesetzt, welche nicht?
+    Wie wird die Qualität bewertet? Time: Burn-Down-Chart oder 252 Stunden Budget, wie viel davon gearbeitet? Budget: 4,5 Mio</li>
 </ol>
