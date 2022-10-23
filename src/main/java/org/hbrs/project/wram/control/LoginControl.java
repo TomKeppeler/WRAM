@@ -1,7 +1,6 @@
 package org.hbrs.project.wram.control;
 
 import org.hbrs.project.wram.model.user.User;
-import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
