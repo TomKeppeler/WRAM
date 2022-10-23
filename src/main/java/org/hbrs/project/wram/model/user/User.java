@@ -1,4 +1,4 @@
-package org.hbrs.project.wram.Entities;
+package org.hbrs.project.wram.model.user;
 
 import javax.persistence.*;
 

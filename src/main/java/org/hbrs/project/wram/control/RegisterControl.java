@@ -1,6 +1,6 @@
-package org.hbrs.project.wram.Control;
+package org.hbrs.project.wram.control;
 
-import org.hbrs.project.wram.Entities.User;
+import org.hbrs.project.wram.model.user.User;
 
 public class RegisterControl {
 

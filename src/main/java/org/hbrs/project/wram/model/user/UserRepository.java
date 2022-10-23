@@ -1,6 +1,5 @@
-package org.hbrs.project.wram.Repositories;
+package org.hbrs.project.wram.model.user;
 
-import org.hbrs.project.wram.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.LinkedList;

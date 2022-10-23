@@ -13,9 +13,10 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import org.hbrs.project.wram.Control.RegisterControl;
 
 import java.util.stream.Stream;
+
+import org.hbrs.project.wram.control.RegisterControl;
 @Route(value="Registrieren")
 public class RegistrationForm extends FormLayout {
     private H3 title;
