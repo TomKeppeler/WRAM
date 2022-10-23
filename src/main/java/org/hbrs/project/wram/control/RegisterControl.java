@@ -22,12 +22,12 @@ public class RegisterControl {
         return digitFlag&upperCaseFlag;
     }
     public static void registerMethod(String vorname,String nachname,String email,String passwort,String rolle){
-      User u=new User();
+      /*User u=new User();
       u.setVorname(vorname);
       u.setNachname(nachname);
       u.setEmail(email);
       u.setPasswort(passwort);
-      u.setRolle(rolle);
+      u.setRolle(rolle); */
     }
 
 }
