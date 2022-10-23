@@ -28,7 +28,7 @@ public class LoginControl {
     private User getUser(String username, String password) throws Exception {
         User user;
         try {
-            user = repository.findByUsernameAndPasswort(username, password);
+            user = repository.findUserByUsernameAndPassword(username, password);
         } catch (org.springframework.dao.DataAccessResourceFailureException e) {
             // Todo: Create DatabaseException (inside control package?)
             throw new Exception("A failure occurred while trying to connect to a database with JPA.");

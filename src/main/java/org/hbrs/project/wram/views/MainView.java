@@ -51,10 +51,10 @@ public class MainView extends VerticalLayout {
           }
 
           if (isAuthenticated) {
-              User currentUser = repository.findByUsernameAndPasswort(e.getUsername(), e.getPassword());
+              User currentUser = repository.findUserByUsernameAndPassword(e.getUsername(), e.getPassword());
               UserDTO user = new UserDTO();
               user.setUsername(currentUser.getUsername());
-              user.setPasswort(currentUser.getPasswort());
+              user.setPasswort(currentUser.getPassword());
               grabAndSetUserIntoSession(user);
               navigateToMainPage();
           } else {
