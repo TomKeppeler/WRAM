@@ -20,11 +20,14 @@ public class MainView extends VerticalLayout {
 
     
     public MainView() {
-        setSizeFull();
-        LoginForm component = new LoginForm();
+      /*setSizeFull();
+       LoginForm component = new LoginForm();
 
-        add(component);
-        this.setAlignItems( Alignment.CENTER );
+       add(component);
+       this.setAlignItems( Alignment.CENTER );*/
+        RegistrationForm rf =new RegistrationForm();
+        add(rf);
+
     }
 
     private void grabAndSetUserIntoSession() {
