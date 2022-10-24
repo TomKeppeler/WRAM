@@ -5,10 +5,13 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
+import com.vaadin.flow.router.RouterLink;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
@@ -33,7 +36,12 @@ public class MainView extends VerticalLayout {
     
     public MainView() {
       setSizeFull();
+       VerticalLayout layout = new VerticalLayout();
        LoginForm login = new LoginForm();
+
+       RouterLink register = new RouterLink("Jetzt registrieren", RegistrationForm.class);
+       HorizontalLayout registerlink = new HorizontalLayout( register);
+
        login.addLoginListener(e -> {
           boolean isAuthenticated = false;
 
@@ -61,8 +69,20 @@ public class MainView extends VerticalLayout {
               login.setError(true);
               // ToDo: Login-Fehler verdeutlichen
           }
+
+
        });
-       add(login);
+
+
+
+        layout.add(
+                login,
+                registerlink
+        );
+
+        layout.setAlignItems( FlexComponent.Alignment.CENTER );
+
+        add(layout);
        this.setAlignItems( Alignment.CENTER );
 //        RegistrationForm rf =new RegistrationForm();
 //        add(rf);
