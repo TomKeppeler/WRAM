@@ -1,26 +1,19 @@
 package org.hbrs.project.wram.control;
 
+import com.vaadin.flow.data.validator.EmailValidator;
 import org.hbrs.project.wram.model.user.User;
+import org.hbrs.project.wram.util.Utils;
 
 public class RegisterControl {
 
-    public static boolean confirmPasswort(String passwort,String passwortbestätigung){
-        if(!passwort.equals(passwortbestätigung)|passwort.length()<8){
-            return false;
-        }
-        boolean upperCaseFlag=false;
-        boolean digitFlag=false;
-        for(int i=0;i<passwort.length();i++){
-            char s=passwort.charAt(i);
-            if(Character.isDigit(s)){
-                digitFlag=true;
-            }
-            if(Character.isUpperCase(s)){
-                upperCaseFlag=true;
-            }
-        }
-        return digitFlag&upperCaseFlag;
+    public static boolean passwortCheck(String passwort){
+        boolean longEnough = passwort.length() > 7;
+        boolean hasNumber = Utils.hasNumber(passwort);
+        boolean hasUppercaseLetter = Utils.hasUpperCaseLetter(passwort);
+
+        return longEnough && hasNumber && hasUppercaseLetter;
     }
+
     public static void registerMethod(String vorname,String nachname,String email,String passwort,String rolle){
       /*User u=new User();
       u.setVorname(vorname);
