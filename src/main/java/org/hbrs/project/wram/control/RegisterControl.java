@@ -37,8 +37,7 @@ public class RegisterControl {
         // dann in der Datenbank abgespeichert wird
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
-
-        entwicklerRepository.save(EntityFactory.createEntwickler(entwicklerDTO, user));
+        entwicklerRepository.save(entwicklerRepository.save(EntityFactory.createEntwickler(entwicklerDTO, user)));
         return true;
     }
 
