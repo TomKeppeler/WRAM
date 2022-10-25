@@ -2,12 +2,13 @@ package org.hbrs.project.wram.model.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@SpringBootTest
 class UserRepositoryTest {
-/*    @Autowired
+    @Autowired
     UserRepository userRepository;
     User user = User.builder().email("s").password("1").username("s1").build();
     @Test
@@ -24,5 +25,5 @@ class UserRepositoryTest {
     void isEmailInUse() {
     }
 
- */
+
 }

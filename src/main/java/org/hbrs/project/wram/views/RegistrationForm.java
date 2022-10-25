@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.stream.Stream;
@@ -31,6 +32,7 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constant;
 import org.hbrs.project.wram.util.Utils;
 
+@PageTitle("Registrierung")
 @Route(value="Registrieren")
 public class RegistrationForm extends VerticalLayout {
 
