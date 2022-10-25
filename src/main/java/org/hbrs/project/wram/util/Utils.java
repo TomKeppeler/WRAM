@@ -40,4 +40,15 @@ public class Utils {
         }
         return retValue;
     }
+
+    public static boolean isAlpha(String text) {
+        if(text.length()==0){return false;}
+        for (char c : text.toCharArray()) {
+            // a - z                    // A - Z                       // ö, ü, ä, ß
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü' )
+                continue;
+            return false;
+        }
+        return true;
+    }
 }
