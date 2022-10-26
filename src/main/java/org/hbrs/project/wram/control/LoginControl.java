@@ -5,11 +5,10 @@ import org.hbrs.project.wram.control.user.UserMapper;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
+import org.hbrs.project.wram.util.Constants;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import static org.hbrs.project.wram.util.Constant.CURRENT_USER;
 
 @Component
 public class LoginControl {
@@ -47,7 +46,9 @@ public class LoginControl {
     }
 
     public void logout() {
+        UI.getCurrent().getSession().close();
         this.currentUser = null;
+        UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
     }
 
 

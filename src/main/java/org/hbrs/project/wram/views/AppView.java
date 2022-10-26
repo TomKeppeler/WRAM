@@ -5,7 +5,6 @@ import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -20,17 +19,18 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.PWA;
-
+import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.model.user.UserDTO;
+import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
  * The main view is a top-level placeholder for other views.
  */
 @CssImport("./styles/views/main/main-view.css")
-@Route("main")
+@Route(Constants.Pages.LANDING_PAGE)
 @PWA(name = "HelloCar", shortName = "HelloCar", enableInstallPrompt = false)
 @JsModule("./styles/shared-styles.js")
 public class AppView extends AppLayout implements BeforeEnterObserver {
@@ -38,6 +38,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Tabs menu;
     private H1 viewTitle;
     private H1 helloUser;
+
+    @Autowired
+    private LoginControl control;
 
  
     public AppView() {
@@ -67,7 +70,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
      * Erzeugung der horizontalen Leiste (Header).
      * @return
      */
-    private Component   createHeaderContent() {
+    private Component createHeaderContent() {
         // Ein paar Grund-Einstellungen. Alles wird in ein horizontales Layout gesteckt.
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
@@ -103,9 +106,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private void logoutUser() {
-        UI ui = this.getUI().get();
-        ui.getSession().close();
-        ui.getPage().setLocation("/");
+        control.logout();
     }
 
     /**
@@ -128,8 +129,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         // Hinzufügen des Logos
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        logoLayout.add(new Image("images/logo.png", "HelloCar logo"));
-        logoLayout.add(new H1("HelloCar"));
+        logoLayout.add(new Image("images/logo.png", "WRAM logo"));
+//        logoLayout.add(new H1("WRAM"));
 
         // Hinzufügen des Menus inklusive der Tabs
         layout.add(logoLayout, menu);
@@ -154,10 +155,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private Component[] createMenuItems() {
-       // Abholung der Referenz auf den Authorisierungs-Service
        // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
-
-       return null;
+        Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
+        Component[] components = new Component[]{projectsTab};
+       return components;
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
@@ -195,6 +196,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private String getCurrentNameOfUser() {
+        UserDTO currentUser = control.getCurrentUser();
+        if (currentUser != null) {
+            return currentUser.getUsername();
+        }
         return null;
     }
 
@@ -210,6 +215,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
      *
      */
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-
+        if (control.getCurrentUser() == null) {
+            UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
+        }
     }
 }
