@@ -1,7 +1,7 @@
 package org.hbrs.project.wram.control;
 
 import com.vaadin.flow.component.UI;
-import org.hbrs.project.wram.control.user.UserMapper;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
@@ -17,11 +17,11 @@ public class LoginControl {
     private UserRepository repository;
 
     @Autowired
-    private UserMapper mapper;
+    private UserService userService;
     private UserDTO currentUser = null;
 
     public boolean authenticateUser(String username, String password) throws Exception {
-        UserDTO user = mapper.toDTO(getUser(username, password));
+        UserDTO user = userService.toDTO(getUser(username, password));
         if (user == null) {
             return false;
         } else {
