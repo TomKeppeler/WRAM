@@ -1,9 +1,15 @@
 package org.hbrs.project.wram.control;
 
+import com.vaadin.flow.component.UI;
+import org.hbrs.project.wram.control.user.UserMapper;
 import org.hbrs.project.wram.model.user.User;
+import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import static org.hbrs.project.wram.util.Constant.CURRENT_USER;
 
 @Component
 public class LoginControl {
@@ -11,20 +17,21 @@ public class LoginControl {
     @Autowired
     private UserRepository repository;
 
-    // ToDo: resolve Mapping between User and UserDTO
-    private User user = null;
+    @Autowired
+    private UserMapper mapper;
+    private UserDTO currentUser = null;
 
     public boolean authenticateUser(String username, String password) throws Exception {
-        User user = getUser(username, password);
+        UserDTO user = mapper.toDTO(getUser(username, password));
         if (user == null) {
             return false;
         } else {
-            this.user = user;
+            this.currentUser = user;
         }
         return true;
     }
 
-    private User getUser(String username, String password) throws Exception {
+    private @Nullable User getUser(String username, String password) throws Exception {
         User user;
         try {
             user = repository.findUserByUsernameAndPassword(username, password);
@@ -34,4 +41,14 @@ public class LoginControl {
         }
         return user;
     }
+
+    public UserDTO getCurrentUser() {
+        return this.currentUser;
+    }
+
+    public void logout() {
+        this.currentUser = null;
+    }
+
+
 }

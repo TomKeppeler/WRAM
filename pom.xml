@@ -19,6 +19,7 @@
     <properties>
         <java.version>11</java.version>
         <vaadin.version>14.4.7</vaadin.version>
+        <org.jetbarins.annotations.version>23.0.0</org.jetbarins.annotations.version>
     </properties>
 
     <dependencies>
@@ -39,6 +40,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${org.jetbarins.annotations.version}</version>
         </dependency>
 
         <dependency>
@@ -89,6 +96,12 @@
           <artifactId>lombok</artifactId>
           <version>1.18.24</version>
           <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

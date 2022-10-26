@@ -8,14 +8,13 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 
-import com.vaadin.flow.router.RouterLink;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
+import org.hbrs.project.wram.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hbrs.project.wram.util.Constant.CURRENT_USER;
@@ -26,7 +25,7 @@ import static org.hbrs.project.wram.util.Constant.CURRENT_USER;
  */
 @Route(value = "" )
 @RouteAlias(value = "login")
-public class MainView extends VerticalLayout {
+public class MainView extends VerticalLayout implements BeforeEnterObserver {
 
     @Autowired
     private LoginControl loginControl;
@@ -59,51 +58,45 @@ public class MainView extends VerticalLayout {
           }
 
           if (isAuthenticated) {
-              User currentUser = repository.findUserByUsernameAndPassword(e.getUsername(), e.getPassword());
-              UserDTO user = new UserDTO();
-              user.setUsername(currentUser.getUsername());
-              user.setPasswort(currentUser.getPassword());
-              grabAndSetUserIntoSession(user);
+              grabAndSetUserIntoSession();
               navigateToMainPage();
           } else {
               login.setError(true);
               // ToDo: Login-Fehler verdeutlichen
           }
-
-
        });
-
-
-
-        layout.add(
-                login,
-                registerlink
-        );
-
+        layout.add(login, registerlink);
         layout.setAlignItems( FlexComponent.Alignment.CENTER );
 
         add(layout);
        this.setAlignItems( Alignment.CENTER );
-//        RegistrationForm rf =new RegistrationForm();
-//        add(rf);
 
     }
 
-    private void grabAndSetUserIntoSession(UserDTO user) {
+    private void grabAndSetUserIntoSession() {
+        final UserDTO user = loginControl.getCurrentUser();
         UI.getCurrent().getSession().setAttribute(CURRENT_USER, user);
     }
 
-
     private void navigateToMainPage() {
-        // Navigation zur Startseite, hier auf die Teil-Komponente Show-Cars.
-        // Die anzuzeigende Teil-Komponente kann man noch individualisieren, je nach Rolle,
-        // die ein Benutzer besitzt
-        Dialog dialog = new Dialog();
-        dialog.add("Sie sind erfolgreich eingeloggt! Hier sollte Ihre perönliche Landing Page erscheinen.");
-        dialog.setWidth("400px");
-        dialog.setHeight("150px");
-        Button closeButton = new Button("Schließen");
-        closeButton.addClickListener(event -> dialog.close());
-        dialog.open();
+        // Navigation zur individuelle Landing Page (je nach Rolle)
+//        Dialog dialog = new Dialog();
+//        dialog.add("Sie sind erfolgreich eingeloggt! Hier sollte Ihre perönliche Landing Page erscheinen.");
+//        dialog.setWidth("400px");
+//        dialog.setHeight("150px");
+//        Button closeButton = new Button("Schließen");
+//        closeButton.addClickListener(event -> dialog.close());
+//        dialog.open();
+        // Schlägt noch fehl, da keine Tabs ins Hamburger-Menü der AppView eingefügt
+//        UI.getCurrent().navigate("main");
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        if (loginControl.getCurrentUser() != null) {
+            grabAndSetUserIntoSession();
+            UI.getCurrent().navigate(Constant.Pages.MAIN_VIEW);
+            // Weiterleitung eines uneingeloggten Users zu einer Landing Page ?
+        }
     }
 }
