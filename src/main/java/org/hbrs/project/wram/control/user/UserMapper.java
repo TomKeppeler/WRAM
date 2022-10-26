@@ -2,12 +2,17 @@ package org.hbrs.project.wram.control.user;
 
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mappings;
+import org.mapstruct.Mapping;
 
-
-@Component
-public class UserMapper {
-
-   
-
+@Mapper(componentModel = "spring")
+public interface UserMapper {
+    @Mappings(value = {
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "username", source = "username"),
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "password", source = "password")
+    })
+    UserDTO toDTO(User user);
 }
