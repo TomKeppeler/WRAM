@@ -16,20 +16,16 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
 import java.util.stream.Stream;
-
 import com.vaadin.flow.router.RouterLink;
-import org.apache.catalina.Globals;
 import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.UserDTO;
-import org.hbrs.project.wram.util.Constant;
+import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -121,7 +117,7 @@ public class RegistrationForm extends VerticalLayout {
     }
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
-        UI.getCurrent().getSession().setAttribute(Constant.CURRENT_USER, userDTO);
+        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO);
         //UI.getCurrent().navigate("register-confirmation");
     }
     public Component createFormLayout(){
@@ -147,7 +143,7 @@ public class RegistrationForm extends VerticalLayout {
         bestätigungsknopf = new Button("Jetzt Registrieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        RouterLink loginView = new RouterLink("Zurück zum Login", MainView.class);
+        RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
 
         formLayout.add(title, firstname, name,username, email, passwort,
                 passwortWiederholung,rolle,
