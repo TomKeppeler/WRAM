@@ -10,7 +10,7 @@ public class EntityFactory {
         User user = new User();
         // Die Daten werden einzeln gesetzt
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPasswort());
+        user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
 
         return user;

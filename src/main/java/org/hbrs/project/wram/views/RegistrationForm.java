@@ -78,12 +78,12 @@ public class RegistrationForm extends VerticalLayout {
         userDTOBinder.forField(passwort)
                 .withValidator(e -> e.length() > 0, "Bitte Passwort angeben!")
                 .withValidator(RegisterControl::passwortCheck, "Mind. 8 Zeichen, davon mind. eine Ziffer und ein Großbuchstabe")
-                .bind(UserDTO::getPasswort, UserDTO::setPasswort);
+                .bind(UserDTO::getPassword, UserDTO::setPassword);
 
         userDTOBinder.forField(passwortWiederholung)
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.length() > 0, "Bitte Passwort wiederholen!")
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.equals(passwort.getValue()), "Passwörter stimmen nicht überein")
-                .bind(UserDTO::getPasswort, UserDTO::setPasswort);
+                .bind(UserDTO::getPassword, UserDTO::setPassword);
 
         // TODO: 25.10.2022 EmailValidator Klasse nutzen
         userDTOBinder.forField(email)
