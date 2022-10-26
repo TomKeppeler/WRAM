@@ -12,17 +12,19 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RegisterControl {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    EntwicklerRepository entwicklerRepository;
+    private EntwicklerRepository entwicklerRepository;
     @Autowired
-    ReviewerRepository reviewerRepository;
+    private ReviewerRepository reviewerRepository;
     @Autowired
-    ManagerRepository managerRepository;
+    private ManagerRepository managerRepository;
 
 
     public static boolean passwortCheck(String passwort){
@@ -37,6 +39,7 @@ public class RegisterControl {
         // dann in der Datenbank abgespeichert wird
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
+        Entwickler entwickler = EntityFactory.createEntwickler(entwicklerDTO, user);
         entwicklerRepository.save(entwicklerRepository.save(EntityFactory.createEntwickler(entwicklerDTO, user)));
         return true;
     }

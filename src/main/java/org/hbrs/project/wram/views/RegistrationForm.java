@@ -31,6 +31,7 @@ import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constant;
 import org.hbrs.project.wram.util.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Registrierung")
 @Route(value="Registrieren")
@@ -43,18 +44,11 @@ public class RegistrationForm extends VerticalLayout {
 
     private TextField firstname;
     private TextField name;
-
+    private TextField username;
     private EmailField email;
-
     private PasswordField passwort;
     private PasswordField passwortWiederholung;
-
-    private TextField username;
     RadioButtonGroup<String> rolle;
-
-    private Checkbox allowMarketing;
-
-    private Span errorMessageField;
 
     private Button bestätigungsknopf;
 
@@ -63,7 +57,9 @@ public class RegistrationForm extends VerticalLayout {
     private Binder<ReviewerDTO> reviewerDTOBinder = new Binder<>(ReviewerDTO.class);
     private Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
 
-    private RegisterControl registerControl = new RegisterControl();
+    @Autowired
+    private RegisterControl registerControl;
+
     public RegistrationForm() {
 
         add(
@@ -99,16 +95,15 @@ public class RegistrationForm extends VerticalLayout {
                 .withValidator(Utils::emailadresseCheck, "Email Muster ungültig")
                 .bind(UserDTO::getEmail, UserDTO::setEmail);
 
+        userDTOBinder.bindInstanceFields(this);
+        clearForm();
+
         bestätigungsknopf.addClickListener(e->{
             if(userDTOBinder.validate().isOk()){
                 if (registerControl.isEmailAlreadyInDatabase(userDTOBinder.getBean())){
                     Notification.show("Es existiert bereits ein Account mit der E-mail adresse "+ userDTOBinder.getBean()
                             .getEmail(), 3000,Notification.Position.MIDDLE);
                 }
-                /*if (registerControl.isUsernameAlreadyInDatabase(userDTOBinder.getBean())){
-                    Notification.show("Es existiert bereits ein Account mit der USername"+ userDTOBinder.getBean()
-                            .getUsername(), 3000,Notification.Position.MIDDLE);
-                }*/
                 else {
                     //if (rolle.equals(rolleEntwickler)){
                         if(registerControl.saveUserAndEntwickler(userDTOBinder.getBean(),entwicklerDTOBinder.getBean())){
@@ -116,15 +111,6 @@ public class RegistrationForm extends VerticalLayout {
                             //setAttributeAndNavigate(userDTOBinder.getBean());
                         }
                         else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
-                    //}
-                    /*else{
-                        Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
-                    }*/
-
-
-
-                    // TODO: 25.10.2022 Registrierung umsetzen
-
                 }
             }
             else{
@@ -158,45 +144,29 @@ public class RegistrationForm extends VerticalLayout {
         setRequiredIndicatorVisible(firstname, name,username, email, passwort,rolle,
                 passwortWiederholung);
 
-        errorMessageField = new Span();
-
         bestätigungsknopf = new Button("Jetzt Registrieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         RouterLink loginView = new RouterLink("Zurück zum Login", MainView.class);
 
         formLayout.add(title, firstname, name,username, email, passwort,
-                passwortWiederholung,rolle,errorMessageField,
+                passwortWiederholung,rolle,
                 bestätigungsknopf, loginView);
 
         // Max width of the Form
-        //setMaxWidth("900px");
-
-        // Allow the form layout to be responsive.
-        // On device widths 0-490px we have one column.
-        // Otherwise, we have two columns.
-
-        //formLayout.setResponsiveSteps(
-        //      new FormLayout.ResponsiveStep("0", 1, FormLayout.ResponsiveStep.LabelsPosition.TOP),
-        //    new FormLayout.ResponsiveStep("490px", 2, FormLayout.ResponsiveStep.LabelsPosition.TOP));
-
-        // These components always take full width
+        setMaxWidth("900px");
         formLayout.setColspan(title, 2);
         formLayout.setColspan(email, 2);
-        formLayout.setColspan(errorMessageField, 2);
         formLayout.setColspan(bestätigungsknopf, 2);
-
-
         return formLayout;
     }
 
-    public PasswordField getPasswordField() { return passwort; }
-
-    public PasswordField getPasswordConfirmField() { return passwortWiederholung; }
-
-    public Span getErrorMessageField() { return errorMessageField; }
-
-    public Button getSubmitButton() { return bestätigungsknopf; }
+    private void clearForm(){
+        userDTOBinder.setBean(new UserDTO());
+        entwicklerDTOBinder.setBean(new EntwicklerDTO());
+        managerDTOBinder.setBean(new ManagerDTO());
+        reviewerDTOBinder.setBean(new ReviewerDTO());
+    }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));

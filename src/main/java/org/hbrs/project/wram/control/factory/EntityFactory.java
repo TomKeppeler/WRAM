@@ -20,10 +20,12 @@ public class EntityFactory {
         Entwickler entwickler = new Entwickler();
 
         // Die Daten werden einzeln gesetzt
-        entwickler.setFirstname(entwickler.getFirstname());
-        entwickler.setName(entwickler.getName());
+        entwickler.setFirstname(entwicklerDTO.getFirstname());
+        entwickler.setName(entwicklerDTO.getName());
         entwickler.setUser(user);
 
         return entwickler;
     }
+
+
 }
