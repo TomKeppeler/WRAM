@@ -11,21 +11,20 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 
 import org.hbrs.project.wram.control.LoginControl;
-import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
-import org.hbrs.project.wram.util.Constant;
+import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.hbrs.project.wram.util.Constant.CURRENT_USER;
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  * ToDo: Integration einer Seite zur Registrierung von Benutzern
  */
-@Route(value = "" )
+@Route(value = Constants.Pages.MAIN_VIEW )
 @RouteAlias(value = "login")
-public class MainView extends VerticalLayout implements BeforeEnterObserver {
+public class LoginView extends VerticalLayout {
 
     @Autowired
     private LoginControl loginControl;
@@ -33,7 +32,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
     @Autowired
     private UserRepository repository;
     
-    public MainView() {
+    public LoginView() {
       setSizeFull();
        VerticalLayout layout = new VerticalLayout();
        LoginForm login = new LoginForm();
@@ -48,7 +47,6 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
               isAuthenticated = loginControl.authenticateUser(e.getUsername(), e.getPassword());
           } catch (Exception exception) {
             Dialog dialog = new Dialog();
-
             dialog.add( new Text(exception.getMessage()));
             dialog.setWidth("400px");
             dialog.setHeight("150px");
@@ -56,7 +54,6 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
             closeButton.addClickListener(event -> dialog.close());
             dialog.open();
           }
-
           if (isAuthenticated) {
               grabAndSetUserIntoSession();
               navigateToMainPage();
@@ -79,24 +76,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
     }
 
     private void navigateToMainPage() {
-        // Navigation zur individuelle Landing Page (je nach Rolle)
-//        Dialog dialog = new Dialog();
-//        dialog.add("Sie sind erfolgreich eingeloggt! Hier sollte Ihre perönliche Landing Page erscheinen.");
-//        dialog.setWidth("400px");
-//        dialog.setHeight("150px");
-//        Button closeButton = new Button("Schließen");
-//        closeButton.addClickListener(event -> dialog.close());
-//        dialog.open();
-        // Schlägt noch fehl, da keine Tabs ins Hamburger-Menü der AppView eingefügt
-//        UI.getCurrent().navigate("main");
-    }
-
-    @Override
-    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if (loginControl.getCurrentUser() != null) {
-            grabAndSetUserIntoSession();
-            UI.getCurrent().navigate(Constant.Pages.MAIN_VIEW);
-            // Weiterleitung eines uneingeloggten Users zu einer Landing Page ?
-        }
+        // ToDo: Navigation zur individuelle Landing Page (je nach Rolle)
+        UI.getCurrent().navigate(Constants.Pages.LANDING_PAGE);
     }
 }
