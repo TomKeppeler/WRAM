@@ -64,7 +64,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     private boolean checkIfUserIsLoggedIn() {
         // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite gelenkt
-        
+        UserDTO userDTO = (UserDTO) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        if(userDTO == null){
+            UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
+        }
         return true;
     }
 
@@ -110,7 +113,6 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private void logoutUser() {
         UI ui = this.getUI().get();
         ui.getSession().close();
-        UI.getCurrent().getSession().setAttribute(CURRENT_USER, null);
         ui.getPage().setLocation("/");
     }
 
@@ -221,7 +223,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
      */
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         if (control.getCurrentUser() == null) {
-            UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
+            beforeEnterEvent.rerouteTo(Constants.Pages.MAIN_VIEW);
         }
     }
 }
