@@ -120,17 +120,14 @@ public class RegistrationForm extends VerticalLayout {
                 } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
                         if (registerControl.saveUserAndEntwickler(userDTOBinder.getBean(), entwicklerDTOBinder.getBean())) {
-                            Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
                             setAttributeAndNavigate(userDTOBinder.getBean());
                         } else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else if (rolle.getValue().equals(rolleProjektmanager)){
                         if(registerControl.saveUserAndManager(userDTOBinder.getBean(), managerDTOBinder.getBean())){
-                            Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
                             setAttributeAndNavigate(userDTOBinder.getBean());
                         }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else if (rolle.getValue().equals(rolleReviewer)){
                         if(registerControl.saveUserAndReviewer(userDTOBinder.getBean(), reviewerDTOBinder.getBean())){
-                            Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
                             setAttributeAndNavigate(userDTOBinder.getBean());
                         }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else{
@@ -148,7 +145,8 @@ public class RegistrationForm extends VerticalLayout {
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
         //UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO);
-        UI.getCurrent().navigate("register-confirmation");
+        UI.getCurrent().navigate("");   //Login-View
+        Notification.show("Sie haben sich erfolgreich registriert und können sich nun einloggen.", 3000, Notification.Position.MIDDLE);
     }
     public Component createFormLayout(){
         FormLayout formLayout = new FormLayout();
