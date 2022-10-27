@@ -30,7 +30,7 @@ import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Registrierung")
-@Route(value="Registrieren")
+@Route(value="registrieren")
 public class RegistrationForm extends VerticalLayout {
 
     String rolleProjektmanager = "Projektmanager";
