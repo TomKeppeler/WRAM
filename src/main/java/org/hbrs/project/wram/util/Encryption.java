@@ -11,3 +11,4 @@ public class Encryption {
         return DigestUtils.sha256Hex(value);
     }
 }
+

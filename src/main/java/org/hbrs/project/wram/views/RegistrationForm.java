@@ -66,11 +66,29 @@ public class RegistrationForm extends VerticalLayout {
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
                 .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getFirstname, EntwicklerDTO::setFirstname);
-
         entwicklerDTOBinder.forField(name)
                 .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
                 .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getName, EntwicklerDTO::setName);
+
+        managerDTOBinder.forField(firstname)
+                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
+                .bind(ManagerDTO::getFirstname, ManagerDTO::setFirstname);
+        managerDTOBinder.forField(name)
+                .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
+                .bind(ManagerDTO::getName, ManagerDTO::setName);
+
+        reviewerDTOBinder.forField(firstname)
+                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
+                .bind(ReviewerDTO::getFirstname, ReviewerDTO::setFirstname);
+        reviewerDTOBinder.forField(name)
+                .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
+                .bind(ReviewerDTO::getName, ReviewerDTO::setName);
+
 
         userDTOBinder.forField(username)
                 .withValidator(e -> e.length() > 0, "Bitte Username angeben!")
@@ -79,13 +97,10 @@ public class RegistrationForm extends VerticalLayout {
                 .withValidator(e -> e.length() > 0, "Bitte Passwort angeben!")
                 .withValidator(RegisterControl::passwortCheck, "Mind. 8 Zeichen, davon mind. eine Ziffer und ein Großbuchstabe")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
-
         userDTOBinder.forField(passwortWiederholung)
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.length() > 0, "Bitte Passwort wiederholen!")
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.equals(passwort.getValue()), "Passwörter stimmen nicht überein")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
-
-        // TODO: 25.10.2022 EmailValidator Klasse nutzen
         userDTOBinder.forField(email)
                 .withValidator(e -> e.length() > 0, "Bitte Email angeben!")
                 .withValidator(Utils::emailadresseCheck, "Email Muster ungültig")
@@ -101,19 +116,32 @@ public class RegistrationForm extends VerticalLayout {
                             .getEmail(), 3000,Notification.Position.MIDDLE);
                 }
                 else {
-                    //if (rolle.equals(rolleEntwickler)){
-                        if(registerControl.saveUserAndEntwickler(userDTOBinder.getBean(),entwicklerDTOBinder.getBean())){
+                    if (rolle.getValue().equals(rolleEntwickler)) {
+                        if (registerControl.saveUserAndEntwickler(userDTOBinder.getBean(), entwicklerDTOBinder.getBean())) {
                             Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
                             //setAttributeAndNavigate(userDTOBinder.getBean());
-                        }
-                        else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                        } else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                    }else if (rolle.getValue().equals(rolleProjektmanager)){
+                        if(registerControl.saveUserAndManager(userDTOBinder.getBean(), managerDTOBinder.getBean())){
+                            Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
+                            //setAttributeAndNavigate(userDTOBinder.getBean());
+                        }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                    }else if (rolle.getValue().equals(rolleReviewer)){
+                        if(registerControl.saveUserAndReviewer(userDTOBinder.getBean(), reviewerDTOBinder.getBean())){
+                            Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
+                            //setAttributeAndNavigate(userDTOBinder.getBean());
+                        }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                    }else{
+                        Notification.show("Fehler",3000,Notification.Position.MIDDLE);
+                    }
                 }
             }
             else{
                 Notification.show("Bitte überprüfen Sie Ihre Eingaben!",3000,Notification.Position.MIDDLE);
             }
-
         });
+
+
     }
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
