@@ -23,7 +23,6 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
- * ToDo: Integration einer Seite zur Registrierung von Benutzern
  */
 @Route(value = Constants.Pages.MAIN_VIEW )
 @RouteAlias(value = "login")
@@ -73,6 +72,7 @@ public class LoginView extends VerticalLayout {
               login.setError(true);
           }
        });
+       layout.add(new Header(new H1("Willkommen in der Zukunft des Projektmanagements.")));
         layout.add(login, registerlink);
         layout.setAlignItems( FlexComponent.Alignment.CENTER );
 
