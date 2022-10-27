@@ -71,5 +71,9 @@ public class RegisterControl {
         return userRepository.isEmailInUse(userDTO.getEmail());
     }
 
+    public boolean isUsernameAlreadyInDatabase(UserDTO userDTO) {
+        return userRepository.isUsernameInUse(userDTO.getUsername());
+    }
+
 
 }

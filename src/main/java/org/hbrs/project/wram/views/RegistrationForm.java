@@ -114,22 +114,24 @@ public class RegistrationForm extends VerticalLayout {
                 if (registerControl.isEmailAlreadyInDatabase(userDTOBinder.getBean())){
                     Notification.show("Es existiert bereits ein Account mit der E-mail adresse "+ userDTOBinder.getBean()
                             .getEmail(), 3000,Notification.Position.MIDDLE);
-                }
-                else {
+                }else if(registerControl.isUsernameAlreadyInDatabase(userDTOBinder.getBean())){
+                    Notification.show("Es existiert bereits ein Account mit dem Username "+ userDTOBinder.getBean()
+                            .getUsername(), 3000,Notification.Position.MIDDLE);
+                } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
                         if (registerControl.saveUserAndEntwickler(userDTOBinder.getBean(), entwicklerDTOBinder.getBean())) {
                             Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
-                            //setAttributeAndNavigate(userDTOBinder.getBean());
+                            setAttributeAndNavigate(userDTOBinder.getBean());
                         } else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else if (rolle.getValue().equals(rolleProjektmanager)){
                         if(registerControl.saveUserAndManager(userDTOBinder.getBean(), managerDTOBinder.getBean())){
                             Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
-                            //setAttributeAndNavigate(userDTOBinder.getBean());
+                            setAttributeAndNavigate(userDTOBinder.getBean());
                         }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else if (rolle.getValue().equals(rolleReviewer)){
                         if(registerControl.saveUserAndReviewer(userDTOBinder.getBean(), reviewerDTOBinder.getBean())){
                             Notification.show("User in DB schreiben", 3000, Notification.Position.MIDDLE);
-                            //setAttributeAndNavigate(userDTOBinder.getBean());
+                            setAttributeAndNavigate(userDTOBinder.getBean());
                         }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                     }else{
                         Notification.show("Fehler",3000,Notification.Position.MIDDLE);
@@ -145,8 +147,8 @@ public class RegistrationForm extends VerticalLayout {
     }
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
-        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO);
-        //UI.getCurrent().navigate("register-confirmation");
+        //UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO);
+        UI.getCurrent().navigate("register-confirmation");
     }
     public Component createFormLayout(){
         FormLayout formLayout = new FormLayout();
