@@ -3,7 +3,10 @@ package org.hbrs.project.wram.views;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -42,16 +45,25 @@ public class LoginView extends VerticalLayout {
 
        login.addLoginListener(e -> {
           boolean isAuthenticated = false;
-
           try {
               isAuthenticated = loginControl.authenticateUser(e.getUsername(), e.getPassword());
           } catch (Exception exception) {
             Dialog dialog = new Dialog();
-            dialog.add( new Text(exception.getMessage()));
-            dialog.setWidth("400px");
-            dialog.setHeight("150px");
+            VerticalLayout layoutDialog = new VerticalLayout();
+            layoutDialog.add(new Header(new H1("Jetzt registrieren.")));
+            layoutDialog.add(new Text("Sie scheinen noch nicht registriert zu sein."));
+            dialog.add(layoutDialog);
+            dialog.setWidth("320px");
+            dialog.setHeight("400px");
             Button closeButton = new Button("Schließen");
+            Button registerButton = new Button("Registrieren");
+            registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             closeButton.addClickListener(event -> dialog.close());
+            registerButton.addClickListener(event -> {dialog.close(); UI.getCurrent().navigate(Constants.Pages.REGISTRATION);});
+            HorizontalLayout buttonLayout = new HorizontalLayout(registerButton, closeButton);
+            buttonLayout.getStyle().set("flex-wrap", "wrap");
+            buttonLayout.setJustifyContentMode(JustifyContentMode.END);
+            dialog.add(buttonLayout);
             dialog.open();
           }
           if (isAuthenticated) {
@@ -59,7 +71,6 @@ public class LoginView extends VerticalLayout {
               navigateToMainPage();
           } else {
               login.setError(true);
-              // ToDo: Login-Fehler verdeutlichen
           }
        });
         layout.add(login, registerlink);
