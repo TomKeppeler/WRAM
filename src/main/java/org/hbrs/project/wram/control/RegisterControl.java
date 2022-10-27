@@ -1,6 +1,5 @@
 package org.hbrs.project.wram.control;
 
-import com.vaadin.flow.data.validator.EmailValidator;
 import org.hbrs.project.wram.control.factory.EntityFactory;
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
 import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
@@ -35,7 +34,6 @@ public class RegisterControl {
         boolean longEnough = passwort.length() > 7;
         boolean hasNumber = Utils.hasNumber(passwort);
         boolean hasUppercaseLetter = Utils.hasUpperCaseLetter(passwort);
-
         return longEnough && hasNumber && hasUppercaseLetter;
     }
     public boolean saveUserAndEntwickler(UserDTO userDTO, EntwicklerDTO entwicklerDTO) {
@@ -74,6 +72,5 @@ public class RegisterControl {
     public boolean isUsernameAlreadyInDatabase(UserDTO userDTO) {
         return userRepository.isUsernameInUse(userDTO.getUsername());
     }
-
 
 }

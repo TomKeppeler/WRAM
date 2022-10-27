@@ -73,21 +73,24 @@ public class LoginView extends VerticalLayout {
           }
        });
        layout.add(new Header(new H1("Willkommen in der Zukunft des Projektmanagements.")));
-        layout.add(login, registerlink);
-        layout.setAlignItems( FlexComponent.Alignment.CENTER );
+       layout.add(login, registerlink);
+       layout.setAlignItems( FlexComponent.Alignment.CENTER );
 
-        add(layout);
+       add(layout);
        this.setAlignItems( Alignment.CENTER );
 
     }
 
     private void grabAndSetUserIntoSession() {
+        //User und Entwickler/Manager/Reviews werden gesetzt
+        // TODO: 27.10.2022 setAttribute für Entwickler/Manager/Reviews
         final UserDTO user = loginControl.getCurrentUser();
         UI.getCurrent().getSession().setAttribute(CURRENT_USER, user);
     }
 
     private void navigateToMainPage() {
-        // ToDo: Navigation zur individuelle Landing Page (je nach Rolle)
+        // TODO: 27.10.2022 Navigation zur individuelle Landing Page (je nach Rolle)
         UI.getCurrent().navigate(Constants.Pages.LANDING_PAGE);
     }
+
 }

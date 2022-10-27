@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
+
 /**
  * The main view is a top-level placeholder for other views.
  */
@@ -106,7 +108,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private void logoutUser() {
-        control.logout();
+        UI ui = this.getUI().get();
+        ui.getSession().close();
+        UI.getCurrent().getSession().setAttribute(CURRENT_USER, null);
+        ui.getPage().setLocation("/");
     }
 
     /**

@@ -10,6 +10,8 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
+
 @Component
 public class LoginControl {
 
@@ -21,11 +23,11 @@ public class LoginControl {
     private UserDTO currentUser = null;
 
     public boolean authenticateUser(String username, String password) throws Exception {
-        UserDTO user = userService.toDTO(getUser(username, password));
-        if (user == null) {
+        UserDTO userDTO = userService.toDTO(getUser(username, password));
+        if (userDTO == null) {
             return false;
         } else {
-            this.currentUser = user;
+            this.currentUser = userDTO;
         }
         return true;
     }
@@ -43,12 +45,6 @@ public class LoginControl {
 
     public UserDTO getCurrentUser() {
         return this.currentUser;
-    }
-
-    public void logout() {
-        UI.getCurrent().getSession().close();
-        this.currentUser = null;
-        UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
     }
 
 
