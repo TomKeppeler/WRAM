@@ -70,6 +70,11 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Test-Manager
 
+[Login & Logout Test](https://hochschulebonnrheinsieg-my.sharepoint.com/:x:/g/personal/salah_khalosi_365h-brs_de/EWfZ55W957xPsiWK0hXYcoABlLVy3bwomjh1CFXB2BBGVw?e=MF0aro)
+
+[pos_Ä1 (Regestrirung mit gültigen Eingaben)](https://hochschulebonnrheinsieg-my.sharepoint.com/:x:/g/personal/salah_khalosi_365h-brs_de/EaaRMsMUT8ZPo7O4ungEsyEBWksX5AkBVmSQNyWnl9ryhQ?e=PtHJw7)
+
+
 <hr width="50%" align="left">
 
 ### Usability-Experte
