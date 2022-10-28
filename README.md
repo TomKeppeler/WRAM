@@ -94,6 +94,6 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Datenbank-Experte
 
-[ER-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
-
+[Semantisch ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
+[Logisches ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Logisch.svg) <br>
 <hr width="50%" align="left">
