@@ -81,6 +81,9 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Usability-Experte
 
+[Mockup](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/usability/mockup.pdf)
+
+[Sitemap](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/usability/sitemap.pdf)
 
 ### Quality-Manager
 
