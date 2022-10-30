@@ -6,8 +6,8 @@ import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
@@ -32,7 +32,8 @@ public class LoginControl {
         return true;
     }
 
-    private @Nullable User getUser(String username, String password) throws Exception {
+    private @Nullable
+    User getUser(String username, String password) throws Exception {
         User user;
         try {
             user = repository.findUserByUsernameAndPassword(username, password);

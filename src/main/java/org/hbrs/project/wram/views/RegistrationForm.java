@@ -60,6 +60,8 @@ public class RegistrationForm extends VerticalLayout {
         bindFields();
         clearForm();
 
+        this.setHorizontalComponentAlignment(Alignment.CENTER);
+        this.setWidthFull();
         bestätigungsknopf.addClickListener(e->{
             if(userDTOBinder.validate().isOk()){
                 if (registerControl.isEmailAlreadyInDatabase(userDTOBinder.getBean())){
@@ -118,7 +120,7 @@ public class RegistrationForm extends VerticalLayout {
         formLayout.add(title, firstname, name,username, email, passwort, passwortWiederholung,rolle, bestätigungsknopf, loginView);
 
         // Max width of the Form
-        setMaxWidth("900px");
+        formLayout.setMaxWidth("900px");
         formLayout.setColspan(title, 2);
         formLayout.setColspan(email, 2);
         formLayout.setColspan(bestätigungsknopf, 2);
