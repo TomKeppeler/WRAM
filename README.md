@@ -59,7 +59,9 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Präsentation Meeting 4](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/Meeting4.pdf)
 
-[Präsentation Meeting 5](https://docs.google.com/presentation/d/1vXCXWrBgjrmHL7-88tAZQdSseQxEt67IhHN2GHh9uEI/edit?usp=sharing)
+[Präsentation Meeting 5](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/Meeting-5.pdf)
+
+[Präsentation Meeting 6](https://docs.google.com/presentation/d/1RR0TUD26C_4dezxwFeMCE5j7qiXi34hAfkYx9CNcOWs/edit#slide=id.g170ba286682_0_0)
 
 <hr width="50%" align="left">
 
