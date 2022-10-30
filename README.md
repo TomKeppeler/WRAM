@@ -59,7 +59,9 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Präsentation Meeting 4](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/Meeting4.pdf)
 
-[Präsentation Meeting 5](https://docs.google.com/presentation/d/1vXCXWrBgjrmHL7-88tAZQdSseQxEt67IhHN2GHh9uEI/edit?usp=sharing)
+[Präsentation Meeting 5](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/Meeting-Praesentationen/Meeting-5.pdf)
+
+[Präsentation Meeting 6](https://docs.google.com/presentation/d/1RR0TUD26C_4dezxwFeMCE5j7qiXi34hAfkYx9CNcOWs/edit#slide=id.g170ba286682_0_0)
 
 <hr width="50%" align="left">
 
@@ -69,6 +71,11 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 <hr width="50%" align="left">
 
 ### Test-Manager
+
+[Login & Logout Test](https://hochschulebonnrheinsieg-my.sharepoint.com/:x:/g/personal/salah_khalosi_365h-brs_de/EWfZ55W957xPsiWK0hXYcoABlLVy3bwomjh1CFXB2BBGVw?e=MF0aro)
+
+[pos_Ä1 (Regestrirung mit gültigen Eingaben)](https://hochschulebonnrheinsieg-my.sharepoint.com/:x:/g/personal/salah_khalosi_365h-brs_de/EaaRMsMUT8ZPo7O4ungEsyEBWksX5AkBVmSQNyWnl9ryhQ?e=PtHJw7)
+
 
 <hr width="50%" align="left">
 
@@ -89,6 +96,6 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Datenbank-Experte
 
-[ER-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
-
+[Semantisch ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
+[Logisches ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Logisch.svg) <br>
 <hr width="50%" align="left">
