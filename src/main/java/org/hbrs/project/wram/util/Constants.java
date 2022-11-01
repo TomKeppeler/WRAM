@@ -10,6 +10,8 @@ public class Constants {
         public static final String PROJECTS_OVERVIEW = "all-projects";
         public static final String LANDING_PAGE = "main";
         public static final String REGISTRATION = "registrieren";
+        public static final String CREATEPROJECT = "ProjektErstellen";
+
     }
 
     public static class Roles {

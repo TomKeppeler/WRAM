@@ -1,11 +1,6 @@
 package org.hbrs.project.wram.model.kundenprojekt;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.common.BaseEntity;
@@ -30,12 +25,19 @@ public class Kundenprojekt extends BaseEntity {
     @Column(name="public_projekt", nullable = false)
     private boolean publicProjekt;
 
+    @NotNull
     @OneToOne(optional = false)
     @JoinColumn(
         name = "manager_id",
         referencedColumnName = "id",
         foreignKey = @ForeignKey(name = "fk_manager_id"))
     private Manager manager;
+
+    @Column(name="projektname")
+    private String projektname;
+
+    @Column(name="projektbeschreibung")
+    private String projektbeschreibung;
 
     @Override
     public int hashCode() {

@@ -33,6 +33,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  */
 @CssImport("./styles/views/main/main-view.css")
 @Route(Constants.Pages.LANDING_PAGE)
+@RouteAlias(value = "Appview")
 @PWA(name = "HelloCar", shortName = "HelloCar", enableInstallPrompt = false)
 @JsModule("./styles/shared-styles.js")
 public class AppView extends AppLayout implements BeforeEnterObserver {
@@ -164,7 +165,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Component[] createMenuItems() {
        // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
         Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
-        Component[] components = new Component[]{projectsTab};
+        Tab createProjectsTab2 = createTab(Constants.Pages.CREATEPROJECT, CreateProjectForm.class);
+        Component[] components = new Component[]{projectsTab,createProjectsTab2};
        return components;
     }
 

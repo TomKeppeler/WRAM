@@ -93,7 +93,7 @@ public class RegistrationForm extends VerticalLayout {
     }
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
-        //UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO);
+        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO.getId());
         UI.getCurrent().navigate("");   //Login-View
         Notification.show("Sie haben sich erfolgreich registriert und können sich nun einloggen.", 3000, Notification.Position.MIDDLE);
     }
