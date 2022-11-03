@@ -1,11 +1,15 @@
 package org.hbrs.project.wram.control;
 
 import com.vaadin.flow.component.UI;
+
+import org.hbrs.project.wram.control.user.UserMapper;
+import org.hbrs.project.wram.control.user.UserMapperImpl;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -23,7 +27,8 @@ public class LoginControl {
     private UserDTO currentUser = null;
 
     public boolean authenticateUser(String username, String password) throws Exception {
-        UserDTO userDTO = userService.toDTO(getUser(username, password));
+        UserMapper mapper = Mappers.getMapper(UserMapper.class);
+        UserDTO userDTO = mapper.toDTO(User.builder().password(password).username(username).build());//userService.toDTO(getUser(username, password));
         if (userDTO == null) {
             return false;
         } else {

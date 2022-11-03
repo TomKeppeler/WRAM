@@ -1,4 +1,4 @@
-package org.hbrs.project.wram.control.entwickler;
+package org.hbrs.project.wram.control.entwickler.user;
 
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
 import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;

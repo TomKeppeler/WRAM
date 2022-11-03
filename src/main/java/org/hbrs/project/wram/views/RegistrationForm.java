@@ -6,6 +6,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -17,18 +18,26 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import java.util.stream.Stream;
+
+import javax.annotation.PostConstruct;
+
 import com.vaadin.flow.router.RouterLink;
 import org.hbrs.project.wram.control.RegisterControl;
+import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
+import org.hbrs.project.wram.control.manager.ManagerService;
+import org.hbrs.project.wram.control.reviewer.ReviewerService;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.UserDTO;
+import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Registrierung")
-@Route(value=Constants.Pages.REGISTRATION)
+@Route(value = Constants.Pages.REGISTRATION)
 public class RegistrationForm extends VerticalLayout {
 
     String rolleProjektmanager = "Projektmanager";
@@ -52,7 +61,20 @@ public class RegistrationForm extends VerticalLayout {
     private Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
 
     @Autowired
+    private UserService userService;
+    @Autowired
+    private ManagerService managerService;
+    @Autowired
+    private ReviewerService reviewerService;
+    @Autowired
+    private EntwicklerService entwicklerService;
+    @Autowired
     private RegisterControl registerControl;
+
+    @PostConstruct
+    public void init() {
+
+    }
 
     public RegistrationForm() {
 
@@ -62,62 +84,75 @@ public class RegistrationForm extends VerticalLayout {
 
         this.setHorizontalComponentAlignment(Alignment.CENTER);
         this.setWidthFull();
-        bestätigungsknopf.addClickListener(e->{
-            if(userDTOBinder.validate().isOk()){
-                if (registerControl.isEmailAlreadyInDatabase(userDTOBinder.getBean())){
-                    Notification.show("Es existiert bereits ein Account mit der E-mail adresse "+ userDTOBinder.getBean()
-                            .getEmail(), 3000,Notification.Position.MIDDLE);
-                }else if(registerControl.isUsernameAlreadyInDatabase(userDTOBinder.getBean())){
-                    Notification.show("Es existiert bereits ein Account mit dem Username "+ userDTOBinder.getBean()
-                            .getUsername(), 3000,Notification.Position.MIDDLE);
+        bestätigungsknopf.addClickListener(e -> {
+            if (userDTOBinder.validate().isOk()) {
+                if (this.userService.isEmailAlreadyInDatabase(userDTOBinder.getBean())) {
+                    Notification
+                            .show("Es existiert bereits ein Account mit der E-mail adresse " + userDTOBinder.getBean()
+                                    .getEmail(), 3000, Notification.Position.MIDDLE);
+                } else if (this.userService.isUsernameAlreadyInDatabase(userDTOBinder.getBean())) {
+                    Notification.show("Es existiert bereits ein Account mit dem Username " + userDTOBinder.getBean()
+                            .getUsername(), 3000, Notification.Position.MIDDLE);
                 } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
-                        if (registerControl.saveUserAndEntwickler(userDTOBinder.getBean(), entwicklerDTOBinder.getBean())) {
+                        
+                        if (registerControl.saveUserAndEntwickler(userDTOBinder.getBean(),
+                                entwicklerDTOBinder.getBean())) {
                             setAttributeAndNavigate(userDTOBinder.getBean());
-                        } else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
-                    }else if (rolle.getValue().equals(rolleProjektmanager)){
-                        if(registerControl.saveUserAndManager(userDTOBinder.getBean(), managerDTOBinder.getBean())){
+                        } else {
+                            Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                        }
+                    } else if (rolle.getValue().equals(rolleProjektmanager)) {
+                        if (registerControl.saveUserAndManager(userDTOBinder.getBean(), managerDTOBinder.getBean())) {
                             setAttributeAndNavigate(userDTOBinder.getBean());
-                        }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
-                    }else if (rolle.getValue().equals(rolleReviewer)){
-                        if(registerControl.saveUserAndReviewer(userDTOBinder.getBean(), reviewerDTOBinder.getBean())){
+                        } else {
+                            Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                        }
+                    } else if (rolle.getValue().equals(rolleReviewer)) {
+                        if (registerControl.saveUserAndReviewer(userDTOBinder.getBean(), reviewerDTOBinder.getBean())) {
                             setAttributeAndNavigate(userDTOBinder.getBean());
-                        }else Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
-                    }else{
-                        Notification.show("Fehler",3000,Notification.Position.MIDDLE);
+                        } else {
+                            Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
+                        }
+                    } else {
+                        Notification.show("Fehler", 3000, Notification.Position.MIDDLE);
                     }
                 }
+            } else {
+                Notification.show("Bitte überprüfen Sie Ihre Eingaben!", 3000, Notification.Position.MIDDLE);
             }
-            else{Notification.show("Bitte überprüfen Sie Ihre Eingaben!",3000,Notification.Position.MIDDLE);}
         });
     }
 
     private void setAttributeAndNavigate(UserDTO userDTO) {
         UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO.getId());
-        UI.getCurrent().navigate("");   //Login-View
-        Notification.show("Sie haben sich erfolgreich registriert und können sich nun einloggen.", 3000, Notification.Position.MIDDLE);
+        UI.getCurrent().navigate(""); // Login-View
+        Notification.show("Sie haben sich erfolgreich registriert und können sich nun einloggen.", 3000,
+                Notification.Position.MIDDLE);
     }
-    public Component createFormLayout(){
+
+    public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         title = new H3("Registrieren Sie sich");
         firstname = new TextField("Vorname");
         name = new TextField("Nachname");
         email = new EmailField("Email");
-        username= new TextField("Username");
+        username = new TextField("Username");
         passwort = new PasswordField("Passwort");
         passwortWiederholung = new PasswordField("Wiederholen Sie Ihr Passwort");
-        //Radiobutton für rolle
+        // Radiobutton für rolle
         rolle = new RadioButtonGroup<>();
         rolle.setLabel("Wählen Sie Ihre Rolle");
         rolle.setItems(rolleProjektmanager, rolleReviewer, rolleEntwickler);
         rolle.setValue(rolleProjektmanager);
         rolle.setEnabled(true);
 
-        setRequiredIndicatorVisible(firstname, name, username, email, passwort,rolle, passwortWiederholung);
+        setRequiredIndicatorVisible(firstname, name, username, email, passwort, rolle, passwortWiederholung);
         bestätigungsknopf = new Button("Jetzt Registrieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
-        formLayout.add(title, firstname, name,username, email, passwort, passwortWiederholung,rolle, bestätigungsknopf, loginView);
+        formLayout.add(title, firstname, name, username, email, passwort, passwortWiederholung, rolle,
+                bestätigungsknopf, loginView);
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
@@ -127,7 +162,7 @@ public class RegistrationForm extends VerticalLayout {
         return formLayout;
     }
 
-    private void bindFields(){
+    private void bindFields() {
         entwicklerDTOBinder.forField(firstname)
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
                 .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
@@ -155,17 +190,19 @@ public class RegistrationForm extends VerticalLayout {
                 .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
                 .bind(ReviewerDTO::getName, ReviewerDTO::setName);
 
-
         userDTOBinder.forField(username)
                 .withValidator(e -> e.length() > 0, "Bitte Username angeben!")
                 .bind(UserDTO::getUsername, UserDTO::setUsername);
         userDTOBinder.forField(passwort)
                 .withValidator(e -> e.length() > 0, "Bitte Passwort angeben!")
-                .withValidator(RegisterControl::passwortCheck, "Mind. 8 Zeichen, davon mind. eine Ziffer und ein Großbuchstabe")
+                .withValidator(RegisterControl::passwortCheck,
+                        "Mind. 8 Zeichen, davon mind. eine Ziffer und ein Großbuchstabe")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
         userDTOBinder.forField(passwortWiederholung)
-                .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.length() > 0, "Bitte Passwort wiederholen!")
-                .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.equals(passwort.getValue()), "Passwörter stimmen nicht überein")
+                .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.length() > 0,
+                        "Bitte Passwort wiederholen!")
+                .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.equals(passwort.getValue()),
+                        "Passwörter stimmen nicht überein")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
         userDTOBinder.forField(email)
                 .withValidator(e -> e.length() > 0, "Bitte Email angeben!")
@@ -173,7 +210,7 @@ public class RegistrationForm extends VerticalLayout {
                 .bind(UserDTO::getEmail, UserDTO::setEmail);
     }
 
-    private void clearForm(){
+    private void clearForm() {
         userDTOBinder.setBean(new UserDTO());
         entwicklerDTOBinder.setBean(new EntwicklerDTO());
         managerDTOBinder.setBean(new ManagerDTO());

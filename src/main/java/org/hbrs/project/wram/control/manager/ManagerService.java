@@ -7,7 +7,6 @@ import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -16,6 +15,11 @@ public class ManagerService {
 
     @Autowired
     private ManagerRepository managerRepository;
+
+
+    public Manager doCreateManager(Manager manager) {
+        return this.managerRepository.save(manager);
+    }
 
     public Manager getByUserId(UUID userId) {
         if(userId == null) {

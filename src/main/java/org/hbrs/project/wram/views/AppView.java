@@ -45,10 +45,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     @Autowired
     private LoginControl control;
 
- 
     public AppView() {
         setUpUI();
-        
+
     }
 
     public void setUpUI() {
@@ -64,9 +63,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private boolean checkIfUserIsLoggedIn() {
-        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite gelenkt
+        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
+        // gelenkt
         UserDTO userDTO = (UserDTO) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        if(userDTO == null){
+        if (userDTO == null) {
             UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
         }
         return true;
@@ -74,6 +74,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     /**
      * Erzeugung der horizontalen Leiste (Header).
+     * 
      * @return
      */
     private Component createHeaderContent() {
@@ -84,19 +85,19 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         layout.setWidthFull();
         layout.setSpacing(false);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
-        layout.setJustifyContentMode( FlexComponent.JustifyContentMode.EVENLY );
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
 
         // Hinzufügen des Toogle ('Big Mac') zum Ein- und Ausschalten des Drawers
         layout.add(new DrawerToggle());
         viewTitle = new H1();
         viewTitle.setWidthFull();
-        layout.add( viewTitle );
+        layout.add(viewTitle);
 
         // Interner Layout
         HorizontalLayout topRightPanel = new HorizontalLayout();
         topRightPanel.setWidthFull();
-        topRightPanel.setJustifyContentMode( FlexComponent.JustifyContentMode.END );
-        topRightPanel.setAlignItems( FlexComponent.Alignment.CENTER );
+        topRightPanel.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        topRightPanel.setAlignItems(FlexComponent.Alignment.CENTER);
 
         // Der Name des Users wird später reingesetzt, falls die Navigation stattfindet
         helloUser = new H1();
@@ -104,10 +105,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
         // Logout-Button am rechts-oberen Rand.
         MenuBar bar = new MenuBar();
-        MenuItem item = bar.addItem("Logout" , e -> logoutUser());
+        MenuItem item = bar.addItem("Logout", e -> logoutUser());
         topRightPanel.add(bar);
 
-        layout.add( topRightPanel );
+        layout.add(topRightPanel);
         return layout;
     }
 
@@ -119,8 +120,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     /**
      * Hinzufügen der vertikalen Leiste (Drawer)
-     * Diese besteht aus dem Logo ganz oben links sowie den Menu-Einträgen (menu items).
+     * Diese besteht aus dem Logo ganz oben links sowie den Menu-Einträgen (menu
+     * items).
      * Die Menu Items sind zudem verlinkt zu den internen Tab-Components.
+     * 
      * @param menu
      * @return
      */
@@ -138,7 +141,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         logoLayout.add(new Image("images/logo.png", "WRAM logo"));
-//        logoLayout.add(new H1("WRAM"));
+        // logoLayout.add(new H1("WRAM"));
 
         // Hinzufügen des Menus inklusive der Tabs
         layout.add(logoLayout, menu);
@@ -147,6 +150,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     /**
      * Erzeugung des Menu auf der vertikalen Leiste (Drawer)
+     * 
      * @return
      */
     private Tabs createMenu() {
@@ -163,11 +167,11 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private Component[] createMenuItems() {
-       // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
+        // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
         Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
         Tab createProjectsTab2 = createTab(Constants.Pages.CREATEPROJECT, CreateProjectForm.class);
-        Component[] components = new Component[]{projectsTab,createProjectsTab2};
-       return components;
+        Component[] components = new Component[] { projectsTab, createProjectsTab2 };
+        return components;
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
@@ -181,8 +185,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     protected void afterNavigation() {
         super.afterNavigation();
 
-        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite gelenkt
-        if ( !checkIfUserIsLoggedIn() ) return;
+        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
+        // gelenkt
+        if (!checkIfUserIsLoggedIn())
+            return;
 
         // Der aktuell-selektierte Tab wird gehighlighted.
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
@@ -191,7 +197,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hello my dear old friend!! "  + this.getCurrentNameOfUser() );
+        helloUser.setText("Hello my dear old friend!! " + this.getCurrentNameOfUser());
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
@@ -212,14 +218,17 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         return null;
     }
 
-
     @Override
     /**
      * Methode wird vor der eigentlichen Darstellung der UI-Components aufgerufen.
-     * Hier kann man die finale Darstellung noch abbrechen, wenn z.B. der Nutzer nicht eingeloggt ist
-     * Dann erfolgt hier ein ReDirect auf die Login-Seite. Eine Navigation (Methode navigate)
-     * ist hier nicht möglich, da die finale Navigation noch nicht stattgefunden hat.
-     * Diese Methode in der AppLayout sichert auch den un-authorisierten Zugriff auf die innerliegenden
+     * Hier kann man die finale Darstellung noch abbrechen, wenn z.B. der Nutzer
+     * nicht eingeloggt ist
+     * Dann erfolgt hier ein ReDirect auf die Login-Seite. Eine Navigation (Methode
+     * navigate)
+     * ist hier nicht möglich, da die finale Navigation noch nicht stattgefunden
+     * hat.
+     * Diese Methode in der AppLayout sichert auch den un-authorisierten Zugriff auf
+     * die innerliegenden
      * Views (hier: ShowCarsView und EnterCarView) ab.
      *
      */
