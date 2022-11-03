@@ -4,9 +4,12 @@ import com.vaadin.flow.component.notification.Notification;
 import lombok.RequiredArgsConstructor;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.manager.ManagerRepository;
+import org.hbrs.project.wram.model.user.User;
+import org.hbrs.project.wram.model.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -15,7 +18,8 @@ public class ManagerService {
 
     @Autowired
     private ManagerRepository managerRepository;
-
+    @Autowired
+    private UserRepository userRepository;
 
     public Manager doCreateManager(Manager manager) {
         return this.managerRepository.save(manager);
@@ -26,6 +30,6 @@ public class ManagerService {
             new Notification("userId is null!!!");
             return null;
         }
-            return this.managerRepository.findById(userId).get();
+        return this.managerRepository.findByUserId(userId);
     }
 }

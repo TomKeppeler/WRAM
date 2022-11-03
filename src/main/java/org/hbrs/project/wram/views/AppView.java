@@ -20,6 +20,7 @@ import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.PWA;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,7 +212,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private String getCurrentNameOfUser() {
-        UserDTO currentUser = control.getCurrentUser();
+        User currentUser = control.getCurrentUser();
         if (currentUser != null) {
             return currentUser.getUsername();
         }

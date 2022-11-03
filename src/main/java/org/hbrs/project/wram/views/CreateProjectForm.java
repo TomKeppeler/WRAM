@@ -16,6 +16,7 @@ import com.vaadin.flow.router.*;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.control.manager.ManagerService;
@@ -24,10 +25,16 @@ import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
+import org.slf4j.Logger;
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
 
 @PageTitle("ProjekteErstellen")
 @Route(value = Constants.Pages.CREATEPROJECT)
+@Slf4j
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     private H3 title;
@@ -40,7 +47,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     private Button bestätigungsknopf;
 
-    private Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
+    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
 
     @Autowired
     private KundenprojektService kundenprojektServices;
@@ -51,7 +58,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     @Autowired
     private ManagerService managerService;
 
-    public CreateProjectForm() {
+    @PostConstruct
+    private void init() {
 
         add(createFormLayout());
         bindFields();
@@ -100,14 +108,19 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     }
 
     private Kundenprojekt createKundenprojekt() {
-        // UUID u =(UUID) UI.getCurrent().getSession().getAttribute("user");
-        UserDTO userDto = (UserDTO) UI.getCurrent().getSession().getAttribute("current_User");
-        UUID uuid = userDto.getId();
+        log.info("Das ist die Rückgabe in create:"+ UI.getCurrent().getSession().getAttribute(CURRENT_USER));
+        UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
+
         Manager m = null;
+
         // Problem: Service Klasse ist immer null!!
         if (this.managerService != null) {
-            m = this.managerService.getByUserId(uuid);
-            System.out.println(m.getId().toString());
+            m = this.managerService.getByUserId(userId);
+        }
+        if(m==null){
+            log.info("Manager is Null...");
+        }else {
+            log.info("Manager with ID " +m.getId().toString());
         }
         return Kundenprojekt.builder().manager(m)
                 .projektbeschreibung(this.projektbeschreibung.getValue())

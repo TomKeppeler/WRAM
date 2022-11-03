@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class KundenprojektService {
 
+    @Autowired
     private KundenprojektRepository kundenprojektRepository;
 
     public Kundenprojekt doCreateKundenprojekt(Kundenprojekt kundenprojekt) {

@@ -1,12 +1,5 @@
 package org.hbrs.project.wram.model.entwickler.profile;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
@@ -17,6 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor

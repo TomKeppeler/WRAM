@@ -24,15 +24,15 @@ public class LoginControl {
 
     @Autowired
     private UserService userService;
-    private UserDTO currentUser = null;
+    private User currentUser = null;
 
     public boolean authenticateUser(String username, String password) throws Exception {
         UserMapper mapper = Mappers.getMapper(UserMapper.class);
-        UserDTO userDTO = mapper.toDTO(User.builder().password(password).username(username).build());//userService.toDTO(getUser(username, password));
-        if (userDTO == null) {
+        User user=getUser(username,password);
+        if (user == null) {
             return false;
         } else {
-            this.currentUser = userDTO;
+            this.currentUser = user;
         }
         return true;
     }
@@ -49,7 +49,7 @@ public class LoginControl {
         return user;
     }
 
-    public UserDTO getCurrentUser() {
+    public User getCurrentUser() {
         return this.currentUser;
     }
 

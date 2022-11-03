@@ -13,7 +13,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
@@ -26,6 +28,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  */
 @Route(value = Constants.Pages.MAIN_VIEW )
 @RouteAlias(value = "login")
+@Slf4j
 public class LoginView extends VerticalLayout {
 
     @Autowired
@@ -84,8 +87,10 @@ public class LoginView extends VerticalLayout {
     private void grabAndSetUserIntoSession() {
         //User und Entwickler/Manager/Reviews werden gesetzt
         // TODO: 27.10.2022 setAttribute für Entwickler/Manager/Reviews
-        final UserDTO user = loginControl.getCurrentUser();
-        UI.getCurrent().getSession().setAttribute(CURRENT_USER, user);
+        final User user = loginControl.getCurrentUser();
+        UI.getCurrent().getSession().setAttribute(CURRENT_USER, user.getId());
+        log.info(UI.getCurrent().getSession().getAttribute(CURRENT_USER).toString());
+
     }
 
     private void navigateToMainPage() {
