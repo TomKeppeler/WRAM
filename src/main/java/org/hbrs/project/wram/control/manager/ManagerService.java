@@ -16,7 +16,6 @@ public class ManagerService {
     @Autowired
     private ManagerRepository managerRepository;
 
-
     public Manager doCreateManager(Manager manager) {
         return this.managerRepository.save(manager);
     }
