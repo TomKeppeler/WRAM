@@ -14,8 +14,8 @@ import java.util.UUID;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ManagerService {
 
+    @Autowired
     private ManagerRepository managerRepository;
-
 
     public Manager getByUserId(UUID userId) {
         if(userId == null) {
