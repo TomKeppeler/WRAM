@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Route;
 import org.hbrs.project.wram.util.Constants;
 
 @CssImport("./styles/views/main/main-view.css")
-@Route(Constants.Pages.PROJECTS_OVERVIEW)
+@Route(value = Constants.Pages.PROJECTS_OVERVIEW, layout = AppView.class)
 public class ProjectsOverview extends Div {
 
     private H1 header;
