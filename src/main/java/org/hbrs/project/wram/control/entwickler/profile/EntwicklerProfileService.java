@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EntwicklerProfileService {
-    
+
+    @Autowired
     private EntwicklerProfilRepository entwicklerRepository;
 
     public EntwicklerProfil doCreatEntwickler(EntwicklerProfil entwickler) {

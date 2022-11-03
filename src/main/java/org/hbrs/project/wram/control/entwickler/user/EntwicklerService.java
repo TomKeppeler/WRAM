@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EntwicklerService {
-    
+
+    @Autowired
     private EntwicklerRepository entwicklerRepository;
 
     public Entwickler doCreatEntwickler(Entwickler entwickler) {

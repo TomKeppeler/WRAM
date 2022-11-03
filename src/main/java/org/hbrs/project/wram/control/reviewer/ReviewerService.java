@@ -11,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ReviewerService {
-    
+
+    @Autowired
     public ReviewerRepository reviewerRepository;
     
     public Reviewer doCreateReviewer(Reviewer reviewer) {
