@@ -27,7 +27,7 @@ import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("ProjekteErstellen")
-@Route(value = Constants.Pages.CREATEPROJECT)
+@Route(value = Constants.Pages.CREATEPROJECT, layout = AppView.class)
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     private H3 title;
