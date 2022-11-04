@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import javax.annotation.PostConstruct;
 
 import com.vaadin.flow.router.RouterLink;
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
 import org.hbrs.project.wram.control.manager.ManagerService;
@@ -38,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Registrierung")
 @Route(value = Constants.Pages.REGISTRATION)
+@Slf4j
 public class RegistrationForm extends VerticalLayout {
 
     String rolleProjektmanager = "Projektmanager";

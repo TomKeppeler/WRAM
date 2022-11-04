@@ -45,7 +45,7 @@ public class LoginView extends VerticalLayout {
        RouterLink register = new RouterLink("Jetzt registrieren", RegistrationForm.class);
        HorizontalLayout registerlink = new HorizontalLayout( register);
 
-       login.addLoginListener(e -> {
+       login.addLoginListener( e -> {
           boolean isAuthenticated = false;
           try {
               isAuthenticated = loginControl.authenticateUser(e.getUsername(), e.getPassword());
@@ -88,6 +88,7 @@ public class LoginView extends VerticalLayout {
         //User und Entwickler/Manager/Reviews werden gesetzt
         // TODO: 27.10.2022 setAttribute für Entwickler/Manager/Reviews
         final User user = loginControl.getCurrentUser();
+
         UI.getCurrent().getSession().setAttribute(CURRENT_USER, user.getId());
         log.info(UI.getCurrent().getSession().getAttribute(CURRENT_USER).toString());
 

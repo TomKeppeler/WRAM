@@ -170,8 +170,12 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Component[] createMenuItems() {
         // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
         Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
+
         Tab createProjectsTab2 = createTab(Constants.Pages.CREATEPROJECT, CreateProjectForm.class);
-        Component[] components = new Component[] { projectsTab, createProjectsTab2 };
+
+        Tab createEntwicklerProfilTab3 = createTab(Constants.Pages.CREATEENTWICKLERPROFIL, CreateEntwicklerProfil.class);
+
+        Component[] components = new Component[] { projectsTab, createProjectsTab2,createEntwicklerProfilTab3 };
         return components;
     }
 

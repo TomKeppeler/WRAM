@@ -64,8 +64,9 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         add(createFormLayout());
         bindFields();
         clearForm();
-
+        // Kommentar: Listener in der Createformlayout funktionieren nicht, hängt vmtl mit postconstruct zusammen
         bestätigungsknopf.addClickListener(e -> {
+            saveKundenprojekt(createKundenprojekt());
             navigateToAppView();
         });
 
@@ -97,7 +98,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
         bestätigungsknopf = new Button("Jetzt Erstellen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
+     //   bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
         RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
         formLayout.add(title, projektname, skills, projektbeschreibung, oeff, bestätigungsknopf, appView);
 
@@ -129,10 +130,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     }
 
-    private ComponentEventListener<ClickEvent<Button>> saveKundenprojekt(Kundenprojekt kundenprojekt) {
-        return event -> {
-            this.kundenprojektServices.doCreateKundenprojekt(kundenprojekt);
-        };
+    private void saveKundenprojekt(Kundenprojekt kundenprojekt) {
+        this.kundenprojektServices.doCreateKundenprojekt(kundenprojekt);
     }
 
     @Override
