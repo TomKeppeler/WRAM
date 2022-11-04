@@ -26,6 +26,7 @@ import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
@@ -66,8 +67,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private boolean checkIfUserIsLoggedIn() {
         // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
         // gelenkt
-        UserDTO userDTO = (UserDTO) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        if (userDTO == null) {
+        UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        if (userID == null) {
             UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
         }
         return true;
@@ -171,9 +172,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
         Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
 
-        Tab createProjectsTab2 = createTab(Constants.Pages.CREATEPROJECT, CreateProjectForm.class);
+        Tab createProjectsTab2 = createTab("Projekt erstellen", CreateProjectForm.class);
 
-        Tab createEntwicklerProfilTab3 = createTab(Constants.Pages.CREATEENTWICKLERPROFIL, CreateEntwicklerProfil.class);
+        Tab createEntwicklerProfilTab3 = createTab("Entwicklerprofil erstellen", CreateEntwicklerProfil.class);
 
         Component[] components = new Component[] { projectsTab, createProjectsTab2,createEntwicklerProfilTab3 };
         return components;
