@@ -96,7 +96,7 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 ### Software-Architekt
 [UseCaseDiagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/UseCaseDiagramm.svg) <br>
-
+[Architektur-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ArchitekturDiagramm_Bausteinsicht.drawio.pdf)
 <hr width="50%" align="left">
 
 ### Datenbank-Experte
