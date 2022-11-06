@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
 @PageTitle("ProjekteErstellen")
-@Route(value = Constants.Pages.CREATEPROJECT)
+@Route(value = Constants.Pages.CREATEPROJECT, layout = AppView.class)
 @Slf4j
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
@@ -73,7 +73,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     }
 
     private void navigateToAppView() {
-        UI.getCurrent().navigate("Appview"); // Appview
+        UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW); // Appview
         Notification.show("Projekt erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
@@ -81,13 +81,13 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         VerticalLayout formLayout = new VerticalLayout();
         title = new H3("Projekt erstellen");
         projektname = new TextField();
-        projektname.setValue("Projektname");
+        projektname.setPlaceholder("Projektname");
         skills = new TextField();
-        skills.setValue("Erforderliche Skills");
+        skills.setPlaceholder("Erforderliche Skills");
 
         projektbeschreibung = new TextArea();
         projektbeschreibung.setWidthFull();
-        projektbeschreibung.setValue("Projektbeschreibung");
+        projektbeschreibung.setPlaceholder("Projektbeschreibung");
         // Radiobutton für rolle
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Soll das Projekt veröffentlicht werden");

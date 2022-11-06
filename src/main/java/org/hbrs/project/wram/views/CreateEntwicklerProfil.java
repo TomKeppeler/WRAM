@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 @PageTitle("EntwicklerProfilErstellen")
-@Route(value = Constants.Pages.CREATEENTWICKLERPROFIL)
+@Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
 @Slf4j
 public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
