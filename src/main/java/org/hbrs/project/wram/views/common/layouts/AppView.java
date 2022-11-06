@@ -1,4 +1,4 @@
-package org.hbrs.project.wram.views;
+package org.hbrs.project.wram.views.common.layouts;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -22,10 +22,15 @@ import com.vaadin.flow.server.PWA;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
+import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
+import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.annotation.PostConstruct;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -43,10 +48,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     @Autowired
     private LoginControl control;
-
-    public AppView() {
+    @PostConstruct
+    private void init() {
         setUpUI();
-
     }
 
     public void setUpUI() {
@@ -66,7 +70,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         // gelenkt
         UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
         if (userID == null) {
-            UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
+            UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);
         }
         return true;
     }
@@ -112,9 +116,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private void logoutUser() {
-        UI ui = this.getUI().get();
-        ui.getSession().close();
-        ui.getPage().setLocation("/");
+        UI.getCurrent().getSession().close();
+        UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);
     }
 
     /**

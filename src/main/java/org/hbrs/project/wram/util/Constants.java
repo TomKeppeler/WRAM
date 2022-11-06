@@ -1,7 +1,5 @@
 package org.hbrs.project.wram.util;
 
-import com.vaadin.flow.component.Component;
-
 public class Constants {
     public static String CURRENT_USER = "current_User";
 
@@ -12,6 +10,7 @@ public class Constants {
         public static final String REGISTRATION = "registrieren";
         public static final String CREATEPROJECT = "ProjektErstellen";
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
+        public static final String LOGIN_VIEW = "login";
 
     }
 

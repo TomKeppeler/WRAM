@@ -1,9 +1,6 @@
-package org.hbrs.project.wram.views;
+package org.hbrs.project.wram.views.routes.manager;
 
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.HasValueAndElement;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
@@ -11,56 +8,56 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.*;
-import lombok.extern.slf4j.Slf4j;
-import org.hbrs.project.wram.control.LoginControl;
-import org.hbrs.project.wram.control.entwickler.profile.EntwicklerProfileService;
-import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
-import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.control.manager.ManagerService;
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfil;
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfilDTO;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
-import org.hbrs.project.wram.model.manager.Manager;
-import org.hbrs.project.wram.util.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import lombok.extern.slf4j.Slf4j;
+import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
+import org.hbrs.project.wram.control.manager.ManagerService;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
+import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
+import org.hbrs.project.wram.model.manager.Manager;
+import org.hbrs.project.wram.model.user.UserDTO;
+import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.slf4j.Logger;
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
-@PageTitle("EntwicklerProfilErstellen")
-@Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+
+@PageTitle("ProjekteErstellen")
+@Route(value = Constants.Pages.CREATEPROJECT, layout = AppView.class)
 @Slf4j
-public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
+public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     private H3 title;
-    private IntegerField photo;
-    private TextField entwicklerTelnr;
-    private TextField entwicklerskills;
 
+    private TextField projektname;
+    private TextField skills;
+    private TextArea projektbeschreibung;
 
     RadioButtonGroup<String> oeff;
 
     private Button bestätigungsknopf;
 
-    private final Binder<EntwicklerProfilDTO> entwicklerProfilDTOBinder = new Binder<>(EntwicklerProfilDTO.class);
+    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
 
     @Autowired
-    private EntwicklerProfileService entwicklerProfileService;
+    private KundenprojektService kundenprojektServices;
 
     @Autowired
     private LoginControl control;
 
     @Autowired
-    private EntwicklerService entwicklerService;
+    private ManagerService managerService;
 
     @PostConstruct
     private void init() {
@@ -68,40 +65,43 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         add(createFormLayout());
         bindFields();
         clearForm();
-
-        bestätigungsknopf.addClickListener(e ->{
-            // Kommentar: Listener in der Createformlayout funktionieren nicht, hängt vmtl mit postconstruct zusammen
-            saveEntwicklerProfil(createEntwicklerProfil());
+        // Kommentar: Listener in der Createformlayout funktionieren nicht, hängt vmtl mit postconstruct zusammen
+        bestätigungsknopf.addClickListener(e -> {
+            saveKundenprojekt(createKundenprojekt());
             navigateToAppView();
         });
 
     }
 
     private void navigateToAppView() {
-        UI.getCurrent().navigate("Appview"); // Appview
-        Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
+        UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW); // Appview
+        Notification.show("Projekt erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
-        title = new H3("Entwicklerprofil erstellen");
-        photo = new IntegerField();
-        photo.setValue(0);
-        entwicklerTelnr = new TextField();
-        entwicklerTelnr.setLabel("Telefonnummer");
-        entwicklerskills = new TextField();
-        entwicklerskills.setLabel("Skills");
+        title = new H3("Projekt erstellen");
+        projektname = new TextField();
+        projektname.setPlaceholder("Projektname");
+        skills = new TextField();
+        skills.setPlaceholder("Erforderliche Skills");
 
-        setRequiredIndicatorVisible(entwicklerTelnr, entwicklerskills,photo);
+        projektbeschreibung = new TextArea();
+        projektbeschreibung.setWidthFull();
+        projektbeschreibung.setPlaceholder("Projektbeschreibung");
+        // Radiobutton für rolle
+        oeff = new RadioButtonGroup<>();
+        oeff.setLabel("Soll das Projekt veröffentlicht werden");
+        oeff.setItems("veroeffentlichen", "nicht veroeffentlichen");
+        oeff.setValue("veroeffentlichen");
+        oeff.setEnabled(true);
 
+        setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
         bestätigungsknopf = new Button("Jetzt Erstellen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        //funktioniert nicht
-      // bestätigungsknopf.addClickListener(saveEntwicklerProfil(createEntwicklerProfil()));
-
+     //   bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
         RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
-
-        formLayout.add(title,photo, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
+        formLayout.add(title, projektname, skills, projektbeschreibung, oeff, bestätigungsknopf, appView);
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
@@ -109,34 +109,31 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         return formLayout;
     }
 
-    private EntwicklerProfil createEntwicklerProfil() {
+    private Kundenprojekt createKundenprojekt() {
         log.info("Das ist die Rückgabe in create:"+ UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
-        Entwickler m = null;
+        Manager m = null;
 
-        if (this.entwicklerService != null) {
-            m=this.entwicklerService.getByUserId(userId);
+        // Problem: Service Klasse ist immer null!!
+        if (this.managerService != null) {
+            m = this.managerService.getByUserId(userId);
         }
         if(m==null){
             log.info("Manager is Null...");
         }else {
             log.info("Manager with ID " +m.getId().toString());
         }
-
-        return EntwicklerProfil.builder().entwickler(m).image(photo.getValue()).phone(entwicklerTelnr.getValue()).skills(entwicklerskills.getValue()).build();
+        return Kundenprojekt.builder().manager(m)
+                .projektbeschreibung(this.projektbeschreibung.getValue())
+                .projektname(this.projektname.getValue())
+                .publicProjekt(this.oeff.getValue().equals("veroeffentlichen")).build();
 
     }
 
-    private void saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
-        this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
+    private void saveKundenprojekt(Kundenprojekt kundenprojekt) {
+        this.kundenprojektServices.doCreateKundenprojekt(kundenprojekt);
     }
-    /*
-    private ComponentEventListener<ClickEvent<Button>> saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
-        return event -> {
-            this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
-                        };
-    }*/
 
     @Override
     /**
@@ -160,13 +157,10 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     private void bindFields() {
 
-
-
-
     }
 
     private void clearForm() {
-        entwicklerProfilDTOBinder.setBean(new EntwicklerProfilDTO());
+        kundenprojektDTOBinder.setBean(new KundenprojektDTO());
     }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {

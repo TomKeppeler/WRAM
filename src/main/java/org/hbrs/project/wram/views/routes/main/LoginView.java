@@ -1,4 +1,4 @@
-package org.hbrs.project.wram.views;
+package org.hbrs.project.wram.views.routes.main;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -18,6 +18,7 @@ import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
@@ -25,8 +26,8 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 /**
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  */
-@Route(value = Constants.Pages.MAIN_VIEW )
-@RouteAlias(value = "login")
+@Route(value = Constants.Pages.LOGIN_VIEW)
+@RouteAlias(value = Constants.Pages.MAIN_VIEW)
 @Slf4j
 public class LoginView extends VerticalLayout {
 

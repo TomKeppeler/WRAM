@@ -1,4 +1,4 @@
-package org.hbrs.project.wram.views;
+package org.hbrs.project.wram.views.routes.registration;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
@@ -33,6 +33,7 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.util.Utils;
+import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Registrierung")
