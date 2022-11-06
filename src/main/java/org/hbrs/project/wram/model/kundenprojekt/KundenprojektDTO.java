@@ -15,4 +15,7 @@ public class KundenprojektDTO {
     private UUID id;
     private boolean publicProjekt;
     private Manager manager;
+    private String projektname;
+    private String projektbeschreibung;
+    private String skills;
 }

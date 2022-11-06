@@ -33,11 +33,14 @@ public class Kundenprojekt extends BaseEntity {
         foreignKey = @ForeignKey(name = "fk_manager_id"))
     private Manager manager;
 
-    @Column(name="projektname")
+    @Column(name = "projektname")
     private String projektname;
 
-    @Column(name="projektbeschreibung")
+    @Column(name = "projektbeschreibung")
     private String projektbeschreibung;
+
+    @Column(name = "skills")
+    private String skills;
 
     @Override
     public int hashCode() {
