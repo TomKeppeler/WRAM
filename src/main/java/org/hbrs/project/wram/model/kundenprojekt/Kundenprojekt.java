@@ -26,7 +26,7 @@ public class Kundenprojekt extends BaseEntity {
     private boolean publicProjekt;
 
     @NotNull
-    @OneToOne(orphanRemoval = true,optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(
         name = "manager_id",
         referencedColumnName = "id",

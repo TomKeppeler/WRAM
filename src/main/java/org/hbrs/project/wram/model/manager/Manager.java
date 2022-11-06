@@ -1,14 +1,18 @@
 package org.hbrs.project.wram.model.manager;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.common.BaseEntity;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
 
 import lombok.AllArgsConstructor;
@@ -42,6 +46,9 @@ public class Manager extends BaseEntity{
         foreignKey = @ForeignKey(name = "fk_user_id")
     )
     private User user;
+
+    @OneToMany(mappedBy = "manager", orphanRemoval = false)
+    private Collection<Kundenprojekt> kundenprojekt;
 
     @Override
     public int hashCode() {
