@@ -20,17 +20,25 @@ import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.PWA;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
+import org.hbrs.project.wram.views.routes.reviewer.EntwicklerZuweisen;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
+
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -45,9 +53,12 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Tabs menu;
     private H1 viewTitle;
     private H1 helloUser;
+    private static final Logger logger = Logger.getGlobal();
 
     @Autowired
     private LoginControl control;
+    @Autowired
+    private UserService userService;
     @PostConstruct
     private void init() {
         setUpUI();
@@ -169,15 +180,29 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private Component[] createMenuItems() {
+
+        Tab [] tabs = new Tab[0];
+
+
+        if(userService.getRolle() =="m"){
+            logger.log(Level.INFO, "User is \"Manager\"!");
+            tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
+            tabs = Utils.append(tabs, createTab(Constants.Pages.CREATEPROJECT, CreateProjectForm.class));
+        } else if (userService.getRolle() =="e") {
+            logger.log(Level.INFO, "User is \"Entwickler\"!");
+            tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
+        }
+        else if (userService.getRolle() =="r") {
+            logger.log(Level.INFO, "User is \"Reviewer\"!");
+            tabs = Utils.append( tabs , createTab("X", EntwicklerZuweisen.class));
+        }
+
+
         // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
-        Tab projectsTab = createTab("Meine Projekte", ProjectsOverview.class);
-
-        Tab createProjectsTab2 = createTab("Projekt erstellen", CreateProjectForm.class);
-
-        Tab createEntwicklerProfilTab3 = createTab("Entwicklerprofil erstellen", CreateEntwicklerProfil.class);
-
-        Component[] components = new Component[] { projectsTab, createProjectsTab2,createEntwicklerProfilTab3 };
-        return components;
+        /*Tab projectsTab = ;
+        Tab createProjectsTab2 = ;
+        Component[] components = new Component[] { projectsTab, createProjectsTab2 };*/
+        return tabs;
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
@@ -243,4 +268,6 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             beforeEnterEvent.rerouteTo(Constants.Pages.MAIN_VIEW);
         }
     }
+
+
 }

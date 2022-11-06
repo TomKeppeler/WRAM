@@ -12,6 +12,7 @@ public class Constants {
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
         public static final String LOGIN_VIEW = "login";
 
+        public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
     }
 
     public static class Roles {
