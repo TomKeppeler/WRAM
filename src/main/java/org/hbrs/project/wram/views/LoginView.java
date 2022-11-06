@@ -16,7 +16,6 @@ import com.vaadin.flow.router.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
-import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;

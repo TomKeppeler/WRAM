@@ -21,14 +21,11 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.PWA;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
-import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.UUID;
-
-import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * The main view is a top-level placeholder for other views.
