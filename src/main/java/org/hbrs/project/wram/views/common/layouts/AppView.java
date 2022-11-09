@@ -1,5 +1,23 @@
 package org.hbrs.project.wram.views.common.layouts;
 
+import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+
+import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.user.User;
+import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.util.Utils;
+import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
+import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
+import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
+import org.hbrs.project.wram.views.routes.reviewer.EntwicklerZuweisen;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
@@ -17,28 +35,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
-import com.vaadin.flow.router.*;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import org.hbrs.project.wram.control.LoginControl;
-import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.user.User;
-import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.util.Utils;
-import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
-import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
-import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
-import org.hbrs.project.wram.views.routes.reviewer.EntwicklerZuweisen;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Optional;
-import java.util.UUID;
-import java.util.logging.Level;
-
-import javax.annotation.PostConstruct;
-
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The main view is a top-level placeholder for other views.

@@ -43,3 +43,12 @@ vaadin-tab[selected] {
   background-color: var(--lumo-primary-color-10pct);
   color: var(--lumo-primary-text-color);
 }
+
+#profileImage {
+  display: flex;
+  margin: 1 auto;
+  width: 20%;
+  border: 2px solid black;
+  border-radius: 10%;
+  padding: 5px;
+}
