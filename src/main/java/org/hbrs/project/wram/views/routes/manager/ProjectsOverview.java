@@ -13,49 +13,49 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import lombok.AllArgsConstructor;
-import org.hbrs.project.wram.control.LoginControl;
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
+import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@PageTitle("Meine Projekte")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.PROJECTS_OVERVIEW, layout = AppView.class)
-@AllArgsConstructor(onConstructor_ = @Autowired)
-public class ProjectsOverview extends Div implements BeforeEnterObserver {
 
-    private final H1 header = new H1("Alle Projekte werden bald hir gezeigt");
+public class ProjectsOverview extends Div {
 
-    private List<KundenprojektDTO> kundenprojektDTOS = new ArrayList<>();
+    private H1 header;
 
-    private LoginControl control;
+    private List<KundenprojektDTO> kundenprojektDTOS;
 
-    private transient KundenprojektService kundenprojektService;
+    @Autowired
+    KundenprojektService kundenprojektService;
 
-    private transient ManagerService managerService;
 
-    private transient UserService userService;
+    @Autowired
+    ManagerService managerService = new ManagerService();
 
+    @Autowired
+    ManagerRepository managerRepository;
+
+    @Autowired
+    UserService userService;
     public ProjectsOverview() {
-        UUID uuidUser =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        UUID  uuidM = managerService.getByUserId(uuidUser).getId();
-        kundenprojektService.findAllKundenprojektByManagerId(uuidM);
-        add(header,setUpGrid());
+        header = new H1("Alle Projekte werden bald hir gezeigt");
+        /*UUID uuidUser =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        UUID  uuidM = managerRepository.findByUserId(uuidUser).getId();
+        kundenprojektDTOS =  kundenprojektService.findAllKundenprojektByManagerId(uuidM);*/
+        add(header);//,setUpGrid()
     }
 
 
@@ -72,10 +72,4 @@ public class ProjectsOverview extends Div implements BeforeEnterObserver {
         return  grid;
     }
 
-    @Override
-    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if (control.getCurrentUser() == null) {
-            beforeEnterEvent.rerouteTo(Constants.Pages.MAIN_VIEW);
-        }
-    }
 }

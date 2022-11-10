@@ -1,49 +1,51 @@
 package org.hbrs.project.wram.views.routes.entwickler;
 
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.HasValueAndElement;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.router.*;
-import lombok.extern.slf4j.Slf4j;
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
+
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import javax.annotation.PostConstruct;
+
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.entwickler.profile.EntwicklerProfileService;
 import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
-import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfil;
 import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfilDTO;
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
-import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
-import java.util.UUID;
-import java.util.stream.Stream;
+import com.vaadin.flow.component.HasValueAndElement;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 
-import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
+import lombok.extern.slf4j.Slf4j;
 @PageTitle("EntwicklerProfilErstellen")
+@CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
 @Slf4j
 public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     private H3 title;
-    private IntegerField photo;
+    // private IntegerField photo;
     private TextField entwicklerTelnr;
     private TextField entwicklerskills;
 
@@ -67,7 +69,6 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     private void init() {
 
         add(createFormLayout());
-        bindFields();
         clearForm();
 
         bestätigungsknopf.addClickListener(e ->{
@@ -75,7 +76,6 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
             saveEntwicklerProfil(createEntwicklerProfil());
             navigateToAppView();
         });
-
     }
 
     private void navigateToAppView() {
@@ -85,15 +85,16 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
+
+        Image image = new Image("src/main/resources/image/avatar-1.jpg", "Profile Image");
+        image.setId("profileImage");
         title = new H3("Entwicklerprofil erstellen");
-        photo = new IntegerField();
-        photo.setValue(0);
         entwicklerTelnr = new TextField();
         entwicklerTelnr.setLabel("Telefonnummer");
         entwicklerskills = new TextField();
         entwicklerskills.setLabel("Skills");
 
-        setRequiredIndicatorVisible(entwicklerTelnr, entwicklerskills,photo);
+        setRequiredIndicatorVisible(entwicklerTelnr, entwicklerskills);
 
         bestätigungsknopf = new Button("Jetzt Erstellen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -102,30 +103,29 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
         RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
 
-        formLayout.add(title,photo, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
+        formLayout.add(title, image, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
-
         return formLayout;
     }
 
     private EntwicklerProfil createEntwicklerProfil() {
-        log.info("Das ist die Rückgabe in create:"+ UI.getCurrent().getSession().getAttribute(CURRENT_USER));
+        log.info("Das ist die Rückgabe in create:" + UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
-        Entwickler m = null;
+        Entwickler entwickler = null;
 
         if (this.entwicklerService != null) {
-            m=this.entwicklerService.getByUserId(userId);
+            entwickler=this.entwicklerService.getByUserId(userId);
         }
-        if(m==null){
-            log.info("Manager is Null...");
+        if(entwickler==null){
+            log.info("Entwickler is Null...");
         }else {
-            log.info("Manager with ID " +m.getId().toString());
+            log.info("Entwickler with ID " +entwickler.getId().toString());
         }
 
-        return EntwicklerProfil.builder().entwickler(m).image(photo.getValue()).phone(entwicklerTelnr.getValue()).skills(entwicklerskills.getValue()).build();
+        return EntwicklerProfil.builder().entwickler(entwickler).image(0).phone(entwicklerTelnr.getValue()).skills(entwicklerskills.getValue()).build();
 
     }
 
@@ -157,13 +157,6 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         if (control.getCurrentUser() == null) {
             beforeEnterEvent.rerouteTo(Constants.Pages.MAIN_VIEW);
         }
-    }
-
-    private void bindFields() {
-
-
-
-
     }
 
     private void clearForm() {
