@@ -35,6 +35,6 @@ public class ReviewerService {
     }
 
     public void deleteReviewerById(UUID id) {
-        this.reviewerRepository.findByUserId(id);
+        this.reviewerRepository.deleteById(id);
     }
 }
