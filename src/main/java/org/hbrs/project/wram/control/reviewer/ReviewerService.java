@@ -29,4 +29,12 @@ public class ReviewerService {
         }
         return this.reviewerRepository.findByUserId(id);
     }
+
+    public Reviewer findReviewerByUserId(UUID id) {
+        return this.reviewerRepository.findByUserId(id);
+    }
+
+    public void deleteReviewerById(UUID id) {
+        this.reviewerRepository.findByUserId(id);
+    }
 }

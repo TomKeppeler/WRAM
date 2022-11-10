@@ -29,4 +29,12 @@ public class EntwicklerService {
         }
         return this.entwicklerRepository.findByUserId(userId);
     }
+
+    public Entwickler findEntwicklerByUserId(UUID id) {
+        return this.entwicklerRepository.findByUserId(id);
+    }
+
+    public void deleteEntwicklerById(UUID id) {
+        this.entwicklerRepository.deleteById(id);
+    }
 }

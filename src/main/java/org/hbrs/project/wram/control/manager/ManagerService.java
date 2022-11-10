@@ -32,4 +32,12 @@ public class ManagerService {
         }
         return this.managerRepository.findByUserId(userId);
     }
+
+    public Manager findManagerByUserId(UUID id) {
+        return this.managerRepository.findByUserId(id);
+    }
+
+    public void deleteManagerById(UUID id) {
+        this.managerRepository.deleteById(id);
+    }
 }

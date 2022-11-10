@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -81,7 +82,17 @@ public class UserService {
         }
 
         return "User ist nicht zugeortnet";
+    }
 
+    public List<User> findAllUsers() {
+        return this.userRepository.findAll();
+    }
 
+    public User findUserByUsernameAndPassword(String username, String pw){
+        return this.userRepository.findUserByUsernameAndPassword(username, pw);
+    }
+
+    public void deleteUserById(UUID id) {
+        this.userRepository.deleteById(id);
     }
 }
