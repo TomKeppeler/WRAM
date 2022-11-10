@@ -127,8 +127,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         return Kundenprojekt.builder().manager(m)
                 .projektbeschreibung(this.projektbeschreibung.getValue())
                 .projektname(this.projektname.getValue())
+                .skills(this.skills.getValue())
                 .publicProjekt(this.oeff.getValue().equals("veroeffentlichen")).build();
-
     }
 
     private void saveKundenprojekt(Kundenprojekt kundenprojekt) {
