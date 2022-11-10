@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-@PageTitle("ProjekteErstellen")
+@PageTitle("Projekte Erstellen")
 @Route(value = Constants.Pages.CREATEPROJECT, layout = AppView.class)
 @Slf4j
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
