@@ -3,7 +3,6 @@ package org.hbrs.project.wram.control.entwickler.user;
 import com.vaadin.flow.component.notification.Notification;
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
 import org.hbrs.project.wram.model.entwickler.user.EntwicklerRepository;
-import org.hbrs.project.wram.model.manager.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

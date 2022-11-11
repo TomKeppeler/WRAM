@@ -4,12 +4,9 @@ import com.vaadin.flow.component.notification.Notification;
 import lombok.RequiredArgsConstructor;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.manager.ManagerRepository;
-import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

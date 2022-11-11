@@ -1,7 +1,6 @@
 package org.hbrs.project.wram.control;
 
 
-import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Encryption;
