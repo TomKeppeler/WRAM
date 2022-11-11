@@ -1,10 +1,8 @@
 package org.hbrs.project.wram.model.user.roundTripTests;
 
 import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
-import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

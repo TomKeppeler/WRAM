@@ -4,8 +4,6 @@ import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.user.User;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
