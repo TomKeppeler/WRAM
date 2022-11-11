@@ -4,6 +4,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,10 +13,8 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.*;
-
 import java.util.UUID;
 import java.util.stream.Stream;
-
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
@@ -23,14 +22,10 @@ import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
 import org.hbrs.project.wram.model.manager.Manager;
-import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
-import org.slf4j.Logger;
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.annotation.PostConstruct;
 
 @PageTitle("Projekte Erstellen")
@@ -38,7 +33,7 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
-    private H3 title;
+    private H2 title;
 
     private TextField projektname;
     private TextField skills;
@@ -80,7 +75,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
-        title = new H3("Projekt erstellen");
+        title = new H2("Erstelle ein neues Projekt.");
         projektname = new TextField();
         projektname.setPlaceholder("Projektname");
         skills = new TextField();
@@ -91,7 +86,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         projektbeschreibung.setPlaceholder("Projektbeschreibung");
         // Radiobutton für rolle
         oeff = new RadioButtonGroup<>();
-        oeff.setLabel("Soll das Projekt veröffentlicht werden");
+        oeff.setLabel("Soll das Projekt veröffentlicht werden?");
         oeff.setItems("veroeffentlichen", "nicht veroeffentlichen");
         oeff.setValue("veroeffentlichen");
         oeff.setEnabled(true);
