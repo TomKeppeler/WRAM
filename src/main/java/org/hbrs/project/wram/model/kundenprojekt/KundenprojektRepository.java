@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Component
 public interface KundenprojektRepository extends JpaRepository<Kundenprojekt, UUID> {
     @Query("SELECT kundenprojekt from Kundenprojekt kundenprojekt where kundenprojekt.manager.id=:managerId")
-    public List<KundenprojektDTO> findKundenprojektByManagerId(@Param("managerId") UUID ManagerId);
+    public List<Kundenprojekt> findKundenprojektByManagerId(@Param("managerId") UUID ManagerId);
 
 
 

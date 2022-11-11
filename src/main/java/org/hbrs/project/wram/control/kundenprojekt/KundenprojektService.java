@@ -21,7 +21,7 @@ public class KundenprojektService {
         return this.kundenprojektRepository.save(kundenprojekt);
     }
 
-    public List<KundenprojektDTO> findAllKundenprojektByManagerId(UUID id){
+    public List<Kundenprojekt> findAllKundenprojektByManagerId(UUID id){
         return kundenprojektRepository.findKundenprojektByManagerId(id);
     }
 }

@@ -1,8 +1,23 @@
 package org.hbrs.project.wram.views.routes.manager;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.PostConstruct;
+
+import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
+import org.hbrs.project.wram.control.manager.ManagerService;
+import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
+import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
+import org.hbrs.project.wram.model.manager.ManagerRepository;
+import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -10,26 +25,10 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import lombok.extern.slf4j.Slf4j;
-import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.control.manager.ManagerService;
-import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
-import org.hbrs.project.wram.model.manager.ManagerRepository;
-import org.hbrs.project.wram.model.user.UserDTO;
-import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.views.common.layouts.AppView;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @CssImport("./styles/views/main/main-view.css")
 @PageTitle("Meine Projekte")
@@ -39,7 +38,7 @@ public class ProjectsOverview extends Div {
 
     private H1 header;
 
-    private List<KundenprojektDTO> kundenprojektDTOS = new ArrayList<>();
+    private List<Kundenprojekt> kundenprojektDTOS = new ArrayList<>();
 
     @Autowired
     KundenprojektService kundenprojektService;
@@ -52,29 +51,32 @@ public class ProjectsOverview extends Div {
 
     @Autowired
     UserService userService;
-    public ProjectsOverview() {
+
+    @PostConstruct
+    public void init() {
         header = new H1("Hier siehst du deine Projekte");
-        /*UUID uuidUser =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        UUID  uuidM = managerRepository.findByUserId(uuidUser).getId();
-        kundenprojektDTOS =  kundenprojektService.findAllKundenprojektByManagerId(uuidM);*/
+        UUID uuidUser = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        UUID uuidM = managerRepository.findByUserId(uuidUser).getId();
+        kundenprojektDTOS =  kundenprojektService.findAllKundenprojektByManagerId(uuidM);
         add(header, setUpGrid());
     }
-
-
-
+   
+   /** 
+    * @return Component
+    */
    private Component setUpGrid() {
-        Grid<KundenprojektDTO> grid = new Grid<>();
+        Grid<Kundenprojekt> grid = new Grid<>();
 
         // Befüllen der Tabelle mit den zuvor ausgelesenen Projekt
-        ListDataProvider<KundenprojektDTO> dataProvider = new ListDataProvider<>(kundenprojektDTOS);
+        ListDataProvider<Kundenprojekt> dataProvider = new ListDataProvider<>(kundenprojektDTOS);
         grid.setDataProvider(dataProvider);
 
         // Projekt name
-        Grid.Column<KundenprojektDTO> projektnameColumn = grid.addColumn(KundenprojektDTO::getProjektname).setHeader("Projektname").setWidth("225px");
+        Grid.Column<Kundenprojekt> projektnameColumn = grid.addColumn(Kundenprojekt::getProjektname).setHeader("Projektname").setWidth("225px");
         // Projekt
-        Grid.Column<KundenprojektDTO> statusColumn = grid.addColumn(KundenprojektDTO::isPublicProjekt).setHeader("Status").setWidth("225px");
+        Grid.Column<Kundenprojekt> statusColumn = grid.addColumn(Kundenprojekt::isPublicProjekt).setHeader("Status").setWidth("225px");
         // Projekt bearbeiten
-        Grid.Column<KundenprojektDTO> editColumn = grid.addComponentColumn(kundenprojekt -> {
+        Grid.Column<Kundenprojekt> editColumn = grid.addComponentColumn(kundenprojekt -> {
            Button bearbeiten = new Button( VaadinIcon.PENCIL.create());
            bearbeiten.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
            bearbeiten.addClickListener(e ->
@@ -85,11 +87,15 @@ public class ProjectsOverview extends Div {
         editColumn.setHeader("Kundenprojekt bearbeiten");
 
 
-        return  grid;
+        return grid;
     }
 
+    
+    /** 
+     * @param kundenprojekt
+     */
     //Navigiert zur Seite, wo Kundenprojekt geändert werden kann.
-    private void editJKundenprojekt(KundenprojektDTO kundenprojekt) {
+    private void editJKundenprojekt(Kundenprojekt kundenprojekt) {
     }
 
 }
