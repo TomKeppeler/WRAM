@@ -1,10 +1,6 @@
 ## WRAM - Webbasiertes Rationalisierungsmittel
 ### 2022 WS - Wirtschaftsinformatik-Projekt (Prof. Dr. Goodarz Mahbobi)
-
-
 ![Web application Company Logo](.\docs\usability\WAC_Logo.svg)
-
-
 <hr width="50%" align="left">
 
 Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesch](https://git.fslab.de/llesch2s), [Sophia Nowicki](https://git.fslab.de/snowic2s), [Tom Keppeler](https://git.fslab.de/tkeppe2s), [Leon Wagner](https://git.fslab.de/lwagne2s), [Kilian Villa](https://git.fslab.de/kvilla2s), [Salah Khalosi](https://git.fslab.de/skhalo2s)
@@ -73,6 +69,7 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 <hr width="50%" align="left">
 
 ### Test-Manager
+[Test Dokumentation inkl. Test Konzept](https://docs.google.com/document/d/1-hz5NJ878a1RPqRESkYTLC8AO6diTkPUrkZgNoPmfDM/edit)
 
 [Login & Logout Test](https://hochschulebonnrheinsieg-my.sharepoint.com/:x:/g/personal/salah_khalosi_365h-brs_de/EWfZ55W957xPsiWK0hXYcoABlLVy3bwomjh1CFXB2BBGVw?e=MF0aro)
 
