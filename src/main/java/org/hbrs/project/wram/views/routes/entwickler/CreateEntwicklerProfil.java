@@ -103,7 +103,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
         RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
 
-        formLayout.add(title, image, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
+        formLayout.add(title/*, image*/, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
