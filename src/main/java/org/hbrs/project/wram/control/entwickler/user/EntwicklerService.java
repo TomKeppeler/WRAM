@@ -17,10 +17,18 @@ public class EntwicklerService {
     @Autowired
     private EntwicklerRepository entwicklerRepository;
 
+    /**
+     * @param entwickler
+     * @return : saves a entwickler entity in the database
+     */
     public Entwickler doCreatEntwickler(Entwickler entwickler) {
         return this.entwicklerRepository.save(entwickler);
     }
 
+    /**
+     * @param userId
+     * @return : corrsponding Entwickler Entity for given UUID
+     */
     public Entwickler getByUserId(UUID userId) {
         if(userId == null) {
             new Notification("userId is null!!!");

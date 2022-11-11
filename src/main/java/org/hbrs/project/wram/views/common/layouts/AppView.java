@@ -17,7 +17,6 @@ import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.hbrs.project.wram.views.routes.reviewer.EntwicklerZuweisen;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
@@ -45,6 +44,7 @@ import com.vaadin.flow.server.PWA;
 
 /**
  * The main view is a top-level placeholder for other views.
+ * It can be embedded, by changing the value declarer of @Route to this class
  */
 @CssImport("./styles/views/main/main-view.css")
 @Route(Constants.Pages.LANDING_PAGE)
@@ -67,6 +67,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         setUpUI();
     }
 
+
+    /**
+     * responsible for adding all generated Components to this View
+     */
     public void setUpUI() {
         // Anzeige des Toggles über den Drawer
         setPrimarySection(Section.DRAWER);
@@ -79,6 +83,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         addToDrawer(createDrawerContent(menu));
     }
 
+    /**
+     * @return boolean: checks if User is in session.
+     */
     private boolean checkIfUserIsLoggedIn() {
         // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
         // gelenkt
