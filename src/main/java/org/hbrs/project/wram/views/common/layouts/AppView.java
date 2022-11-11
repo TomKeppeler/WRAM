@@ -83,10 +83,11 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
         // gelenkt
         UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        if (userID == null) {
+        boolean checkUser = (userID == null);
+        if (checkUser) {
             UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);
         }
-        return true;
+        return checkUser;
     }
 
     /**
