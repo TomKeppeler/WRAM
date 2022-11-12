@@ -84,7 +84,7 @@ public class RegistrationForm extends VerticalLayout {
      */
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
-            if (userDTOBinder.validate().isOk()) {
+            if (validateFields()) {
                 UserDTO userDTO = userDTOBinder.getBean();
                 userDTO.setPassword(Encryption.sha256(userDTO.getPassword()));
                 if (this.userService.isEmailAlreadyInDatabase(userDTO)) {
@@ -125,7 +125,11 @@ public class RegistrationForm extends VerticalLayout {
         };
     }
 
-    
+    private boolean validateFields() {
+        return (entwicklerDTOBinder.validate().isOk()||managerDTOBinder.validate().isOk()||reviewerDTOBinder.validate().isOk())&userDTOBinder.validate().isOk();
+    }
+
+
     /** 
      * @param userDTO
      */
@@ -173,48 +177,48 @@ public class RegistrationForm extends VerticalLayout {
 
     private void bindFields() {
         entwicklerDTOBinder.forField(firstname)
-                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
                 .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getFirstname, EntwicklerDTO::setFirstname);
         entwicklerDTOBinder.forField(name)
-                .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
                 .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getName, EntwicklerDTO::setName);
 
         managerDTOBinder.forField(firstname)
-                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
                 .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
                 .bind(ManagerDTO::getFirstname, ManagerDTO::setFirstname);
         managerDTOBinder.forField(name)
-                .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
                 .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
                 .bind(ManagerDTO::getName, ManagerDTO::setName);
 
         reviewerDTOBinder.forField(firstname)
-                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
                 .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
                 .bind(ReviewerDTO::getFirstname, ReviewerDTO::setFirstname);
         reviewerDTOBinder.forField(name)
-                .withValidator(bindername -> bindername.length() > 0, "Bitte Vornamen angeben!")
+                .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
                 .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
                 .bind(ReviewerDTO::getName, ReviewerDTO::setName);
 
         userDTOBinder.forField(username)
-                .withValidator(e -> e.length() > 0, "Bitte Username angeben!")
+                .withValidator(e -> e.length() > 0, "Bitte Username angeben")
                 .bind(UserDTO::getUsername, UserDTO::setUsername);
         userDTOBinder.forField(passwort)
-                .withValidator(e -> e.length() > 0, "Bitte Passwort angeben!")
+                .withValidator(e -> e.length() > 0, "Bitte Passwort angeben")
                 .withValidator(RegisterControl::passwortCheck,
                         "Mind. 8 Zeichen, davon mind. eine Ziffer und ein Großbuchstabe")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
         userDTOBinder.forField(passwortWiederholung)
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.length() > 0,
-                        "Bitte Passwort wiederholen!")
+                        "Bitte Passwort wiederholen")
                 .withValidator(binderpasswortwiederholen -> binderpasswortwiederholen.equals(passwort.getValue()),
                         "Passwörter stimmen nicht überein")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
         userDTOBinder.forField(email)
-                .withValidator(e -> e.length() > 0, "Bitte Email angeben!")
+                .withValidator(e -> e.length() > 0, "Bitte Email angeben")
                 .withValidator(Utils::emailadresseCheck, "Email Muster ungültig")
                 .bind(UserDTO::getEmail, UserDTO::setEmail);
     }
