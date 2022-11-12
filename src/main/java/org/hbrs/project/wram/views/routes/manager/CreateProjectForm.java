@@ -11,6 +11,7 @@ import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -35,7 +36,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     private H2 title;
 
     private TextField projektname;
-    private TextField skills;
+    private TextArea skills;
     private TextArea projektbeschreibung;
 
     RadioButtonGroup<String> oeff;
@@ -57,14 +58,29 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     private void init() {
 
         add(createFormLayout());
-        bindFields();
+        validateFields();
         clearForm();
-        // Kommentar: Listener in der Createformlayout funktionieren nicht, hängt vmtl mit postconstruct zusammen
+        setMaxCharForFields();
+
         bestätigungsknopf.addClickListener(e -> {
-            saveKundenprojekt(createKundenprojekt());
-            navigateToAppView();
+            if(kundenprojektDTOBinder.validate().isOk()){
+                saveKundenprojekt(createKundenprojekt());
+                navigateToAppView();
+            }else{Notification.show("Bitte überprüfen Sie die Eingaben.");}
         });
 
+    }
+
+    private void validateFields() {
+        kundenprojektDTOBinder.forField(projektname)
+                .withValidator(binderProjektname -> !binderProjektname.isEmpty(), "Bitte Projektname angeben").asRequired()
+                .bind(KundenprojektDTO::getProjektname, KundenprojektDTO::setProjektname);
+        kundenprojektDTOBinder.forField(skills)
+                .withValidator(binderSkills -> !binderSkills.isEmpty(), "Bitte Skills angeben").asRequired()
+                .bind(KundenprojektDTO::getSkills, KundenprojektDTO::setSkills);
+        kundenprojektDTOBinder.forField(projektbeschreibung)
+                .withValidator(binderProjektbeschreibung -> !binderProjektbeschreibung.isEmpty(), "Bitte Projekteschreibung angeben").asRequired()
+                .bind(KundenprojektDTO::getProjektbeschreibung, KundenprojektDTO::setProjektbeschreibung);
     }
 
     private void navigateToAppView() {
@@ -77,7 +93,9 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         title = new H2("Erstelle ein neues Projekt.");
         projektname = new TextField();
         projektname.setPlaceholder("Projektname");
-        skills = new TextField();
+
+        skills = new TextArea();
+        skills.setWidthFull();
         skills.setPlaceholder("Erforderliche Skills");
 
         projektbeschreibung = new TextArea();
@@ -86,7 +104,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         // Radiobutton für rolle
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Soll das Projekt veröffentlicht werden?");
-        oeff.setItems("veroeffentlichen", "nicht veroeffentlichen");
+        oeff.setItems("veroeffentlichen", "noch nicht veroeffentlichen");
         oeff.setValue("veroeffentlichen");
         oeff.setEnabled(true);
 
@@ -94,7 +112,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         bestätigungsknopf = new Button("Jetzt Erstellen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
      //   bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
-        RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
+        RouterLink appView = new RouterLink("Zu meiner Projektübersicht", ProjectsOverview.class);
         formLayout.add(title, projektname, skills, projektbeschreibung, oeff, bestätigungsknopf, appView);
 
         // Max width of the Form
@@ -149,15 +167,36 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         }
     }
 
-    private void bindFields() {
-
-    }
-
     private void clearForm() {
         kundenprojektDTOBinder.setBean(new KundenprojektDTO());
     }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
+    }
+
+    private void setMaxCharForFields() {
+        int charLimitProjektName = 40;
+        projektname.setMaxLength(charLimitProjektName);
+        projektname.setHelperText("0/" + charLimitProjektName);
+        projektname.setValueChangeMode(ValueChangeMode.EAGER);
+        projektname.addValueChangeListener(e ->
+                e.getSource().setHelperText(e.getValue().length() + "/" + charLimitProjektName)
+        );
+
+        int charLimit = 1000;
+        skills.setMaxLength(charLimit);
+        skills.setHelperText("0/" + charLimit);
+        skills.setValueChangeMode(ValueChangeMode.EAGER);
+        skills.addValueChangeListener(e ->
+                e.getSource().setHelperText(e.getValue().length() + "/" + charLimit)
+        );
+
+        projektbeschreibung.setMaxLength(charLimit);
+        projektbeschreibung.setHelperText("0/" + charLimit);
+        projektbeschreibung.setValueChangeMode(ValueChangeMode.EAGER);
+        projektbeschreibung.addValueChangeListener(e ->
+                e.getSource().setHelperText(e.getValue().length() + "/" + charLimit)
+        );
     }
 }
