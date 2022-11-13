@@ -93,6 +93,8 @@ public class ProjectsOverview extends Div {
      */
     //Navigiert zur Seite, wo Kundenprojekt geändert werden kann.
     private void editJKundenprojekt(Kundenprojekt kundenprojekt) {
+        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_PROJECT, kundenprojekt);
+        UI.getCurrent().navigate(Constants.Pages.PROJECT_DETAIL);
     }
 
 }

@@ -3,6 +3,8 @@ package org.hbrs.project.wram.util;
 public class Constants {
     public static String CURRENT_USER = "current_User";
 
+    public static String CURRENT_PROJECT = "current_Project";
+
     public static class Pages {
         public static final String MAIN_VIEW = "";
         public static final String PROJECTS_OVERVIEW = "all-projects";
@@ -13,6 +15,7 @@ public class Constants {
         public static final String LOGIN_VIEW = "login";
 
         public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
+        public static final String PROJECT_DETAIL = "projektdetails";
     }
 
     public static class Roles {
