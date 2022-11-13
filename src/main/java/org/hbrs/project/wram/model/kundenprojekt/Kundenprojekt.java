@@ -33,12 +33,15 @@ public class Kundenprojekt extends BaseEntity {
         foreignKey = @ForeignKey(name = "fk_manager_id"))
     private Manager manager;
 
+    @NotNull
     @Column(name = "projektname")
     private String projektname;
 
-    @Column(name = "projektbeschreibung")
+    @NotNull
+    @Column(name = "projektbeschreibung", columnDefinition = "varchar(1000)")
     private String projektbeschreibung;
 
+    @NotNull
     @Column(name = "skills")
     private String skills;
 
