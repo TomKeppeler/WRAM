@@ -185,11 +185,11 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         );
 
         int charLimit = 1000;
-        skills.setMaxLength(charLimit);
-        skills.setHelperText("0/" + charLimit);
+        skills.setMaxLength(255);
+        skills.setHelperText("0/" + 255);
         skills.setValueChangeMode(ValueChangeMode.EAGER);
         skills.addValueChangeListener(e ->
-                e.getSource().setHelperText(e.getValue().length() + "/" + charLimit)
+                e.getSource().setHelperText(e.getValue().length() + "/" + 255)
         );
 
         projektbeschreibung.setMaxLength(charLimit);
