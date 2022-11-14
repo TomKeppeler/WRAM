@@ -42,11 +42,11 @@ import lombok.extern.slf4j.Slf4j;
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
 @Slf4j
-public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
+public class    CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     private H3 title;
     // private IntegerField photo;
-    private TextField entwicklerTelnr;
+    private TextField entwicklerTelnr; //todo telefon feld ergänzen
     private TextField entwicklerskills;
 
 
@@ -130,6 +130,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     }
 
     private void saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
+        //TODO: prüfen der eingabe
         this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
     }
     /*

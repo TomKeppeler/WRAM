@@ -11,11 +11,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginControl {
 
+    // um User von der DB zu hollen
     @Autowired
     private UserRepository repository;
 
+    // wird von DB mitls  authenticateUser() geholt
     private User currentUser = null;
 
+    /**
+     *  prüft ob user vorhanden mit getUsergetUser()
+     * @param username für Login
+     * @param password
+     * @return true falls der user vorhanden ist false falls nicht
+     * @throws Exception wird von getUser() delegiert
+     */
     public boolean authenticateUser(String username, String password) throws Exception {
         User user=getUser(username,password);
         if (user == null) {
@@ -26,6 +35,13 @@ public class LoginControl {
         return true;
     }
 
+    /**
+     * wird in  authenticateUser() benutzt um user von DB zu hollen
+     * @param username
+     * @param password
+     * @return gibt ein user zurück
+     * @throws Exception falls spring nicht funktioniert
+     */
     private @Nullable User getUser(String username, String password) throws Exception {
         User user;
         try {
@@ -37,6 +53,10 @@ public class LoginControl {
         return user;
     }
 
+    /**
+     *
+     * @return gibt ein user zurück was bei  authenticateUser() geholt wurde
+     */
     public User getCurrentUser() {
         return this.currentUser;
     }
