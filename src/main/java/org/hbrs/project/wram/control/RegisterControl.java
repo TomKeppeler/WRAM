@@ -1,3 +1,8 @@
+/**
+ * @outhor Salah & Sophia
+ * @vision 1.0
+ * @Zuletzt_bearbeiret: 14.11.22 by Salah
+ */
 package org.hbrs.project.wram.control;
 
 import org.hbrs.project.wram.control.factory.EntityFactory;

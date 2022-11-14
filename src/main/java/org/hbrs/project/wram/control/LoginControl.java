@@ -1,8 +1,17 @@
-
+/**
+ * @outhor Salah & Sophia
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 14.11.22 by Salah
+ */
 
 package org.hbrs.project.wram.control;
 
 
+/**
+ * @outhor Salah Kahlosi & Sophia
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 14.11.22 by Salah
+ */
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Encryption;
