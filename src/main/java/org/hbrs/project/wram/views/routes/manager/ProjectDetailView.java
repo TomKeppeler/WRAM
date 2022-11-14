@@ -1,6 +1,5 @@
 package org.hbrs.project.wram.views.routes.manager;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -70,7 +69,13 @@ public class ProjectDetailView extends Div {
         });
     }
 
-
+    /**
+     * Die Methode erzeugt ein VerticalLayout mit den Feldern Projektname, Skills und
+     * Projektbeschreibung. Es werden die Werte des aktuellen Projektes eingesetzt.
+     * Ein Bestätigungsbutton wird erzeugt.
+     *
+     * @return VerticalLayout
+     */
     private VerticalLayout createFormLayout() {
         VerticalLayout layout = new VerticalLayout();
 
@@ -100,15 +105,33 @@ public class ProjectDetailView extends Div {
         return layout;
     }
 
+    /**
+     * Die Methode dient dazu, nach dem klicken auf den Button zum updaten von Kundenprojekten
+     * zurück auf die View mit allen Projekten zu gelangen.
+     */
     private void navigateToAppView() {
         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW);
         Notification.show("Projekt wurde erfolgreich geupdated.", 3000, Notification.Position.MIDDLE);
     }
 
+    /**
+     * Die Methode nimmt ein kundenprojekt entegegen und speichert dieses mit Hilfe
+     * eines KundenprojektServices über das Repository in der Datenbank ab.
+     * Die Methode wird aufgerufen, wenn der Button geklickt wird.
+     *
+     * @param kundenprojekt
+     */
     private void saveKundenprojekt(Kundenprojekt kundenprojekt) {
         this.kundenprojektServices.doCreateKundenprojekt(kundenprojekt);
     }
 
+    /**
+     * Die Methode dient dazu eine Entität der Klasse Kundenprojekt zu erstellen.
+     * Die Werte werden aus den Eingabefeldern der View entnommen und mithilfe eines
+     * Builders wird ein neues Kundenprojekt erstellt.
+     *
+     * @return kundenprojekt, welches anschließend gespeichert werden soll
+     */
     private Kundenprojekt createKundenprojekt() {
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
@@ -129,6 +152,10 @@ public class ProjectDetailView extends Div {
         return k;
     }
 
+    /**
+     * Die Methode dient dazu, ein Limit an Zeichen für die Eingabefelder zu setzen.
+     * Zudem wird eine Statusanzeige als Helpertext unterhalb der Eingabefelder angezeigt.
+     */
     private void setMaxCharForFields() {
         int charLimitProjektName = 40;
         projektname.setMaxLength(charLimitProjektName);
@@ -154,6 +181,10 @@ public class ProjectDetailView extends Div {
         );
     }
 
+    /**
+     * Die Methode dient dazu, die Textfelder beim updaten von Kundenprojekten zu validieren.
+     * Dazu wird ein Binder verwendet, welcher jedes Eingabefeld prüft.
+     */
     private void validateFields() {
         kundenprojektDTOBinder.forField(projektname)
                 .withValidator(binderProjektname -> !binderProjektname.isEmpty(), "Bitte Projektname angeben").asRequired()
