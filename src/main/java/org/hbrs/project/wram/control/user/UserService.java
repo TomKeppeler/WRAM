@@ -53,14 +53,6 @@ public class UserService {
         return userRepository.isUsernameInUse(userDTO.getUsername());
     }
 
-    
-  
-    public static boolean passwortCheck(String passwort){
-        boolean longEnough = passwort.length() > 7;
-        boolean hasNumber = Utils.hasNumber(passwort);
-        boolean hasUppercaseLetter = Utils.hasUpperCaseLetter(passwort);
-        return longEnough && hasNumber && hasUppercaseLetter;
-    }
 
     public String getRolle(){
         Manager manager = managerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
