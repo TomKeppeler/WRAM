@@ -20,22 +20,41 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegisterControl {
 
+    //um ein User um DB zu speichern
     @Autowired
     private UserRepository userRepository;
+
+    //um ein Entwickler um DB zu speichern
     @Autowired
     private EntwicklerRepository entwicklerRepository;
+
+    //um ein Reviewer um DB zu speichern
     @Autowired
     private ReviewerRepository reviewerRepository;
+
+    //um ein Manager um DB zu speichern
     @Autowired
     private ManagerRepository managerRepository;
 
 
+    /**
+     * Prüfe ob passwort >8 und ein grossen und kein Buchstabe hat
+     * @param passwort
+     * @return gibt True falls alle Anforderungen erfüllt sind
+     */
     public static boolean passwortCheck(String passwort){
         boolean longEnough = passwort.length() > 7;
         boolean hasNumber = Utils.hasNumber(passwort);
         boolean hasUppercaseLetter = Utils.hasUpperCaseLetter(passwort);
         return longEnough && hasNumber && hasUppercaseLetter;
     }
+
+    /**
+     * user und Entwickler werden mittels Repository in DB gespeichert
+     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
+     * @param entwicklerDTO  wird vorher mittels  createEntwickler() zu Entity umgewandelt
+     * @return true falls beide Entity erfolgreich gespeichert
+     */
     public boolean saveUserAndEntwickler(UserDTO userDTO, EntwicklerDTO entwicklerDTO) {
         // Mithilfe der Methode createUser erzeugen wir eine User-Entity, die
         // dann in der Datenbank abgespeichert wird
@@ -46,6 +65,12 @@ public class RegisterControl {
         return true;
     }
 
+    /**
+     * * user und Manager werden mittels Repository in DB gespeichert
+     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
+     * @param managerDTO wird vorher mittels  createManager() zu Entity umgewandelt
+     * @return true falls beide Entity erfolgreich gespeichert
+     */
     public boolean saveUserAndManager(UserDTO userDTO, ManagerDTO managerDTO){
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
@@ -54,6 +79,12 @@ public class RegisterControl {
         return true;
     }
 
+    /**
+     * * user und Reviewer werden mittels Repository in DB gespeichert
+     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
+     * @param reviewerDTO wird vorher mittels  createReviewer() zu Entity umgewandelt
+     * @return true falls beide Entity erfolgreich gespeichert
+     */
     public boolean saveUserAndReviewer(UserDTO userDTO, ReviewerDTO reviewerDTO){
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
@@ -61,16 +92,4 @@ public class RegisterControl {
         reviewerRepository.save(reviewer);
         return true;
     }
-
-
-
-    // Überprüfen, ob übergebene userDTO-Email schon in der Datenbank vorhanden ist
-    public boolean isEmailAlreadyInDatabase(UserDTO userDTO) {
-        return userRepository.isEmailInUse(userDTO.getEmail());
-    }
-
-    public boolean isUsernameAlreadyInDatabase(UserDTO userDTO) {
-        return userRepository.isUsernameInUse(userDTO.getUsername());
-    }
- 
 }
