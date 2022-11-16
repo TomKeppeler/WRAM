@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.control.manager.ManagerService;
@@ -72,8 +73,8 @@ public class ProjectsOverview extends Div {
 
         // Projekt name
         Grid.Column<Kundenprojekt> projektnameColumn = grid.addColumn(Kundenprojekt::getProjektname).setHeader("Projektname").setWidth("225px");
-        // Projekt
-        Grid.Column<Kundenprojekt> statusColumn = grid.addColumn(Kundenprojekt::isPublicProjekt).setHeader("Status").setWidth("225px");
+        // Projekt öffentlich
+        grid.addComponentColumn(kundenprojekt -> createStatusIcon(kundenprojekt.isPublicProjekt())).setHeader("Projekt öffentlich");
         // Projekt bearbeiten
         Grid.Column<Kundenprojekt> editColumn = grid.addComponentColumn(kundenprojekt -> {
            Button bearbeiten = new Button( VaadinIcon.PENCIL.create());
@@ -97,4 +98,17 @@ public class ProjectsOverview extends Div {
         UI.getCurrent().navigate(Constants.Pages.PROJECT_DETAIL);
     }
 
+    private Icon createStatusIcon(boolean status) {
+        boolean isAvailable = status;
+        Icon icon;
+        if (isAvailable) {
+            icon = VaadinIcon.CHECK.create();
+            icon.getElement().getThemeList().add("badge success");
+        } else {
+            icon = VaadinIcon.CLOSE_SMALL.create();
+            icon.getElement().getThemeList().add("badge error");
+        }
+        icon.getStyle().set("padding", "var(--lumo-space-xs");
+        return icon;
+    }
 }
