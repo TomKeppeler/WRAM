@@ -78,6 +78,5 @@ public class Entwickler extends BaseEntity {
             return false;
         return true;
     }
-
     
 }

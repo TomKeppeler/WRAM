@@ -2,6 +2,7 @@ package org.hbrs.project.wram.model.reviewer;
 
 import java.util.UUID;
 
+import lombok.Builder;
 import org.hbrs.project.wram.model.user.User;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ReviewerDTO {
     private UUID id;
     private String name;
