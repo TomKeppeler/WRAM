@@ -15,7 +15,8 @@ import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
-import org.hbrs.project.wram.views.routes.reviewer.EntwicklerZuweisen;
+import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
+import org.hbrs.project.wram.views.routes.reviewer.ReviewerProjektView;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -205,7 +206,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         }
         else if (userService.getRolle() =="r") {
             logger.log(Level.INFO, "User is \"Reviewer\"!");
-            tabs = Utils.append( tabs , createTab("X", EntwicklerZuweisen.class));
+            tabs = Utils.append( tabs , createTab("X", ReviewerEntwicklerView.class));
+            tabs = Utils.append( tabs , createTab("Kundenprojekte", ReviewerProjektView.class));
         }
 
 

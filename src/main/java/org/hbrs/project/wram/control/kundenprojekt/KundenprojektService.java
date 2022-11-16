@@ -6,6 +6,7 @@ import org.hbrs.project.wram.model.kundenprojekt.KundenprojektRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,4 +23,16 @@ public class KundenprojektService {
     public List<Kundenprojekt> findAllKundenprojektByManagerId(UUID id){
         return kundenprojektRepository.findKundenprojektByManagerId(id);
     }
+
+    public List<Kundenprojekt> findAllPublicKundenprojekt(){
+        List<Kundenprojekt> erg = new ArrayList<>();
+        List<Kundenprojekt> temp = kundenprojektRepository.findAll();
+        for(Kundenprojekt k:temp){
+            if(k.isPublicProjekt()){
+                erg.add(k);
+            }
+        }
+        return erg;
+    }
+
 }

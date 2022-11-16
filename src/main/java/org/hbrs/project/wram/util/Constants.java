@@ -16,6 +16,7 @@ public class Constants {
 
         public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
         public static final String PROJECT_DETAIL = "projektdetails";
+        public static final String REVIEWERPROJEKTE = "projekte";
     }
 
     public static class Roles {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -43,5 +44,13 @@ public class EntwicklerService {
 
     public void deleteEntwicklerById(UUID id) {
         this.entwicklerRepository.deleteById(id);
+    }
+
+    /**
+     * Diese Methode dient dazu mithilfe eines Repositorys alle Entwickler aus der Datenbank auszulesen.
+     * @return Eine Liste aller Entwickler
+     */
+    public List<Entwickler> findAllEntwickler(){
+        return entwicklerRepository.findAll();
     }
 }

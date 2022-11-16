@@ -16,7 +16,4 @@ public interface KundenprojektRepository extends JpaRepository<Kundenprojekt, UU
     @Query("SELECT kundenprojekt from Kundenprojekt kundenprojekt where kundenprojekt.manager.id=:managerId")
     public List<Kundenprojekt> findKundenprojektByManagerId(@Param("managerId") UUID ManagerId);
 
-
-
-
 }
