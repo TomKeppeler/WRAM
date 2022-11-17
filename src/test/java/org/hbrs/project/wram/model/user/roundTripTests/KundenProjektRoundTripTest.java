@@ -35,33 +35,31 @@ class KundenProjektRoundTripTest {
     User user = new User();
     User userInDB;
     Manager manager = new Manager();
-    Manager manager2;
     Kundenprojekt kundenprojekt = new Kundenprojekt();
-
-    @BeforeEach
-    void setUp(){
-        user = User.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
-        userService.doCreateUser(user);
-        userInDB = userService.findUserByUsernameAndPassword("maxMuster", "testpw12");
-        manager = Manager.builder().firstname("hans").name("Hans").user(user).build();
-        managerService.doCreateManager(manager);
-        manager2 = managerService.findManagerByUserId(userInDB.getId());
-
-    }
 
 
     @Test
     void KundenProjektRoundTrip() {
+        user = User.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
+        userService.doCreateUser(user);
+        userInDB = userService.findUserByUsernameAndPassword("maxMuster", "testpw12");
+        manager = Manager.builder().firstname("hans").name("Hans").user(user).build();
+        //create
+        managerService.doCreateManager(manager);
+        //read
+        Manager manager2 = managerService.findManagerByUserId(userInDB.getId());
         kundenprojekt = Kundenprojekt.builder().projektname("test").manager(manager2).build();
         kundenprojektService.doCreateKundenprojekt(kundenprojekt);
-
         //löschen des Projektes und des Managers+Users
         List<Kundenprojekt> kid = kundenprojektService.findAllKundenprojektByManagerId(manager2.getId());
         for(Kundenprojekt k : kid){
             kundenprojektRepository.delete(k);
         }
+        //delete
         managerService.deleteManagerById(manager2.getId());
+        //userService.deleteUserById(userInDB.getId()); -> passiert automatisch
     }
+
 
     @Test
     void findAllPublicKundenprojektTest(){
