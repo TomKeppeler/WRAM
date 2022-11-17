@@ -37,6 +37,10 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     @Autowired
     private LoginControl loginControl;
 
+    /**
+     * sets up the UI, namely the Login Form.
+     * it also handles excpetions as loggin in with an unregistered username or wrong password.
+     */
     @PostConstruct
     private void init() {
       setSizeFull();
@@ -85,6 +89,10 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     }
 
+    /*
+    * manages session during log in.
+    * the global constant CURRENT_USER is used for session handling.
+     */
     private void grabAndSetUserIntoSession() {
         //User und Entwickler/Manager/Reviews werden gesetzt
         // TODO: 27.10.2022 setAttribute für Entwickler/Manager/Reviews
@@ -95,10 +103,12 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     }
 
+    // This method navigates to the individual Landing Page of the user.
     private void navigateToMainPage() {
-        // TODO: 27.10.2022 Navigation zur individuelle Landing Page (je nach Rolle)
         UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW);
     }
+
+    // This method redirects users that are not logged in
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (this.loginControl.getCurrentUser() != null) {

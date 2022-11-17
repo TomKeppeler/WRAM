@@ -73,6 +73,11 @@ public class LoginControl {
         return this.currentUser;
     }
 
+    /**
+     * sets currentUser object variable of this class.
+     * IMPORTANT: because when rerouting to LoginView, the LoginControl instance is not yet destructed.
+     * And its currentUser object is still set to the currentUser
+     */
     public void logoutUser() {
         this.currentUser = null;
     }
