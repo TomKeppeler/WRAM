@@ -41,6 +41,7 @@ class EntwicklerRoundTripTest {
         Entwickler entwickler2 = entwicklerService.findEntwicklerByUserId(userInDB.getId());
         //compare
         assertEquals(entwickler, entwickler2);
+        assertEquals(entwickler.hashCode(), entwickler.hashCode());
         //delete
         entwicklerService.deleteEntwicklerById(entwickler2.getId());
         //userService.deleteUserById(userInDB.getId()); -> passiert automatisch

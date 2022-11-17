@@ -30,6 +30,7 @@ class UserRoundTripTest {
         User user2 = userService.findUserByUsernameAndPassword("maxMuster","testpw12");
         //compare
         assertEquals(user, user2);
+        assertEquals(user.hashCode(), user.hashCode());
         //delete
         userService.deleteUserById(user2.getId());
     }

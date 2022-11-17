@@ -41,6 +41,7 @@ class ReviewerRoundTripTest {
         Reviewer reviewer2 = reviewerService.findReviewerByUserId(userInDB.getId());
         //compare
         assertEquals(reviewer, reviewer2);
+        assertEquals(reviewer.hashCode(), reviewer.hashCode());
         //delete
         reviewerService.deleteReviewerById(reviewer2.getId());
         //userService.deleteUserById(userInDB.getId()); -> passiert automatisch
