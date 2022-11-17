@@ -1,3 +1,9 @@
+/**
+ * @outhor Salah & Tom
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 17.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.control.user;
 
 import org.hbrs.project.wram.model.user.User;
@@ -6,8 +12,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.Mapping;
 
+
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    /**
+     *
+     * @param user wird zu einem UserDTO gemeppt
+     * @return UserDTO
+     */
     @Mappings(value = {
             @Mapping(target = "id", source = "id"),
             @Mapping(target = "username", source = "username"),

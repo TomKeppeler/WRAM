@@ -1,4 +1,9 @@
-package org.hbrs.project.wram.control.reviewer;
+/**
+ * @outhor Salah & Tom
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 14.11.22 by Salah
+ *
+ */package org.hbrs.project.wram.control.reviewer;
 
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
@@ -7,7 +12,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ReviewerMapper {
-
+    /**
+     *
+     * @param reviewer wird zu einem ReviewerDTO gemeppt
+     * @return ReviewerDTO
+     */
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
     @Mapping(target = "firstname", source = "firstname")

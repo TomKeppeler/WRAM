@@ -1,3 +1,9 @@
+/**
+ * @outhor Salah & Tom
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 17.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.control.entwickler.user;
 
 import org.hbrs.project.wram.model.entwickler.user.Entwickler;
@@ -9,6 +15,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EntwicklerMapper {
 
+    /**
+     *
+     * @param entwickler wir zu einem EntwicklerDTO gemeppt
+     * @return EntwicklerDTO
+     */
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
     @Mapping(target = "firstname", source = "firstname")
