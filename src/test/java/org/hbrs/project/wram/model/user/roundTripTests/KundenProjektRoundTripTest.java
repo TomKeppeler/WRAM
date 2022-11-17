@@ -32,6 +32,7 @@ class KundenProjektRoundTripTest {
     @Autowired
     private KundenprojektRepository kundenprojektRepository;
 
+
     User user = new User();
     User userInDB;
     Manager manager = new Manager();
