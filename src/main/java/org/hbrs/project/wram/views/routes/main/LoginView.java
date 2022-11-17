@@ -14,12 +14,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.Before;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
@@ -29,15 +32,13 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 @Route(value = Constants.Pages.LOGIN_VIEW)
 @RouteAlias(value = Constants.Pages.MAIN_VIEW)
 @Slf4j
-public class LoginView extends VerticalLayout {
+public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     @Autowired
     private LoginControl loginControl;
 
-    @Autowired
-    private UserRepository repository;
-    
-    public LoginView() {
+    @PostConstruct
+    private void init() {
       setSizeFull();
        VerticalLayout layout = new VerticalLayout();
        LoginForm login = new LoginForm();
@@ -96,7 +97,14 @@ public class LoginView extends VerticalLayout {
 
     private void navigateToMainPage() {
         // TODO: 27.10.2022 Navigation zur individuelle Landing Page (je nach Rolle)
-        UI.getCurrent().navigate(Constants.Pages.LANDING_PAGE);
+        UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW);
+    }
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (this.loginControl.getCurrentUser() != null) {
+            this.grabAndSetUserIntoSession();
+            UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW);
+        }
     }
 
 }

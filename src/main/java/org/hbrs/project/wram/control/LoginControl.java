@@ -38,7 +38,7 @@ public class LoginControl {
      * @throws Exception wird von getUser() delegiert
      */
     public boolean authenticateUser(String username, String password) throws Exception {
-        User user=getUser(username,password);
+        User user = getUser(username,password);
         if (user == null) {
             return false;
         } else {
@@ -71,6 +71,10 @@ public class LoginControl {
      */
     public User getCurrentUser() {
         return this.currentUser;
+    }
+
+    public void logoutUser() {
+        this.currentUser = null;
     }
 
 

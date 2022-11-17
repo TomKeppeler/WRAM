@@ -19,8 +19,8 @@ import javax.annotation.PostConstruct;
 
 import org.hbrs.project.wram.util.Constants;
 
-// @Route(value = Constants.Pages.MAIN_VIEW, layout = AppView.class)
-// @RouteAlias(value = "landing", layout = AppView.class)
+@Route(value = Constants.Pages.WELCOME_VIEW, layout = AppView.class)
+@RouteAlias(value = "landing", layout = AppView.class)
 @PageTitle("")
 public class LandingView extends VerticalLayout implements BeforeEnterObserver {
 

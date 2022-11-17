@@ -63,6 +63,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private LoginControl control;
     @Autowired
     private UserService userService;
+
     @PostConstruct
     private void init() {
         setUpUI();
@@ -131,7 +132,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
         // Logout-Button am rechts-oberen Rand.
         MenuBar bar = new MenuBar();
-        MenuItem item = bar.addItem("Logout", e -> logoutUser());
+        bar.addItem("Logout", e -> logoutUser());
         topRightPanel.add(bar);
 
         layout.add(topRightPanel);
@@ -140,7 +141,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     private void logoutUser() {
         UI.getCurrent().getSession().close();
-        UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);
+        control.logoutUser();
+        UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
     }
 
     /**
@@ -250,6 +252,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     }
 
     private String getCurrentPageTitle() {
+        // ToDo: when logging out as
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
@@ -278,7 +281,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
      */
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         if (control.getCurrentUser() == null) {
-            beforeEnterEvent.rerouteTo(Constants.Pages.MAIN_VIEW);
+            beforeEnterEvent.rerouteTo(Constants.Pages.LOGIN_VIEW);
         }
     }
 
