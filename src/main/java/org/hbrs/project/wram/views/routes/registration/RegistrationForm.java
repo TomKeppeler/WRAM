@@ -36,6 +36,10 @@ import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Diese View dient dazu, sich Registrieren zu können.
+ * Dabei kann man sich als Manager, Reviewer oder Entwickler registrieren.
+ */
 @PageTitle("Registrierung")
 @Route(value = Constants.Pages.REGISTRATION)
 @Slf4j
@@ -78,9 +82,13 @@ public class RegistrationForm extends VerticalLayout {
     }
 
     
-    /** 
+    /**
+     * Diese Methode dient dazu einen EventListener zu erzeugen, welcher intern alle
+     * Methoden prüft, die bei der Registrierung wichtig sind.
+     * Sollte alles ok sein, wird der User mit dem dazugehörigen zweiten Datensatz
+     * mithilfe der Controlklasse in der Datenbank gespeichert.
+     *
      * @return ComponentEventListener<ClickEvent<Button>>
-     * 
      */
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
@@ -125,13 +133,20 @@ public class RegistrationForm extends VerticalLayout {
         };
     }
 
+    /**
+     * Diese Methode prüft, ob alle Bindervalidierungen ok sind
+     * @return boolean
+     */
     private boolean validateFields() {
         return (entwicklerDTOBinder.validate().isOk()||managerDTOBinder.validate().isOk()||reviewerDTOBinder.validate().isOk())&userDTOBinder.validate().isOk();
     }
 
 
-    /** 
-     * @param userDTO
+    /**
+     * Diese Methode dient dazu den User nach erfolgreicher Registrierung zur LoginView
+     * weiterzuleiten und ihm eine Nachricht zu schicken, das alles funktioniert hat.
+     *
+     * @param userDTO des neuen Users
      */
     private void setAttributeAndNavigate(UserDTO userDTO) {
         UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO.getId());
@@ -140,9 +155,11 @@ public class RegistrationForm extends VerticalLayout {
                 Notification.Position.MIDDLE);
     }
 
-    
-    /** 
-     * @return Component
+
+    /**
+     * Diese Methode erzeugt das Formlayout, welches Komponenten zur Eingabe bei der Registrierung enthält.
+     *
+     * @return Instanz des Layouts
      */
     public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
@@ -175,6 +192,10 @@ public class RegistrationForm extends VerticalLayout {
         return formLayout;
     }
 
+    /**
+     * Die Methode dient dazu, die Textfelder beim der Registrierung zu validieren und zu binden.
+     * Dazu wird ein Binder verwendet, welcher jedes Eingabefeld prüft.
+     */
     private void bindFields() {
         entwicklerDTOBinder.forField(firstname)
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
@@ -223,6 +244,9 @@ public class RegistrationForm extends VerticalLayout {
                 .bind(UserDTO::getEmail, UserDTO::setEmail);
     }
 
+    /**
+     * Diese Methode dient dazu die Textfelder zu leeren.
+     */
     private void clearForm() {
         userDTOBinder.setBean(new UserDTO());
         entwicklerDTOBinder.setBean(new EntwicklerDTO());
@@ -230,8 +254,10 @@ public class RegistrationForm extends VerticalLayout {
         reviewerDTOBinder.setBean(new ReviewerDTO());
     }
 
-    
-    /** 
+
+    /**
+     * Diese Methode dient dazu, die Eingabefelder als Pflichtfelder zu markieren.
+     *
      * @param components
      */
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {

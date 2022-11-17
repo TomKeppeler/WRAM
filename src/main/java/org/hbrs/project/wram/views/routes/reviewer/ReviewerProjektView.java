@@ -27,6 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Diese View dient dazu einem als Reviwer eingeloggtem User alle öffentlichen Kundenprojekte anzuzeigen.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.REVIEWERPROJEKTE, layout = AppView.class)
 public class ReviewerProjektView extends Div {
@@ -48,6 +52,11 @@ public class ReviewerProjektView extends Div {
         add(layout);
     }
 
+    /**
+     * Diese Methode dient dazu, eine Tabelle mit allen öffentlichen Kundenprojekten anzuzeigen.
+     * Dabei werden Name und Skills eines Kundenprojektes angezeigt.
+     * @return Component Grid
+     */
     private Component setUpGrid() {
         Grid<Kundenprojekt> grid = new Grid<>();
 

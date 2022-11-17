@@ -87,7 +87,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     }
 
-    /*
+    /**
     * manages session during log in.
     * the global constant CURRENT_USER is used for session handling.
      */
@@ -101,12 +101,16 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     }
 
-    // This method navigates to the individual Landing Page of the user.
+    /**T
+     * his method navigates to the individual Landing Page of the user.
+     */
     private void navigateToMainPage() {
         UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW);
     }
 
-    // This method redirects users that are not logged in
+    /**
+     * This method redirects users that are not logged in
+     */
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (this.loginControl.getCurrentUser() != null) {

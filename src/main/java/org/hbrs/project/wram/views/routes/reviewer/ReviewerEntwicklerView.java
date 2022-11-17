@@ -22,7 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Diese View dient dazu einem als Reviwer eingeloggtem User alle Entwickler anzuzeigen.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.ENTWICKLERZUWEISEN, layout = AppView.class)
 public class ReviewerEntwicklerView extends Div {
@@ -47,6 +50,11 @@ public class ReviewerEntwicklerView extends Div {
         add(layout);
     }
 
+    /**
+     * Diese Methode dient dazu, eine Tabelle mit allen Entwicklern anzuzeigen.
+     * Dabei werden Vorname, Name, Skills und die Verfügbarkeit des Entwicklers angezeigt.
+     * @return Component Grid
+     */
     private Component setUpGrid() {
         Grid<Entwickler> grid = new Grid<>();
 

@@ -28,6 +28,10 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
+/**
+ * Diese View dient dazu einem als Manager eingeloggtem User ein Kundenprojekt erstellen können.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
 @PageTitle("Projekte Erstellen")
 @Route(value = Constants.Pages.CREATEPROJECT, layout = AppView.class)
 @Slf4j
@@ -71,6 +75,10 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
     }
 
+    /**
+     * Diese Methode dient dazu die Textfelder zu validieren.
+     * Wenn eine Eingabe falsch ist, wird das Textfeld rot markiert und ein Helpertext angezeigt, was das Problem ist.
+     */
     private void validateFields() {
         kundenprojektDTOBinder.forField(projektname)
                 .withValidator(binderProjektname -> !binderProjektname.isEmpty(), "Bitte Projektname angeben").asRequired()
@@ -83,11 +91,20 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
                 .bind(KundenprojektDTO::getProjektbeschreibung, KundenprojektDTO::setProjektbeschreibung);
     }
 
+    /**
+     * Nach dem Erstellen eines Projektes wird auf die Projektübersicht für Manager angezeigt.
+     * Zudem gibt es eine Benachrichtung, dass das Projekt erstellt wurde.
+     */
     private void navigateToAppView() {
         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW); // Appview
         Notification.show("Projekt erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
+    /**
+     * Diese Methode erzeugt das Formlayout, welches Komponenten zur Eingabe von Kundenprojekten enthält.
+     *
+     * @return Instanz des Layouts
+     */
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
         title = new H2("Erstelle ein neues Projekt.");
@@ -121,6 +138,11 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         return formLayout;
     }
 
+    /**
+     * Diese Methode dient dazu ein Kundenprojekt zu erstellen mithilfe eines Builders werden die Daten
+     * aus den Textfeldern genommen.
+     * @return Kundenprojekt
+     */
     private Kundenprojekt createKundenprojekt() {
         log.info("Das ist die Rückgabe in create:"+ UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
@@ -143,6 +165,11 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
                 .publicProjekt(this.oeff.getValue().equals("veroeffentlichen")).build();
     }
 
+    /**
+     * Diese Methode dient dazu das Kundenprojekt mithilfe eines Services in der Datenbank zu speichern.
+     *
+     * @param kundenprojekt
+     */
     private void saveKundenprojekt(Kundenprojekt kundenprojekt) {
         this.kundenprojektServices.doCreateKundenprojekt(kundenprojekt);
     }
@@ -167,14 +194,26 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         }
     }
 
+    /**
+     * Diese Methode dient dazu die Textfelder zu leeren.
+     */
     private void clearForm() {
         kundenprojektDTOBinder.setBean(new KundenprojektDTO());
     }
 
+    /**
+     * Diese Methode dient dazu, die Eingabefelder als Pflichtfelder zu markieren.
+     *
+     * @param components
+     */
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
     }
 
+    /**
+     * Diese Methode dient dazu als Helpertext unter den Eingabefeldern anzuzeigen,
+     * wie viele Zeichen erlaubt sind.
+     */
     private void setMaxCharForFields() {
         int charLimitProjektName = 40;
         projektname.setMaxLength(charLimitProjektName);

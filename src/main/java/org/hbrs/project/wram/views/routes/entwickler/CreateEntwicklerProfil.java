@@ -38,11 +38,19 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
 import lombok.extern.slf4j.Slf4j;
+
+/**
+ * Diese View dient dazu einem als Entwickler eingeloggtem User ein Profil erstellen können.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ * Der Entwickler hat die Möglichkeit Informationen wie zum Beispiel seine Skills einzugeben.
+ * Wenn ein Profil erstellt wurde, kann dies nachträglich bearbeitet werden.
+ */
+
 @PageTitle("EntwicklerProfilErstellen")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
 @Slf4j
-public class    CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
+public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     private H3 title;
     // private IntegerField photo;
@@ -78,11 +86,20 @@ public class    CreateEntwicklerProfil extends Div implements BeforeEnterObserve
         });
     }
 
+    /**
+     * Wenn ein Profil erstellt worden ist oder es ein update gab,
+     * bekommt der Entwickler eine Benachrichtiung, dass es erfolgreich funktioniert hat.
+     */
     private void navigateToAppView() {
         UI.getCurrent().navigate("Appview"); // Appview
         Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
+    /**
+     * Diese Methode erzeugt das Formlayout, welches Komponenten zur Eingabe von ProfilInformationen enthält.
+     *
+     * @return Instanz des Layouts
+     */
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
 
@@ -110,6 +127,11 @@ public class    CreateEntwicklerProfil extends Div implements BeforeEnterObserve
         return formLayout;
     }
 
+    /**
+     * Diese Methode dient dazu ein Entwicklerprofil zu erstellen mithilfe eines Builders werden die Daten
+     * aus den Textfeldern genommen.
+     * @return
+     */
     private EntwicklerProfil createEntwicklerProfil() {
         log.info("Das ist die Rückgabe in create:" + UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
@@ -129,6 +151,11 @@ public class    CreateEntwicklerProfil extends Div implements BeforeEnterObserve
 
     }
 
+    /**
+     * Diese Methode dient dazu das Entwicklerprofil mithilfe eines Services in der Datenbank zu speichern.
+     *
+     * @param entwicklerProfil
+     */
     private void saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
         //TODO: prüfen der eingabe
         this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);

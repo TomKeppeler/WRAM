@@ -19,6 +19,11 @@ import javax.annotation.PostConstruct;
 
 import org.hbrs.project.wram.util.Constants;
 
+/**
+ * Diese View dient dazu eine Landingpage darzustellen, welche beim Einloggen angezeigt wird.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
+
 @Route(value = Constants.Pages.WELCOME_VIEW, layout = AppView.class)
 @RouteAlias(value = "landing", layout = AppView.class)
 @PageTitle("")
@@ -30,6 +35,12 @@ public class LandingView extends VerticalLayout implements BeforeEnterObserver {
         add(doCreateUI());
     }
 
+    /**
+     * Diese Methode dient dazu die UI in Form einer Komponente zu erstellen, welches anschließend der View
+     * hinzugefügt wird.
+     *
+     * @return component
+     */
     private Component doCreateUI() {
         VerticalLayout container = new VerticalLayout();
         Span textField = new Span();
@@ -39,6 +50,11 @@ public class LandingView extends VerticalLayout implements BeforeEnterObserver {
         return container;
     }
 
+    /**
+     * Diese Methode dient dazu, zu überprüfen, ob ein User wirklich eingeloggt ist, und falls nicht, wird
+     * auf die LoginView zurück navigiert.
+     * Die Methode wird vor dem Anzeigen der View angezeigt.
+     */
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);

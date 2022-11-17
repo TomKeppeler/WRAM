@@ -30,6 +30,11 @@ import java.util.UUID;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
+/**
+ * Diese View dient dazu einem als Manager eingeloggtem User die Möglichkeit zu geben, Kundenprojekte upzudaten.
+ * Die View wird aufgerufen, nachdem der Manager in seiner Projektübersicht bei einem Projekt auf bearbeiten klickt.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
 @PageTitle("Projekt")
 @Route(value = Constants.Pages.PROJECT_DETAIL, layout = AppView.class)
 @Slf4j

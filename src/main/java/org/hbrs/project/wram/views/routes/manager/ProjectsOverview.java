@@ -32,6 +32,10 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Meine Projekte")
 @Route(value = Constants.Pages.PROJECTS_OVERVIEW, layout = AppView.class)
 
+/**
+ * Diese View dient dazu einem als Manager eingeloggtem User alle seine Kundenprojekte anzuzeigen.
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
 public class ProjectsOverview extends Div {
 
     private H2 header;
@@ -61,8 +65,9 @@ public class ProjectsOverview extends Div {
         add(layout);
     }
    
-   /** 
-    * @return Component
+   /**
+    * Diese Methode dient dazu, eine Tabelle mit allen Kundenprojekten vom zugehörigen Manager anzuzeigen.
+    * @return Component Grid
     */
    private Component setUpGrid() {
         Grid<Kundenprojekt> grid = new Grid<>();
@@ -89,15 +94,20 @@ public class ProjectsOverview extends Div {
         return grid;
     }
     
-    /** 
+    /**
+     * Navigiert zur Seite, wo Kundenprojekt geändert werden kann.
      * @param kundenprojekt
      */
-    //Navigiert zur Seite, wo Kundenprojekt geändert werden kann.
     private void editJKundenprojekt(Kundenprojekt kundenprojekt) {
         UI.getCurrent().getSession().setAttribute(Constants.CURRENT_PROJECT, kundenprojekt);
         UI.getCurrent().navigate(Constants.Pages.PROJECT_DETAIL);
     }
 
+    /**
+     * Diese Methode dient dazu in der Grid IconSymbole anzuzeigen.
+     * @param status
+     * @return
+     */
     private Icon createStatusIcon(boolean status) {
         boolean isAvailable = status;
         Icon icon;
