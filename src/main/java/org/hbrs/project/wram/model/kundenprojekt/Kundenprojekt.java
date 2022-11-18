@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Diese Klasse stellt die Entity Kundenprojekt mit ihren Attributen dar.*/
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

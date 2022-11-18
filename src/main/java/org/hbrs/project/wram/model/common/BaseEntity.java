@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** Diese Klasse stellt die Standard-Entity mit ihren Attributen dar.*/
+
 @Getter
 @Setter
 @ToString

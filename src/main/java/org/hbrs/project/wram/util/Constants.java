@@ -1,5 +1,7 @@
 package org.hbrs.project.wram.util;
 
+/** Page, Role & Error Constants*/
+
 public class Constants {
     public static String CURRENT_USER = "current_User";
 

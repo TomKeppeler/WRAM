@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
+/** Diese Klasse ist eine Serviceklasse für Manager*/
+
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ManagerService {

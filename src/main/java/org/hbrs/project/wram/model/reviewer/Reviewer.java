@@ -17,6 +17,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Diese Klasse stellt die Entity Reviewer mit ihren Attributen dar.*/
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

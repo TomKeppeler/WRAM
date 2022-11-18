@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-/* JPA Repository für Manager */
+/** JPA Repository für Manager */
 
 @Repository
 @Component

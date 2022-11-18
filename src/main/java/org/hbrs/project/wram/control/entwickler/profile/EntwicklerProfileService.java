@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+/** Diese Klasse ist eine Service-Klasse für Entwicklerprofil.*/
+
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EntwicklerProfileService {

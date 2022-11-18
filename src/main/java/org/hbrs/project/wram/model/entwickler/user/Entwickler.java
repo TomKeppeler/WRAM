@@ -17,6 +17,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Diese Klasse stellt die Entity Entwickler mit ihren Attributen dar.*/
+
 @Setter
 @Getter
 @NoArgsConstructor

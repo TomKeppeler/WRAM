@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Diese Klasse stellt die Entity Manager mit ihren Attributen dar.*/
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

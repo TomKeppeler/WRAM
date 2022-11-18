@@ -14,6 +14,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/** Diese Klasse stellt die Entity Entwicklerprofil mit ihren Attributen dar.*/
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

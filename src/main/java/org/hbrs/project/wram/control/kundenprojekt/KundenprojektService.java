@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/** Diese Klasse ist eine Serviceklasse für Kundenprojekt*/
+
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class KundenprojektService {
