@@ -1,3 +1,9 @@
+/**
+ * @outhor Lukas
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 18.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.views.routes.entwickler;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;

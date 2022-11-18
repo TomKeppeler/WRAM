@@ -1,4 +1,10 @@
-package org.hbrs.project.wram.model.entwickler.user;
+/**
+ *
+ * @outhor Tom & Lukas
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 18.11.22 by Salah
+ *
+ */package org.hbrs.project.wram.model.entwickler.user;
 
 import java.util.UUID;
 

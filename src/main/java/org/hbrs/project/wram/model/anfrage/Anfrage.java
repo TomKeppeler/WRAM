@@ -1,3 +1,9 @@
+/**
+ * @outhor Salah & Tom
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 17.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.model.anfrage;
 
 import javax.persistence.Column;

@@ -1,3 +1,9 @@
+/**
+ * @outhor Salah & Fabio
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 18.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.util;
 
 import java.util.Arrays;
