@@ -20,7 +20,7 @@ public class EntwicklerService {
 
     /**
      * @param entwickler
-     * @return : saves a entwickler entity in the database
+     * @return : saves an entwickler entity in the database
      */
     public Entwickler doCreatEntwickler(Entwickler entwickler) {
         return this.entwicklerRepository.save(entwickler);
@@ -28,7 +28,7 @@ public class EntwicklerService {
 
     /**
      * @param userId
-     * @return : corrsponding Entwickler Entity for given UUID
+     * @return : corresponding Entwickler Entity for given UUID
      */
     public Entwickler getByUserId(UUID userId) {
         if(userId == null) {

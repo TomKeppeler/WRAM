@@ -9,6 +9,8 @@ import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 
+/*Factory Klasse zur Erzeugung von User, Entwickler, Manager & Reviewer Entities*/
+
 public class EntityFactory {
     public static User createUser(UserDTO userDTO) {
         User user = new User();

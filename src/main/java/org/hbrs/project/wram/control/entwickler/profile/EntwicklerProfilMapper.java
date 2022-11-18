@@ -1,7 +1,7 @@
 /**
  * @outhor Salah & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 17.11.22 by Salah
+ * @Zuletzt bearbeitet: 17.11.22 by Salah
  *
  */
 package org.hbrs.project.wram.control.entwickler.profile;
@@ -16,7 +16,7 @@ import org.mapstruct.Mapping;
 public interface EntwicklerProfilMapper {
     /**
      *
-     * @param entwicklerProfile wir zu einem EntwicklerProfilDTO gemeppt
+     * @param entwicklerProfile wir zu einem EntwicklerProfilDTO gemappt
      * @return EntwicklerProfilDTO
      */
     @Mapping(target = "id", source = "id")

@@ -1,7 +1,7 @@
 /**
  * @outhor Salah & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 17.11.22 by Salah
+ * @Zuletzt bearbeitet: 17.11.22 by Salah
  *
  */
 package org.hbrs.project.wram.control.user;
@@ -19,7 +19,7 @@ public interface UserMapper {
 
     /**
      *
-     * @param user wird zu einem UserDTO gemeppt
+     * @param user wird zu einem UserDTO gemappt
      * @return UserDTO
      */
     @Mappings(value = {

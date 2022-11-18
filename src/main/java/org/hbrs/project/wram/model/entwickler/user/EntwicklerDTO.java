@@ -8,6 +8,9 @@ import org.hbrs.project.wram.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/* Data Transfer Object für Entwickler */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

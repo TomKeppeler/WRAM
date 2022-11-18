@@ -1,7 +1,7 @@
 /**
  * @outhor Salah  & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 14.11.22 by Salah
+ * @Zuletzt bearbeitet: 14.11.22 by Salah
  */
 package org.hbrs.project.wram.control.user;
 
@@ -28,7 +28,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 /**
- * dint der CRUD von User Daten von DB
+ * dient der CRUD von User Daten von DB
  * statt Repository
  */
 public class UserService {
@@ -68,8 +68,8 @@ public class UserService {
 
 
     /**
-     * überprüfe welche Rolle der User hat
-     * @return Rolle m: Manager e: Entwickler, r : Reviewer
+     * überprüfe, welche Rolle der User hat
+     * @return Rolle m: Manager e: Entwickler, r: Reviewer
      */
     public String getRolle(){
         Manager manager = managerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
@@ -90,11 +90,11 @@ public class UserService {
 
         }
 
-        return "User ist nicht zugeortnet";
+        return "User ist nicht zugeordnet";
     }
 
     /**
-     *   find alle User, die im DB vorhandn sind
+     *   find alle User, die im DB vorhanden sind
      * @return Liste aller User
      */
     public List<User> findAllUsers() {
@@ -102,7 +102,7 @@ public class UserService {
     }
 
     /**#
-     *       find  User die von DB mit username und pw
+     *       find User die von DB mit username und pw
      * @param username
      * @param pw
      * @return ein User

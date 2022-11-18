@@ -1,7 +1,7 @@
 /**
  * @outhor Salah & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 17.11.22 by Salah
+ * @Zuletzt bearbeitet: 17.11.22 by Salah
  *
  */
 package org.hbrs.project.wram.control.entwickler.user;
@@ -17,7 +17,7 @@ public interface EntwicklerMapper {
 
     /**
      *
-     * @param entwickler wir zu einem EntwicklerDTO gemeppt
+     * @param entwickler wir zu einem EntwicklerDTO gemappt
      * @return EntwicklerDTO
      */
     @Mapping(target = "id", source = "id")

@@ -1,7 +1,7 @@
 /**
  * @outhor Salah & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 15.11.22 by Salah
+ * @Zuletzt bearbeitet: 15.11.22 by Salah
  *
  */
 package org.hbrs.project.wram.control.manager;
@@ -15,7 +15,7 @@ import org.mapstruct.Mapping;
 public interface ManagerMapper {
     /**
      *
-     * @param manager wir zu einem ManagerDTO gemeppt
+     * @param manager wir zu einem ManagerDTO gemappt
      * @return ManagerDTO
      */
     @Mapping(target = "id", source = "id")

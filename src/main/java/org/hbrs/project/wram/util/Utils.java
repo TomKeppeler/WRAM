@@ -2,6 +2,8 @@ package org.hbrs.project.wram.util;
 
 import java.util.Arrays;
 
+/* Utility Klasse welche Methoden enthält, die Eigenschaften von eingegebenen Strings überprüft.*/
+
 public class Utils {
     public static boolean hasNumber(String text){
         for(char c : text.toCharArray())

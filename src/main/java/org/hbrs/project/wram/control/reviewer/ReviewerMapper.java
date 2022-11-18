@@ -1,7 +1,7 @@
 /**
  * @outhor Salah & Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 14.11.22 by Salah
+ * @Zuletzt bearbeitet: 14.11.22 by Salah
  *
  */package org.hbrs.project.wram.control.reviewer;
 
@@ -14,7 +14,7 @@ import org.mapstruct.Mapping;
 public interface ReviewerMapper {
     /**
      *
-     * @param reviewer wird zu einem ReviewerDTO gemeppt
+     * @param reviewer wird zu einem ReviewerDTO gemappt
      * @return ReviewerDTO
      */
     @Mapping(target = "id", source = "id")

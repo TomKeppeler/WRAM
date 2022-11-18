@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/* Data Transfer Object für Anfragen */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

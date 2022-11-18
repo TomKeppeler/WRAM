@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+/* JPA Repository für Kundenprojekte */
+
 @Repository
 @Component
 public interface KundenprojektRepository extends JpaRepository<Kundenprojekt, UUID> {
