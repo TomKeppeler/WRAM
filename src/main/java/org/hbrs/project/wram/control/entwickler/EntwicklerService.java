@@ -1,12 +1,11 @@
-package org.hbrs.project.wram.control.entwickler.user;
+package org.hbrs.project.wram.control.entwickler;
 
 import com.vaadin.flow.component.notification.Notification;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.entwickler.user.EntwicklerRepository;
+import lombok.RequiredArgsConstructor;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;

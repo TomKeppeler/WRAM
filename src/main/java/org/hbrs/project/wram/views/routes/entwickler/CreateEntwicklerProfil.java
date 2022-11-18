@@ -14,11 +14,9 @@ import java.util.stream.Stream;
 import javax.annotation.PostConstruct;
 
 import org.hbrs.project.wram.control.LoginControl;
-import org.hbrs.project.wram.control.entwickler.profile.EntwicklerProfileService;
-import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfil;
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfilDTO;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,6 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -68,10 +65,10 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     private Button bestätigungsknopf;
 
-    private final Binder<EntwicklerProfilDTO> entwicklerProfilDTOBinder = new Binder<>(EntwicklerProfilDTO.class);
+    private final Binder<EntwicklerDTO> entwicklerProfilDTOBinder = new Binder<>(EntwicklerDTO.class);
 
     @Autowired
-    private EntwicklerProfileService entwicklerProfileService;
+    private EntwicklerService entwicklerProfileService;
 
     @Autowired
     private LoginControl control;
@@ -138,7 +135,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * aus den Textfeldern genommen.
      * @return
      */
-    private EntwicklerProfil createEntwicklerProfil() {
+    private Entwickler createEntwicklerProfil() {
         log.info("Das ist die Rückgabe in create:" + UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
@@ -152,8 +149,11 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }else {
             log.info("Entwickler with ID " +entwickler.getId().toString());
         }
-
-        return EntwicklerProfil.builder().entwickler(entwickler).image(0).phone(entwicklerTelnr.getValue()).skills(entwicklerskills.getValue()).build();
+        Entwickler retEntwicklerProfil = new Entwickler();
+        retEntwicklerProfil.setSkills(entwicklerskills.getValue());
+        retEntwicklerProfil.setImage(0);
+        retEntwicklerProfil.setPhone(entwicklerTelnr.getValue());
+        return retEntwicklerProfil;
 
     }
 
@@ -162,7 +162,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      *
      * @param entwicklerProfil
      */
-    private void saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
+    private void saveEntwicklerProfil(Entwickler entwicklerProfil) {
         //TODO: prüfen der eingabe
         this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
     }
@@ -194,7 +194,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     }
 
     private void clearForm() {
-        entwicklerProfilDTOBinder.setBean(new EntwicklerProfilDTO());
+        entwicklerProfilDTOBinder.setBean(new EntwicklerDTO());
     }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {

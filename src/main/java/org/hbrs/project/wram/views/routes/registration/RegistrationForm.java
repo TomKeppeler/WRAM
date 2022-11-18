@@ -32,7 +32,7 @@ import com.vaadin.flow.router.RouterLink;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
+import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.UserDTO;

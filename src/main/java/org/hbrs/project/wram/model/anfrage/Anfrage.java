@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.common.BaseEntity;
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfil;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 
@@ -56,7 +56,7 @@ public class Anfrage extends BaseEntity {
         name = "entwicklerprofil_id",
         referencedColumnName = "id",
         foreignKey = @ForeignKey(name = "fk_entwicklerprofil_id"))
-    private EntwicklerProfil entwicklerProfil;
+    private Entwickler entwicklerProfil;
 
     @NotNull
     @OneToOne(orphanRemoval = true, optional = false)

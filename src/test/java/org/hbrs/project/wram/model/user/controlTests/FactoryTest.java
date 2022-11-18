@@ -1,8 +1,8 @@
 package org.hbrs.project.wram.model.user.controlTests;
 
 import org.hbrs.project.wram.control.factory.EntityFactory;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.Reviewer;

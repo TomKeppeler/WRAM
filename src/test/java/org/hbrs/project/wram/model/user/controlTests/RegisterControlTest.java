@@ -1,18 +1,16 @@
 package org.hbrs.project.wram.model.user.controlTests;
 
-import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.RegisterControl;
-import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.reviewer.ReviewerService;
 import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
-import org.hbrs.project.wram.model.entwickler.user.EntwicklerDTO;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
-import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

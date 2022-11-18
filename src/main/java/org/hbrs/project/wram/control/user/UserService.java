@@ -6,17 +6,16 @@
 package org.hbrs.project.wram.control.user;
 
 import com.vaadin.flow.component.UI;
-import org.hbrs.project.wram.control.entwickler.user.EntwicklerService;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.reviewer.ReviewerService;
-import org.hbrs.project.wram.model.entwickler.user.Entwickler;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

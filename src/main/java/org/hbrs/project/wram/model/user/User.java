@@ -43,6 +43,9 @@ public class User extends BaseEntity{
     @Column(name = "password", nullable = false)
     private String password;
 
+    @NotNull
+    @Column(name = "verified", nullable = false)
+    private boolean verified = false;
     @Override
     public int hashCode() {
         final int prime = 31;

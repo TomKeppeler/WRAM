@@ -8,7 +8,7 @@ package org.hbrs.project.wram.model.anfrage;
 
 import java.util.UUID;
 
-import org.hbrs.project.wram.model.entwickler.profile.EntwicklerProfil;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 
@@ -26,6 +26,6 @@ public class AnfrageDTO {
     private String reason;
     private String accepted;
     private Reviewer reviewer;
-    private EntwicklerProfil entwicklerProfil;
+    private Entwickler entwicklerProfil;
     private Kundenprojekt kundenprojekt;
 }

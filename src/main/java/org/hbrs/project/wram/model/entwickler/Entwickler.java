@@ -4,7 +4,7 @@
  * @Zuletzt bearbeiret: 18.11.22 by Salah
  *
  */
-package org.hbrs.project.wram.model.entwickler.user;
+package org.hbrs.project.wram.model.entwickler;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.common.BaseEntity;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +50,21 @@ public class Entwickler extends BaseEntity {
         referencedColumnName = "id",
         foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
+    @Column(name = "image", nullable = true)
+    private int image; //toDo: uploadeble image implementation
+
+    @Column(name = "phone", nullable = true)
+    private String phone;
+
+    @Column(name = "skills", nullable = true)
+    private String skills;
+
+    @OneToOne
+    @JoinColumn(
+            name = "kundenprojekt_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_kundenprojekt_id"))
+    private Kundenprojekt kundenprojekt;
 
     @Override
     public int hashCode() {
