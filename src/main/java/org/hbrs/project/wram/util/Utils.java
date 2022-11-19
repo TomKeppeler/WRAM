@@ -6,6 +6,8 @@
  */
 package org.hbrs.project.wram.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 
 /* Utility Klasse welche Methoden enthält, die Eigenschaften von eingegebenen Strings überprüft.*/
@@ -67,5 +69,16 @@ public class Utils {
         arr[N] = element;
         return arr;
 
+    }
+
+    public static boolean isNumber(String text){
+        return StringUtils.isNumeric(text);
+    }
+
+    public static boolean telefonnummerCheck(String telefonnummer){
+        if(telefonnummer.length()==0){return true;}
+        if(telefonnummer.length() <= 6 || telefonnummer.length() >= 15) return false; // Länge 9-13
+        else if(telefonnummer.charAt(0)=='+' && isNumber(telefonnummer.substring(1, telefonnummer.length()-1))) return true;
+        else return isNumber(telefonnummer);
     }
 }

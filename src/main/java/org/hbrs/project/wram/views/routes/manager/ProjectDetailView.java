@@ -6,6 +6,7 @@
  */
 package org.hbrs.project.wram.views.routes.manager;
 
+import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -33,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
@@ -112,7 +114,9 @@ public class ProjectDetailView extends Div {
         bestätigungsknopf = new Button("Projekt updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+        setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
         layout.add(header,projektname,skills,projektbeschreibung,oeff, bestätigungsknopf,zurueckLink);
+        layout.setMaxWidth("900px");
         return layout;
     }
 
@@ -208,4 +212,7 @@ public class ProjectDetailView extends Div {
                 .bind(KundenprojektDTO::getProjektbeschreibung, KundenprojektDTO::setProjektbeschreibung);
     }
 
+    private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
+        Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
+    }
 }

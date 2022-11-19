@@ -7,6 +7,7 @@
 
 package org.hbrs.project.wram.model.user;
 
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +30,7 @@ public interface UserRepository extends JpaRepository<User,UUID> {
 
     @Query("SELECT (count(u.id) > 0) from User u where u.username=:username")
     boolean isUsernameInUse(@Param("username") String username);
+
+    @Query("select user from User user where user.id=:id")
+    User findUserById(@Param("id") UUID id);
 }

@@ -8,17 +8,27 @@ package org.hbrs.project.wram.views.routes.entwickler;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
+import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
+import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.hbrs.project.wram.views.routes.main.LandingView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.HasValueAndElement;
@@ -55,37 +65,40 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
-    private H3 title;
-    // private IntegerField photo;
-    private TextField entwicklerTelnr; //todo telefon feld ergänzen
-    private TextField entwicklerskills;
-
-
-    RadioButtonGroup<String> oeff;
+    private H2 title;
+    private TextField firstname;
+    private TextField name;
+    private TextField email;
+    private TextField phone;
+    private TextArea skills;
+    //todo Foto upload einfügen
 
     private Button bestätigungsknopf;
 
-    private final Binder<EntwicklerDTO> entwicklerProfilDTOBinder = new Binder<>(EntwicklerDTO.class);
-
-    @Autowired
-    private EntwicklerService entwicklerProfileService;
-
-    @Autowired
-    private LoginControl control;
+    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
 
     @Autowired
     private EntwicklerService entwicklerService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private LoginControl control;
+
     @PostConstruct
     private void init() {
-
         add(createFormLayout());
-        clearForm();
+        validateFields();
+        setMaxCharForFields();
 
         bestätigungsknopf.addClickListener(e ->{
-            // Kommentar: Listener in der Createformlayout funktionieren nicht, hängt vmtl mit postconstruct zusammen
-            saveEntwicklerProfil(createEntwicklerProfil());
-            navigateToAppView();
+            if(entwicklerDTOBinder.validate().isOk()){
+                saveEntwicklerProfil(createEntwicklerProfil());
+                navigateToAppView();
+            }else {
+                Notification.show("Bitte überprüfen Sie die Eingaben.");
+            }
         });
     }
 
@@ -94,7 +107,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * bekommt der Entwickler eine Benachrichtiung, dass es erfolgreich funktioniert hat.
      */
     private void navigateToAppView() {
-        UI.getCurrent().navigate("Appview"); // Appview
+        UI.getCurrent().navigate(Constants.Pages.LANDING_PAGE); // Appview
         Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
@@ -105,29 +118,48 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      */
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
+        Entwickler aktuellerEntwickler = entwicklerService.findEntwicklerByUserId((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
 
-        Image image = new Image("src/main/resources/image/avatar-1.jpg", "Profile Image");
-        image.setId("profileImage");
-        title = new H3("Entwicklerprofil erstellen");
-        entwicklerTelnr = new TextField();
-        entwicklerTelnr.setLabel("Telefonnummer");
-        entwicklerskills = new TextField();
-        entwicklerskills.setLabel("Skills");
+        title = new H2("Entwicklerprofil");
+        firstname = new TextField("Vorname");
+        name = new TextField("Nachname");
+        email = new TextField("Email");
+        phone = new TextField("Telefonnummer");
+        skills = new TextArea("Skills");
+        skills.setWidthFull();
 
-        setRequiredIndicatorVisible(entwicklerTelnr, entwicklerskills);
-
-        bestätigungsknopf = new Button("Jetzt Erstellen");
+        bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        //funktioniert nicht
-      // bestätigungsknopf.addClickListener(saveEntwicklerProfil(createEntwicklerProfil()));
+        RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
+        firstname.setValue(aktuellerEntwickler.getFirstname());
+        name.setValue(aktuellerEntwickler.getName());
+        email.setValue(aktuellerEntwickler.getUser().getEmail());
+        email.setReadOnly(true);
 
-        RouterLink appView = new RouterLink("Zurück zur Uebersicht", AppView.class);
+        if(aktuellerEntwickler.getPhone()==null || aktuellerEntwickler.getPhone().length()==0){
+            phone.setPlaceholder("Telefonnummer");
+        }else {
+            phone.setValue(aktuellerEntwickler.getPhone());
+        }
+        if(aktuellerEntwickler.getSkills()==null || aktuellerEntwickler.getSkills().length()==0){
+            skills.setPlaceholder("Skills");
+        }else{
+            skills.setValue(aktuellerEntwickler.getSkills());
+        }
 
-        formLayout.add(title/*, image*/, entwicklerTelnr, entwicklerskills, bestätigungsknopf, appView);
-
-        // Max width of the Form
+        setRequiredIndicatorVisible(firstname, name);
+        formLayout.add(title,firstname, name, email, phone, skills, bestätigungsknopf, backlink);
         formLayout.setMaxWidth("900px");
         return formLayout;
+    }
+
+    /**
+     * Diese Methode dient dazu das Entwicklerprofil mithilfe eines Services in der Datenbank zu speichern.
+     *
+     * @param entwickler
+     */
+    private void saveEntwicklerProfil(Entwickler entwickler) {
+        this.entwicklerService.doCreatEntwickler(entwickler);
     }
 
     /**
@@ -136,42 +168,21 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * @return
      */
     private Entwickler createEntwicklerProfil() {
-        log.info("Das ist die Rückgabe in create:" + UI.getCurrent().getSession().getAttribute(CURRENT_USER));
-        UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
-        Entwickler entwickler = null;
+        User user = userService.findUserById((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
+        Entwickler entwicklerAlt = entwicklerService.findEntwicklerByUserId((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
 
-        if (this.entwicklerService != null) {
-            entwickler=this.entwicklerService.getByUserId(userId);
-        }
-        if(entwickler==null){
-            log.info("Entwickler is Null...");
-        }else {
-            log.info("Entwickler with ID " +entwickler.getId().toString());
-        }
-        Entwickler retEntwicklerProfil = new Entwickler();
-        retEntwicklerProfil.setSkills(entwicklerskills.getValue());
-        retEntwicklerProfil.setImage(0);
-        retEntwicklerProfil.setPhone(entwicklerTelnr.getValue());
-        return retEntwicklerProfil;
-
+        Entwickler entwicklerNeu = Entwickler.builder()
+                .firstname(this.firstname.getValue())
+                .name(this.name.getValue())
+                .phone(this.phone.getValue())
+                .skills(this.skills.getValue())
+                .build();
+        entwicklerNeu.setUser(user);
+        entwicklerNeu.setKundenprojekt(entwicklerAlt.getKundenprojekt());
+        entwicklerNeu.setId(entwicklerAlt.getId());
+        return entwicklerNeu;
     }
-
-    /**
-     * Diese Methode dient dazu das Entwicklerprofil mithilfe eines Services in der Datenbank zu speichern.
-     *
-     * @param entwicklerProfil
-     */
-    private void saveEntwicklerProfil(Entwickler entwicklerProfil) {
-        //TODO: prüfen der eingabe
-        this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
-    }
-    /*
-    private ComponentEventListener<ClickEvent<Button>> saveEntwicklerProfil(EntwicklerProfil entwicklerProfil) {
-        return event -> {
-            this.entwicklerProfileService.doCreatEntwickler(entwicklerProfil);
-                        };
-    }*/
 
     @Override
     /**
@@ -193,11 +204,29 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }
     }
 
-    private void clearForm() {
-        entwicklerProfilDTOBinder.setBean(new EntwicklerDTO());
+    private void validateFields(){
+        entwicklerDTOBinder.forField(firstname)
+                .withValidator(binderFirstname -> !binderFirstname.isEmpty(), "Bitte Vorname angeben").asRequired()
+                .bind(EntwicklerDTO::getFirstname, EntwicklerDTO::setFirstname);
+        entwicklerDTOBinder.forField(name)
+                .withValidator(binderName -> !binderName.isEmpty(), "Bitte Nachname angeben").asRequired()
+                .bind(EntwicklerDTO::getName, EntwicklerDTO::setName);
+        entwicklerDTOBinder.forField(phone)
+                .withValidator(Utils::telefonnummerCheck, "Bitte korrekte Nummer angeben")
+                .bind(EntwicklerDTO::getPhone, EntwicklerDTO::setPhone);
+
     }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
+    }
+
+    private void setMaxCharForFields() {
+        skills.setMaxLength(255);
+        skills.setHelperText(skills.getValue().length() + "/" + 255);
+        skills.setValueChangeMode(ValueChangeMode.EAGER);
+        skills.addValueChangeListener(e ->
+                e.getSource().setHelperText(e.getValue().length() + "/" + 255)
+        );
     }
 }

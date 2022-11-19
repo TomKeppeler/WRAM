@@ -117,4 +117,8 @@ public class UserService {
     public void deleteUserById(UUID id) {
         this.userRepository.deleteById(id);
     }
+
+    public User findUserById(UUID id){
+        return this.userRepository.findUserById(id);
+    }
 }
