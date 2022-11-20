@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-/** JPA Repository für Reviewer */
+/** JPA Repository für CRUD eines Reviewer */
 
 @Repository
 @Component

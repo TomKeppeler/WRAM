@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-/** JPA Repository für User */
+/** JPA Repository für User CRUD eines */
 
 @Component
 public interface UserRepository extends JpaRepository<User,UUID> {

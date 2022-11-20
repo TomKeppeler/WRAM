@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** Data Transfer Object für Manager */
+/** Data Transfer Object für Manager, um ein Manager zu ertellen  */
 
 @Data
 @NoArgsConstructor

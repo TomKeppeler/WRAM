@@ -50,6 +50,11 @@ public class Reviewer extends BaseEntity {
         foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
 
+
+    /**
+     * hashCode methode
+     * @return
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -60,6 +65,11 @@ public class Reviewer extends BaseEntity {
         return result;
     }
 
+    /**
+     * equals methode
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

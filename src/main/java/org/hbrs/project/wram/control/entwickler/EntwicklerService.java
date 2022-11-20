@@ -43,10 +43,19 @@ public class EntwicklerService {
         return this.entwicklerRepository.findByUserId(userId);
     }
 
+    /**
+     * finde Entwickler von mittels UserId
+     * @param id
+     * @return
+     */
     public Entwickler findEntwicklerByUserId(UUID id) {
         return this.entwicklerRepository.findByUserId(id);
     }
 
+    /**
+     * lösche Entwickler von DB
+     * @param id
+     */
     public void deleteEntwicklerById(UUID id) {
         this.entwicklerRepository.deleteById(id);
     }

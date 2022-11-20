@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
-/** JPA Repository für Entwickler */
+/** JPA Repository für CRUD eines Entwickler */
 
 @Component
 public interface EntwicklerRepository extends JpaRepository<Entwickler, UUID> {
