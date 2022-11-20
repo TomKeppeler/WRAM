@@ -61,6 +61,9 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Präsentation Meeting 7](https://docs.google.com/presentation/d/1DaydLeIipF1LLAsHsW3TxIFVTalM8E9p1YutHVv4on4/edit#slide=id.g1814a9a6aec_0_0)
 
+[Präsentation Meeting 8](https://docs.google.com/presentation/d/1dQ5g3zeLpVOrHagsgzM3aOYFtfvUC6n5hW-SzEXIEyk/edit#slide=id.g18a7f952552_0_0)
+
+[Präsentation Meeting 9](https://docs.google.com/presentation/d/1tOJkgjgLz7zoxNgEibv3oUw8po4bHmq2VmBaDopdIZk/edit#slide=id.g18a7f952552_0_0)
 <hr width="50%" align="left">
 
 ### Senior-Programmer
