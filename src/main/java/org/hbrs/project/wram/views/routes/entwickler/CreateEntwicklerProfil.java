@@ -107,7 +107,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * bekommt der Entwickler eine Benachrichtiung, dass es erfolgreich funktioniert hat.
      */
     private void navigateToAppView() {
-        UI.getCurrent().navigate(Constants.Pages.LANDING_PAGE); // Appview
+        UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW); // Appview
         Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 

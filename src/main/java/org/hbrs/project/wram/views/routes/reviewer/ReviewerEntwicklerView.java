@@ -67,7 +67,6 @@ public class ReviewerEntwicklerView extends Div {
         Grid.Column<Entwickler> nameColumn = grid.addColumn(Entwickler::getName).setHeader("Nachname").setWidth("225px");
 
         // skills
-        //todo Skills über profil einbinden
         Grid.Column<Entwickler> skillColumn = grid.addColumn(Entwickler::getSkills).setHeader("Skills").setWidth("225px");
 
         // verfügbar
