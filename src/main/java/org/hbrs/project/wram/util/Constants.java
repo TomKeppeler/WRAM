@@ -16,23 +16,18 @@ public class Constants {
     public static class Pages {
         public static final String MAIN_VIEW = "";
         public static final String WELCOME_VIEW = "welcome";
-        public static final String PROJECTS_OVERVIEW = "all-projects";
+        public static final String PROJECTS_OVERVIEW = "all-projects";//Navigation zur projects bei Manager
         public static final String LANDING_PAGE = "main";
-        public static final String REGISTRATION = "registrieren";
-        public static final String CREATEPROJECT = "ProjektErstellen";
+        public static final String REGISTRATION = "registrieren"; //Navigation zur registrieren seite
+        public static final String CREATEPROJECT = "ProjektErstellen";//Navigation zum Projekt Erstellen seite bei Manager
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
-        public static final String LOGIN_VIEW = "login";
+        public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
 
         public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
         public static final String PROJECT_DETAIL = "projektdetails";
         public static final String REVIEWERPROJEKTE = "projekte";
     }
 
-    public static class Roles {
-        public static final String ADMIN = "admin";
-        public static final String CURRENT_USER = "user";
-
-    }
 
     public static class Errors {
         public static final String NOUSERFOUND = "nouser";

@@ -15,6 +15,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Encryption {
+
+    /**
+     * Verschlüssele daten
+     * @param value
+     * @return
+     */
     public static String sha256(String value){
         return DigestUtils.sha256Hex(value);
     }
