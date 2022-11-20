@@ -1,3 +1,9 @@
+/**
+ * @outhor Salah, Tom & Fabio
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 17.11.22 by Salah
+ *
+ */
 package org.hbrs.project.wram.control.kundenprojekt;
 
 import lombok.RequiredArgsConstructor;
@@ -18,14 +24,28 @@ public class KundenprojektService {
     @Autowired
     private KundenprojektRepository kundenprojektRepository;
 
+    /**
+     * speischert ein Kundenprojekt mittels kundenprojektRepository
+     * @param kundenprojekt
+     * @return
+     */
     public Kundenprojekt doCreateKundenprojekt(Kundenprojekt kundenprojekt) {
         return this.kundenprojektRepository.save(kundenprojekt);
     }
 
+    /**
+     * hollt von DB alle Kundenprojekt mittels ManagerId, die zu einem Manager gehoren
+     * @param id
+     * @return
+     */
     public List<Kundenprojekt> findAllKundenprojektByManagerId(UUID id){
         return kundenprojektRepository.findKundenprojektByManagerId(id);
     }
 
+    /**
+     * hollt von DB aller Kundenprojekt
+     * @return
+     */
     public List<Kundenprojekt> findAllPublicKundenprojekt(){
         List<Kundenprojekt> erg = new ArrayList<>();
         List<Kundenprojekt> temp = kundenprojektRepository.findAll();
