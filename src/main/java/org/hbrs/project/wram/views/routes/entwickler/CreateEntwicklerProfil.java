@@ -8,26 +8,21 @@ package org.hbrs.project.wram.views.routes.entwickler;
 
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
-import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.hbrs.project.wram.views.common.layouts.components.UploadButton;
 import org.hbrs.project.wram.views.routes.main.LandingView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,13 +32,14 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -72,11 +68,13 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     private TextField phone;
     private TextArea skills;
     //todo Foto upload einfügen
-
+    private Image image = new Image("src/main/resources/image/defaultP.png", "Profile Picture");
+    private UploadButton uploadButton;
+    
     private Button bestätigungsknopf;
-
+    
     private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
-
+    
     @Autowired
     private EntwicklerService entwicklerService;
 
@@ -127,7 +125,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
         skills.setWidthFull();
-
+        this.uploadButton = new UploadButton(aktuellerEntwickler.getId());
+        this.image.setHeight("200px");
         bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
@@ -135,7 +134,9 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         name.setValue(aktuellerEntwickler.getName());
         email.setValue(aktuellerEntwickler.getUser().getEmail());
         email.setReadOnly(true);
-
+        if(aktuellerEntwickler.getImage() != null){
+            setProfileImage();
+        }
         if(aktuellerEntwickler.getPhone()==null || aktuellerEntwickler.getPhone().length()==0){
             phone.setPlaceholder("Telefonnummer");
         }else {
@@ -148,9 +149,15 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }
 
         setRequiredIndicatorVisible(firstname, name);
-        formLayout.add(title,firstname, name, email, phone, skills, bestätigungsknopf, backlink);
+        formLayout.add(this.image, this.uploadButton, title, firstname, name, email, phone, skills, bestätigungsknopf, backlink);
         formLayout.setMaxWidth("900px");
         return formLayout;
+    }
+
+    private void setProfileImage() {
+        Entwickler aktuellerEntwickler = entwicklerService.findEntwicklerByUserId((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
+        
+        this.image.setSrc(aktuellerEntwickler.getImage());
     }
 
     /**
