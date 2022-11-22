@@ -214,7 +214,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         }
         else if (userService.getRolle() =="r") {
             logger.log(Level.INFO, "User is \"Reviewer\"!");
-            tabs = Utils.append( tabs , createTab("X", ReviewerEntwicklerView.class));
+            tabs = Utils.append( tabs , createTab("Entwickler", ReviewerEntwicklerView.class));
             tabs = Utils.append( tabs , createTab("Kundenprojekte", ReviewerProjektView.class));
         }
 
