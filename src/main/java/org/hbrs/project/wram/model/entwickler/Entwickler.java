@@ -6,6 +6,8 @@
  */
 package org.hbrs.project.wram.model.entwickler;
 
+import java.sql.Blob;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -51,7 +53,7 @@ public class Entwickler extends BaseEntity {
         foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
     @Column(name = "image", nullable = true)
-    private int image; //toDo: uploadeble image implementation
+    private Blob image; //toDo: uploadeble image implementation
 
     @Column(name = "phone", nullable = true)
     private String phone;
