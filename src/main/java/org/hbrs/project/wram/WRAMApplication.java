@@ -12,7 +12,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 public class WRAMApplication extends SpringBootServletInitializer {
-
+    /**
+     * Main Methode
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(WRAMApplication.class, args);
     }

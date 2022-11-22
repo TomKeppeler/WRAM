@@ -36,6 +36,10 @@ public abstract class BaseEntity {
     @Column(updatable = false, nullable = false)
     private UUID id = UUID.randomUUID();
 
+    /**
+     * hashCode methode
+     * @return
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -43,7 +47,11 @@ public abstract class BaseEntity {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-
+    /**
+     * equals methode
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** Data Transfer Object für Entwickler */
+/** Data Transfer Object für Entwickler, um ein entwickler zu ertellen */
 
 @Data
 @NoArgsConstructor

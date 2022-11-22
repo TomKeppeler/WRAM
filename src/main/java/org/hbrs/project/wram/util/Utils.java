@@ -13,6 +13,12 @@ import java.util.Arrays;
 /* Utility Klasse welche Methoden enthält, die Eigenschaften von eingegebenen Strings überprüft.*/
 
 public class Utils {
+
+    /**
+     *  überprüfe ob ein String ein nummer hat
+     * @param text
+     * @return
+     */
     public static boolean hasNumber(String text){
         for(char c : text.toCharArray())
             if( Character.isDigit(c) ) return true;
@@ -20,6 +26,11 @@ public class Utils {
         return false;
     }
 
+    /**
+     * überprüfe, ob ein String ein gross Bochtabe hat
+     * @param text
+     * @return
+     */
     public static boolean hasUpperCaseLetter(String text) {
         for (char c : text.toCharArray()) {
             // A - Z
@@ -32,6 +43,11 @@ public class Utils {
         return false;
     }
 
+    /**
+     * überprüfe, ob ein String die E-mail ein @ und . hat
+     * @param emailadresse
+     * @return
+     */
     public static boolean emailadresseCheck(String emailadresse) {
         boolean retValue = true;
         int i = emailadresse.indexOf("@");
@@ -53,6 +69,11 @@ public class Utils {
         return retValue;
     }
 
+    /**
+     * überprüfe ob ein String Bochtaben hat
+     * @param text
+     * @return
+     */
     public static boolean isAlpha(String text) {
         if(text.length()==0){return false;}
         for (char c : text.toCharArray()) {
@@ -63,6 +84,14 @@ public class Utils {
         }
         return true;
     }
+
+    /**
+     * Array wird um ein element erweiter
+     * @param arr
+     * @param element
+     * @return
+     * @param <T>
+     */
     public static <T> T[] append(T[] arr, T element) {
         final int N = arr.length;
         arr = Arrays.copyOf(arr, N + 1);
@@ -71,10 +100,20 @@ public class Utils {
 
     }
 
+    /**
+     * überprüfe ob ein String ein nummer ist
+     * @param text
+     * @return
+     */
     public static boolean isNumber(String text){
         return StringUtils.isNumeric(text);
     }
 
+    /**
+     * überprüfe ob ein String ein telefonnummer ist
+     * @param telefonnummer
+     * @return
+     */
     public static boolean telefonnummerCheck(String telefonnummer){
         if(telefonnummer.length()==0){return true;}
         if(telefonnummer.length() <= 6 || telefonnummer.length() >= 15) return false; // Länge 9-13

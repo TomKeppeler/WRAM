@@ -68,6 +68,11 @@ public class Manager extends BaseEntity{
         return result;
     }
 
+    /**
+     * equals methode
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

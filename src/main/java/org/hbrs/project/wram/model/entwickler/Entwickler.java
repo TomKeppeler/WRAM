@@ -66,6 +66,11 @@ public class Entwickler extends BaseEntity {
             foreignKey = @ForeignKey(name = "fk_kundenprojekt_id"))
     private Kundenprojekt kundenprojekt;
 
+
+    /**
+     * hashCode methode
+     * @return
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -75,7 +80,11 @@ public class Entwickler extends BaseEntity {
         result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
     }
-
+    /**
+     * equals methode
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

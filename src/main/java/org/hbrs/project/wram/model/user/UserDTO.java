@@ -13,7 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** Data Transfer Object für User */
+/** Data Transfer Object für User, um ein User zu ertellen  */
 
 @Builder
 @Data

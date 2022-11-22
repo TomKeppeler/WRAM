@@ -53,6 +53,11 @@ public class Kundenprojekt extends BaseEntity {
     @Column(name = "skills")
     private String skills;
 
+
+    /**
+     * hashCode methode
+     * @return
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -61,7 +66,11 @@ public class Kundenprojekt extends BaseEntity {
         result = prime * result + ((manager == null) ? 0 : manager.hashCode());
         return result;
     }
-
+    /**
+     * equals methode
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
