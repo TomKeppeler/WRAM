@@ -12,11 +12,16 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.function.SerializableBiConsumer;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.util.Constants;
@@ -85,7 +90,8 @@ public class ProjectsOverview extends Div {
         // Projekt name
         Grid.Column<Kundenprojekt> projektnameColumn = grid.addColumn(Kundenprojekt::getProjektname).setHeader("Projektname").setWidth("225px");
         // Projekt öffentlich
-        grid.addComponentColumn(kundenprojekt -> createStatusIcon(kundenprojekt.isPublicProjekt())).setHeader("Projekt öffentlich");
+        //grid.addComponentColumn(kundenprojekt -> createStatusIcon(kundenprojekt.isPublicProjekt())).setHeader("Projekt öffentlich");
+        grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
         // Projekt bearbeiten
         Grid.Column<Kundenprojekt> editColumn = grid.addComponentColumn(kundenprojekt -> {
            Button bearbeiten = new Button( VaadinIcon.PENCIL.create());
@@ -99,7 +105,24 @@ public class ProjectsOverview extends Div {
         editColumn.setHeader("Kundenprojekt bearbeiten");
         return grid;
     }
-    
+
+    private static ComponentRenderer<Span, Kundenprojekt> createStatusComponentRenderer() {
+        return new ComponentRenderer<>(Span::new, statusComponentUpdater);
+    }
+
+    private static final SerializableBiConsumer<Span, Kundenprojekt> statusComponentUpdater = (
+            span, kundenprojekt) -> {
+        boolean isAvailable = (kundenprojekt.isPublicProjekt());
+        String theme = String.format("badge %s", isAvailable ? "success" : "error");
+        span.getElement().setAttribute("theme", theme);
+
+        if(isAvailable){
+            span.setText("Öffentlich");
+        }else{
+            span.setText("Nicht öffentlich");
+        }
+    };
+
     /**
      * Navigiert zur Seite, wo Kundenprojekt geändert werden kann.
      * @param kundenprojekt
@@ -109,22 +132,4 @@ public class ProjectsOverview extends Div {
         UI.getCurrent().navigate(Constants.Pages.PROJECT_DETAIL);
     }
 
-    /**
-     * Diese Methode dient dazu in der Grid IconSymbole anzuzeigen.
-     * @param status
-     * @return
-     */
-    private Icon createStatusIcon(boolean status) {
-        boolean isAvailable = status;
-        Icon icon;
-        if (isAvailable) {
-            icon = VaadinIcon.CHECK.create();
-            icon.getElement().getThemeList().add("badge success");
-        } else {
-            icon = VaadinIcon.CLOSE_SMALL.create();
-            icon.getElement().getThemeList().add("badge error");
-        }
-        icon.getStyle().set("padding", "var(--lumo-space-xs");
-        return icon;
-    }
 }
