@@ -106,10 +106,17 @@ public class ProjectsOverview extends Div {
         return grid;
     }
 
+    /**
+     * Diese Methode dient dazu einen StatusComponentRenderer zur Anzeige des Status in der Grid zu erstellen
+     * @return ComponentRenderer
+     */
     private static ComponentRenderer<Span, Kundenprojekt> createStatusComponentRenderer() {
         return new ComponentRenderer<>(Span::new, statusComponentUpdater);
     }
 
+    /**
+     * Hilfmethode für das erstellen des ComponentRenderer
+     */
     private static final SerializableBiConsumer<Span, Kundenprojekt> statusComponentUpdater = (
             span, kundenprojekt) -> {
         boolean isAvailable = (kundenprojekt.isPublicProjekt());

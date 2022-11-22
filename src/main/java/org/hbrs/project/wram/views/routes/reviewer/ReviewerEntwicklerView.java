@@ -101,10 +101,17 @@ public class ReviewerEntwicklerView extends Div {
         return grid;
     }
 
+    /**
+     * Diese Methode dient dazu einen StatusComponentRenderer zur Anzeige des Status in der Grid zu erstellen
+     * @return ComponentRenderer
+     */
     private static ComponentRenderer<Span, Entwickler> createStatusComponentRenderer() {
         return new ComponentRenderer<>(Span::new, statusComponentUpdater);
     }
 
+    /**
+     * Hilfmethode für das erstellen des ComponentRenderer
+     */
     private static final SerializableBiConsumer<Span, Entwickler> statusComponentUpdater = (
             span, entwickler) -> {
         boolean isAvailable = (entwickler.getKundenprojekt()==null);
