@@ -56,7 +56,7 @@ import com.vaadin.flow.server.PWA;
 @CssImport("./styles/views/main/main-view.css")
 @Route(Constants.Pages.LANDING_PAGE)
 @RouteAlias(value = "Appview")
-@PWA(name = "HelloCar", shortName = "HelloCar", enableInstallPrompt = false)
+@PWA(name = "WRAM", shortName = "WRAM", enableInstallPrompt = false)
 @JsModule("./styles/shared-styles.js")
 public class AppView extends AppLayout implements BeforeEnterObserver {
 
