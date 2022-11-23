@@ -6,9 +6,11 @@
  */
 package org.hbrs.project.wram.control.entwickler;
 
-import java.sql.Blob;
 import java.util.List;
 import java.util.UUID;
+
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
@@ -77,14 +79,14 @@ public class EntwicklerService {
      * @param id
      * @return Entwickler
      */
-    public void saveImage(Blob image, UUID id) {
+    public void saveImage(byte[] image, @NotNull UUID id) {
         Entwickler entwickler = this.entwicklerRepository.findById(id).get();
         entwickler.setImage(image);
         this.entwicklerRepository.save(entwickler);
     }
 
-    public Blob getImage(UUID id) {
-        Entwickler entwickler = this.entwicklerRepository.findById(id).get();
+    public @Nullable byte[] getImage(UUID id) {
+        Entwickler entwickler = this.entwicklerRepository.findById(id).orElseGet(null);
         return entwickler.getImage();
     }
 }

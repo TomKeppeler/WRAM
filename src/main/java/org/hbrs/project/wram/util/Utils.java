@@ -8,7 +8,12 @@ package org.hbrs.project.wram.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.server.StreamResource;
+
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
+import java.util.UUID;
 
 /* Utility Klasse welche Methoden enthält, die Eigenschaften von eingegebenen Strings überprüft.*/
 
@@ -119,5 +124,10 @@ public class Utils {
         if(telefonnummer.length() <= 6 || telefonnummer.length() >= 15) return false; // Länge 9-13
         else if(telefonnummer.charAt(0)=='+' && isNumber(telefonnummer.substring(1, telefonnummer.length()-1))) return true;
         else return isNumber(telefonnummer);
+    }
+    
+    public static Image generateImage(byte[] profileImage) {
+        StreamResource sr = new StreamResource("user", () -> new ByteArrayInputStream(profileImage));
+        return new Image(sr, "profile-pricture");
     }
 }

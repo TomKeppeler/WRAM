@@ -6,14 +6,13 @@
  */
 package org.hbrs.project.wram.model.entwickler;
 
-import java.sql.Blob;
 import java.util.UUID;
 
-import lombok.Builder;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,10 +27,8 @@ public class EntwicklerDTO {
     private String name;
     private String firstname;
     private User user;
-    private Blob image;
+    private byte[] image;
     private String phone;
     private String skills;
     private Kundenprojekt kundenprojekt;
-
-
 }

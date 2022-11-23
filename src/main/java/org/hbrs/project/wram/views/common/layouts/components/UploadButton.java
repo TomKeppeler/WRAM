@@ -2,10 +2,7 @@ package org.hbrs.project.wram.views.common.layouts.components;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.UUID;
-
-import javax.sql.rowset.serial.SerialBlob;
 
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +24,7 @@ public class UploadButton extends Upload {
     private final UUID userId;
     private MemoryBuffer memoryBuffer = new MemoryBuffer();
     private int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB;
-    private String description = "Upload profile image";
+    private Button descriptionButton = new Button("Upload profile image");
 
     public UploadButton(UUID userId) {
         super();
@@ -42,10 +39,11 @@ public class UploadButton extends Upload {
      */
     private void init() {
         this.setReceiver(memoryBuffer);
-        this.setAcceptedFileTypes("application/jpg", "application/png", ".jpg", ".png");
+        //this.setAcceptedFileTypes("image/jpeg", "image/png", "image/jpg");
         this.setMaxFileSize(this.maxFileSizeInBytes);
-        this.setUploadButton(new Button(this.description));
-        addSucceededListener(clickListener());
+        this.setUploadButton(this.descriptionButton);
+        this.setWidth("175px");
+        this.addSucceededListener(clickListener());
     }
         
         /** 
@@ -72,22 +70,23 @@ public class UploadButton extends Upload {
          */
         private void processFile(InputStream fileData, String fileName, long contentLength, String mimeType) {
             //save file to database
-            SerialBlob blob = null;
+            byte[] imageBytes = null;
             try {
-                blob = new SerialBlob(fileData.readAllBytes());
-            } catch (SQLException | IOException e) {
+                imageBytes = fileData.readAllBytes();
+            } catch (IOException e) {
                 System.err.println(e.getMessage());
                 Notification.show("error while saving the image");
             }
-            if(blob != null) {
-                entwicklerService.saveImage(blob, userId);
+            if(imageBytes != null) {
+                entwicklerService.saveImage(imageBytes, userId);
             }
         }
+        
         public void setMaxFileSizeInBytes(int maxFileSizeInBytes) {
             this.maxFileSizeInBytes = maxFileSizeInBytes;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
+        public void setDescription(Button descriptionButton) {
+            this.descriptionButton = descriptionButton;
         }
 }

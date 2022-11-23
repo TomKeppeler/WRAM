@@ -67,8 +67,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     private TextField email;
     private TextField phone;
     private TextArea skills;
-    //todo Foto upload einfügen
-    private Image image = new Image("src/main/resources/image/defaultP.png", "Profile Picture");
+
+    private Image image = new Image("images/defaultP.png", "Profile Picture");
     private UploadButton uploadButton;
     
     private Button bestätigungsknopf;
@@ -126,7 +126,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         skills = new TextArea("Skills");
         skills.setWidthFull();
         this.uploadButton = new UploadButton(aktuellerEntwickler.getId());
-        this.image.setHeight("200px");
+        this.image.setWidth("175px");
+        this.image.setHeight("175px");
         bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
@@ -154,10 +155,14 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         return formLayout;
     }
 
+    /**
+     * @apiNote the image is fetcht from the database via the entwicklerService and set in the image component 
+     * @autor: @tkeppe2s (Tom Keppeler)
+     */
     private void setProfileImage() {
         Entwickler aktuellerEntwickler = entwicklerService.findEntwicklerByUserId((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
-        
-        this.image.setSrc(aktuellerEntwickler.getImage());
+        Image profilImage = Utils.generateImage(this.entwicklerService.getImage(aktuellerEntwickler.getId()));
+        this.image.setSrc(profilImage.getSrc());
     }
 
     /**
