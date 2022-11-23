@@ -47,6 +47,10 @@ public class LoginControl {
         return true;
     }
 
+    public boolean isVerified(String username, String password) {
+        return repository.isUserVerified(username, password);
+    }
+
     /**
      * wird in  authenticateUser() benutzt um user von DB zu hollen
      * @param username

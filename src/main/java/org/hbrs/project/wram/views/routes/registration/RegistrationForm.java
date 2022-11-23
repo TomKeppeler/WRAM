@@ -24,9 +24,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import java.io.UnsupportedEncodingException;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 
 import com.vaadin.flow.router.RouterLink;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,7 @@ import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
+import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
@@ -110,21 +114,43 @@ public class RegistrationForm extends VerticalLayout {
                             .getUsername(), 3000, Notification.Position.MIDDLE);
                 } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
-                        
+
                         if (registerControl.saveUserAndEntwickler(userDTO,
                                 entwicklerDTOBinder.getBean())) {
+                            try {
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                            } catch (UnsupportedEncodingException ex) {
+                                ex.printStackTrace();
+                            } catch (MessagingException ex) {
+                                ex.printStackTrace();
+                            }
                             setAttributeAndNavigate(userDTO);
+
                         } else {
                             Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                         }
                     } else if (rolle.getValue().equals(rolleProjektmanager)) {
                         if (registerControl.saveUserAndManager(userDTO, managerDTOBinder.getBean())) {
+                            try {
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                            } catch (UnsupportedEncodingException ex) {
+                                ex.printStackTrace();
+                            } catch (MessagingException ex) {
+                                ex.printStackTrace();
+                            }
                             setAttributeAndNavigate(userDTO);
                         } else {
                             Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                         }
                     } else if (rolle.getValue().equals(rolleReviewer)) {
                         if (registerControl.saveUserAndReviewer(userDTO, reviewerDTOBinder.getBean())) {
+                            try {
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                            } catch (UnsupportedEncodingException ex) {
+                                ex.printStackTrace();
+                            } catch (MessagingException ex) {
+                                ex.printStackTrace();
+                            }
                             setAttributeAndNavigate(userDTO);
                         } else {
                             Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);

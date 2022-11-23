@@ -33,4 +33,10 @@ public interface UserRepository extends JpaRepository<User,UUID> {
 
     @Query("select user from User user where user.id=:id")
     User findUserById(@Param("id") UUID id);
+
+    @Query("select u from User u WHERE u.verificationCode = ?1")
+    User findByVerificationCode(String code);
+
+    @Query("select (count(u.id) > 0) from User u where u.verified=:true and u.email=:email and u.password:=password")
+    boolean isUserVerified(@Param("email") String email, @Param("password") String password);
 }

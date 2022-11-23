@@ -47,6 +47,10 @@ public class User extends BaseEntity{
     @Column(name = "verified", nullable = false)
     private boolean verified = false;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+
     /**
      * hashCode methode
      * @return
