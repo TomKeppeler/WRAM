@@ -119,7 +119,7 @@ public class RegistrationForm extends VerticalLayout {
                         if (registerControl.saveUserAndEntwickler(userDTO,
                                 entwicklerDTOBinder.getBean())) {
                             try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
@@ -133,7 +133,7 @@ public class RegistrationForm extends VerticalLayout {
                     } else if (rolle.getValue().equals(rolleProjektmanager)) {
                         if (registerControl.saveUserAndManager(userDTO, managerDTOBinder.getBean())) {
                             try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
@@ -146,7 +146,7 @@ public class RegistrationForm extends VerticalLayout {
                     } else if (rolle.getValue().equals(rolleReviewer)) {
                         if (registerControl.saveUserAndReviewer(userDTO, reviewerDTOBinder.getBean())) {
                             try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "verify/" + userDTO.getId());
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
