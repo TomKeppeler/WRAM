@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 import org.hbrs.project.wram.model.entwickler.Entwickler;
@@ -84,7 +85,7 @@ public class EntwicklerService {
         entwickler.setImage(image);
         this.entwicklerRepository.save(entwickler);
     }
-
+    @Transactional
     public @Nullable byte[] getImage(UUID id) {
         Entwickler entwickler = this.entwicklerRepository.findById(id).orElseGet(null);
         return entwickler.getImage();

@@ -13,21 +13,24 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.upload.SucceededEvent;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+
+import lombok.RequiredArgsConstructor;
 /**
  * @apiNote this class is responsible for uploading images
  * @author @tkeppe2s (Tom Keppeler)
  * @vision 1.0
  */
 public class UploadButton extends Upload {
-    @Autowired
+
     private EntwicklerService entwicklerService;
     private final UUID userId;
     private MemoryBuffer memoryBuffer = new MemoryBuffer();
     private int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB;
     private Button descriptionButton = new Button("Upload profile image");
 
-    public UploadButton(UUID userId) {
+    public UploadButton(UUID userId, EntwicklerService entwicklerService) {
         super();
+        this.entwicklerService = entwicklerService;
         memoryBuffer = new MemoryBuffer();
         this.userId = userId;
         init();

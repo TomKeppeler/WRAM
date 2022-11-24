@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
+import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,7 +54,8 @@ public class Entwickler extends BaseEntity {
     private User user;
 
     @Lob
-    @Column(name = "image", nullable = true)
+    @Column(name = "image", nullable = true, columnDefinition="BYTEA")
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] image;
 
     @Column(name = "phone", nullable = true)

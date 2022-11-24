@@ -125,7 +125,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
         skills.setWidthFull();
-        this.uploadButton = new UploadButton(aktuellerEntwickler.getId());
+        this.uploadButton = new UploadButton(aktuellerEntwickler.getId(), this.entwicklerService);
         this.image.setWidth("175px");
         this.image.setHeight("175px");
         bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
