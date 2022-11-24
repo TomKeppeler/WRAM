@@ -134,7 +134,7 @@ public class UserService {
     public boolean verify(String verificationCode) {
         User user = userRepository.findByVerificationCode(verificationCode);
 
-        if (user == null || user.isVerified()) {
+        if (user == null || !user.isVerified()) {
             return false;
         } else {
             user.setVerificationCode(null);
