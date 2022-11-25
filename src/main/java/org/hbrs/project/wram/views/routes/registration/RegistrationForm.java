@@ -41,6 +41,7 @@ import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
+import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.util.Utils;
@@ -55,6 +56,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route(value = Constants.Pages.REGISTRATION)
 @Slf4j
 public class RegistrationForm extends VerticalLayout {
+
+    @Autowired
+    UserRepository userRepository;
 
     String rolleProjektmanager = "Projektmanager";
     String rolleReviewer = "Reviewer";
@@ -116,15 +120,14 @@ public class RegistrationForm extends VerticalLayout {
                 } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
 
-                        if (registerControl.saveUserAndEntwickler(userDTO,
-                                entwicklerDTOBinder.getBean())) {
-                            try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
+                        if (registerControl.saveUserAndEntwickler(userDTO, entwicklerDTOBinder.getBean())) {
+                          /*try {
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "localhost:8080");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
                                 ex.printStackTrace();
-                            }
+                            }*/
                             setAttributeAndNavigate(userDTO);
 
                         } else {
@@ -132,26 +135,27 @@ public class RegistrationForm extends VerticalLayout {
                         }
                     } else if (rolle.getValue().equals(rolleProjektmanager)) {
                         if (registerControl.saveUserAndManager(userDTO, managerDTOBinder.getBean())) {
-                            try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
+                            /*try {
+                                  userService.register(userRepository.findUserById(userDTO.getId()),"localhost:8080");
+                                //userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "localhost:8080");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
                                 ex.printStackTrace();
-                            }
+                            }*/
                             setAttributeAndNavigate(userDTO);
                         } else {
                             Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);
                         }
                     } else if (rolle.getValue().equals(rolleReviewer)) {
                         if (registerControl.saveUserAndReviewer(userDTO, reviewerDTOBinder.getBean())) {
-                            try {
-                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "/verify");
+                           /*try {
+                                userService.register(User.builder().username(userDTO.getUsername()).email(userDTO.getEmail()).password(userDTO.getPassword()).build(), "localhost:8080");
                             } catch (UnsupportedEncodingException ex) {
                                 ex.printStackTrace();
                             } catch (MessagingException ex) {
                                 ex.printStackTrace();
-                            }
+                            }*/
                             setAttributeAndNavigate(userDTO);
                         } else {
                             Notification.show("Etwas ist schiefgelaufen!", 3000, Notification.Position.MIDDLE);

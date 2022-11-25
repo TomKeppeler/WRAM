@@ -5,11 +5,16 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+@PageTitle("verifizieren")
+@Route(value = Constants.Pages.VERIFY_VIEW)
+@Slf4j
 public class VerifyView extends Div implements HasUrlParameter<String> {
 
     private String verificationCode;
@@ -17,6 +22,22 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
 
     @Autowired
     private UserService service;
+
+    /**
+     * * Übergabe des durch die URL transferierten Verificationcodes
+     * @param   beforeEvent   aktueller benutzer
+     * @param   s übergabeparameter für verificationcode
+     */
+    @Override
+    public void setParameter(BeforeEvent beforeEvent, String s) {
+        if (s == null) {
+            verificationCode = null;
+            userId = null;
+        } else {
+            verificationCode = s;
+            this.init();
+        }
+    }
 
     private void init() {
         if (!verifyUser(verificationCode)) {
@@ -35,19 +56,13 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
         div.add(field);
         layout.add(header, div);
     }
-
+    /**
+     * * Schaue ob code valide ist
+     * @param code verifikationscode
+     */
     private boolean verifyUser(String code) {
         return service.verify(code);
     }
 
-    @Override
-    public void setParameter(BeforeEvent beforeEvent, String s) {
-        if (s == null) {
-            verificationCode = null;
-            userId = null;
-        } else {
-            verificationCode = s;
-            this.init();
-        }
-    }
+
 }

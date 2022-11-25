@@ -61,7 +61,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
        login.addLoginListener( e -> {
           boolean isAuthenticated = false;
           try {
-              isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()) && loginControl.isVerified(e.getUsername(), e.getPassword()));
+              isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()));
           } catch (Exception exception) {
             Dialog dialog = new Dialog();
             VerticalLayout layoutDialog = new VerticalLayout();
