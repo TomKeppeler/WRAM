@@ -1,7 +1,7 @@
 /**
  * @outhor Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 14.11.22 by Salah
+ * @Zuletzt bearbeiret: 25.11.2022 by Sophia
  *
  */
 package org.hbrs.project.wram.model.user;
@@ -19,6 +19,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Objects;
 
 /** Diese Klasse stellt die Entity User mit ihren Attributen dar.*/
 
@@ -43,9 +45,11 @@ public class User extends BaseEntity{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @NotNull
-    @Column(name = "verified", nullable = false)
+    @Column(name = "verified")
     private boolean verified = false;
+
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
 
     /**
      * hashCode methode
@@ -63,33 +67,15 @@ public class User extends BaseEntity{
 
     /**
      * equals methode
-     * @param obj
+     * @param o
      * @return
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return verified == user.verified && username.equals(user.username) && email.equals(user.email) && password.equals(user.password) && Objects.equals(verificationCode, user.verificationCode);
     }
 }
