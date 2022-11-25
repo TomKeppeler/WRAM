@@ -12,7 +12,6 @@ import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
 import org.hbrs.project.wram.model.user.UserDTO;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +45,20 @@ class RegisterControlTest {
     ReviewerDTO reviewerDTO;
     ManagerDTO managerDTO;
 
+    String pw = "testpw12";
+    String un = "maxMuster";
+    String fn = "Hans";
+    String n = "Wurst";
+
+
+
+
     @BeforeEach
     void setUp(){
-        userDTO = UserDTO.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
-        entwicklerDTO = EntwicklerDTO.builder().firstname("Hans").name("Wurst").build();
-        reviewerDTO = ReviewerDTO.builder().firstname("Hans").name("Wurst").build();
-        managerDTO = ManagerDTO.builder().firstname("Hans").name("Wurst").build();
+        userDTO = UserDTO.builder().email("max@mustermann.de").password(pw).username(un).build();
+        entwicklerDTO = EntwicklerDTO.builder().firstname("Hans").name(n).build();
+        reviewerDTO = ReviewerDTO.builder().firstname(fn).name(n).build();
+        managerDTO = ManagerDTO.builder().firstname(fn).name(n).build();
     }
 
     @Test
@@ -62,7 +69,7 @@ class RegisterControlTest {
     @Test
     void saveUserAndEntwicklerTest(){
         registerControl.saveUserAndEntwickler(userDTO, entwicklerDTO);
-        UUID uid = userService.findUserByUsernameAndPassword("maxMuster", "testpw12").getId();
+        UUID uid = userService.findUserByUsernameAndPassword(un, pw).getId();
         Entwickler entwickler2 = entwicklerService.findEntwicklerByUserId(uid);
         entwicklerService.deleteEntwicklerById(entwickler2.getId());
     }
@@ -70,7 +77,7 @@ class RegisterControlTest {
     @Test
     void saveUserAndManagerTest(){
         registerControl.saveUserAndManager(userDTO, managerDTO);
-        UUID uid = userService.findUserByUsernameAndPassword("maxMuster", "testpw12").getId();
+        UUID uid = userService.findUserByUsernameAndPassword(un, pw).getId();
         Manager manager2 = managerService.findManagerByUserId(uid);
         managerService.deleteManagerById(manager2.getId());
     }
@@ -78,14 +85,10 @@ class RegisterControlTest {
     @Test
     void saveUserAndReviewerTest(){
         registerControl.saveUserAndReviewer(userDTO, reviewerDTO);
-        UUID uid = userService.findUserByUsernameAndPassword("maxMuster", "testpw12").getId();
+        UUID uid = userService.findUserByUsernameAndPassword(un, pw).getId();
         Reviewer reviewer2 = reviewerService.findReviewerByUserId(uid);
         reviewerService.deleteReviewerById(reviewer2.getId());
     }
 
-    @AfterEach
-    void deleteFromDB(){
-
-    }
 
 }
