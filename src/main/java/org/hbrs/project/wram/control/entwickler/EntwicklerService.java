@@ -6,15 +6,21 @@
  */
 package org.hbrs.project.wram.control.entwickler;
 
-import com.vaadin.flow.component.notification.Notification;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import com.vaadin.flow.component.notification.Notification;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -66,5 +72,22 @@ public class EntwicklerService {
      */
     public List<Entwickler> findAllEntwickler(){
         return entwicklerRepository.findAll();
+    }
+
+    /**
+     * Diese Methode dient dazu mithilfe eines Repositorys einen Entwickler ein Bild zu geben
+     * und dann in der Datenbank zu speichern.
+     * @param id
+     * @return Entwickler
+     */
+    public void saveImage(byte[] image, @NotNull UUID id) {
+        Entwickler entwickler = this.entwicklerRepository.findById(id).get();
+        entwickler.setImage(image);
+        this.entwicklerRepository.save(entwickler);
+    }
+    @Transactional
+    public @Nullable byte[] getImage(UUID id) {
+        Entwickler entwickler = this.entwicklerRepository.findById(id).orElseGet(null);
+        return entwickler.getImage();
     }
 }

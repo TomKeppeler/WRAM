@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
+import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,8 +52,11 @@ public class Entwickler extends BaseEntity {
         referencedColumnName = "id",
         foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
-    @Column(name = "image", nullable = true)
-    private int image; //toDo: uploadeble image implementation
+
+    @Lob
+    @Column(name = "image", nullable = true, columnDefinition="BYTEA")
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] image;
 
     @Column(name = "phone", nullable = true)
     private String phone;

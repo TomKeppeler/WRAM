@@ -23,7 +23,7 @@ class UserRoundTripTest {
     }
 
     @Test
-    void UserRoundTrip() {
+    void userRoundTrip() {
         //create
         userService.doCreateUser(user);
         //read

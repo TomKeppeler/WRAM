@@ -1,6 +1,6 @@
 /**
  *
- * @outhor Tom & Lukas
+ * @author Tom & Lukas
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
  *
@@ -8,7 +8,6 @@
 
 import java.util.UUID;
 
-import org.hbrs.project.wram.model.manager.Manager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

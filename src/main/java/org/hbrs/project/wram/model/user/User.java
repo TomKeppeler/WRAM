@@ -1,7 +1,7 @@
 /**
  * @outhor Tom
  * @vision 1.0
- * @Zuletzt bearbeiret: 14.11.22 by Salah
+ * @Zuletzt bearbeiret: 25.11.2022 by Sophia
  *
  */
 package org.hbrs.project.wram.model.user;
@@ -45,13 +45,11 @@ public class User extends BaseEntity{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @NotNull
-    @Column(name = "verified", nullable = false)
+    @Column(name = "verified")
     private boolean verified = false;
 
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-
 
     /**
      * hashCode methode
