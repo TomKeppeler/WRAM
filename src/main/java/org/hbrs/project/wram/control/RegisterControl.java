@@ -6,6 +6,7 @@
 package org.hbrs.project.wram.control;
 
 import org.hbrs.project.wram.control.factory.EntityFactory;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
@@ -20,7 +21,12 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 @Component
 public class RegisterControl {
@@ -40,6 +46,10 @@ public class RegisterControl {
     //um ein Manager um DB zu speichern
     @Autowired
     private ManagerRepository managerRepository;
+
+
+    @Autowired
+    private UserService userService;
 
 
     /**
@@ -63,9 +73,8 @@ public class RegisterControl {
     public boolean saveUserAndEntwickler(UserDTO userDTO, EntwicklerDTO entwicklerDTO) {
         // Mithilfe der Methode createUser erzeugen wir eine User-Entity, die
         // dann in der Datenbank abgespeichert wird
-        User user = EntityFactory.createUser(userDTO);
-        userRepository.save(user);
-        Entwickler entwickler = EntityFactory.createEntwickler(entwicklerDTO, user);
+
+        Entwickler entwickler = EntityFactory.createEntwickler(entwicklerDTO, saveUser(userDTO));
         entwicklerRepository.save(entwickler);
         return true;
     }
@@ -77,9 +86,8 @@ public class RegisterControl {
      * @return true falls beide Entity erfolgreich gespeichert
      */
     public boolean saveUserAndManager(UserDTO userDTO, ManagerDTO managerDTO){
-        User user = EntityFactory.createUser(userDTO);
-        userRepository.save(user);
-        Manager manager = EntityFactory.createManager(managerDTO, user);
+
+        Manager manager = EntityFactory.createManager(managerDTO, saveUser(userDTO));
         managerRepository.save(manager);
         return true;
     }
@@ -91,10 +99,27 @@ public class RegisterControl {
      * @return true falls beide Entity erfolgreich gespeichert
      */
     public boolean saveUserAndReviewer(UserDTO userDTO, ReviewerDTO reviewerDTO){
-        User user = EntityFactory.createUser(userDTO);
-        userRepository.save(user);
-        Reviewer reviewer = EntityFactory.createReviewer(reviewerDTO, user);
+
+        Reviewer reviewer = EntityFactory.createReviewer(reviewerDTO, saveUser(userDTO));
         reviewerRepository.save(reviewer);
         return true;
     }
+
+    /**
+     * * user wird mittels Repository in DB gespeichert und registriert
+     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandel
+     * @return User Instanz
+     */
+    private User saveUser(UserDTO userDTO){
+        User user = EntityFactory.createUser(userDTO);
+        userRepository.save(user);
+        try {
+            userService.register(user, "localhost:8080");
+        }catch (UnsupportedEncodingException| MessagingException e){
+
+        }
+        return user;
+    }
+
+
 }

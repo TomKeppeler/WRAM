@@ -22,6 +22,7 @@ public class Constants {
         public static final String CREATEPROJECT = "ProjektErstellen";//Navigation zum Projekt Erstellen seite bei Manager
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
         public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
+        public static final String VERIFY_VIEW = "verifizieren"; //Seite zur Verifikation
 
         public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
         public static final String PROJECT_DETAIL = "projektdetails";

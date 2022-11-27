@@ -21,6 +21,7 @@ import com.vaadin.flow.router.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
@@ -41,6 +42,9 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     @Autowired
     private LoginControl loginControl;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * sets up the UI, namely the Login Form.
      * it also handles excpetions as loggin in with an unregistered username or wrong password.
@@ -57,12 +61,12 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
        login.addLoginListener( e -> {
           boolean isAuthenticated = false;
           try {
-              isAuthenticated = loginControl.authenticateUser(e.getUsername(), e.getPassword());
+              isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()));
           } catch (Exception exception) {
             Dialog dialog = new Dialog();
             VerticalLayout layoutDialog = new VerticalLayout();
             layoutDialog.add(new Header(new H1("Jetzt registrieren.")));
-            layoutDialog.add(new Text("Sie scheinen noch nicht registriert zu sein."));
+            layoutDialog.add(new Text("Sie scheinen noch nicht registriert bzw. verifiziert zu sein."));
             dialog.add(layoutDialog);
             dialog.setWidth("320px");
             dialog.setHeight("400px");

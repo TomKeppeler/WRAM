@@ -6,6 +6,7 @@
 package org.hbrs.project.wram.control.user;
 
 import com.vaadin.flow.component.UI;
+import net.bytebuddy.utility.RandomString;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.reviewer.ReviewerService;
@@ -17,10 +18,17 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +55,9 @@ public class UserService {
     //dint um die Rolle der User Daten von DB
     @Autowired
     private ReviewerService reviewerService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     // User in DB mittel userRepository speichern
@@ -121,4 +132,71 @@ public class UserService {
     public User findUserById(UUID id){
         return this.userRepository.findUserById(id);
     }
+    /**
+     * Überprüfe, ob verificationcode valide und unverbraucht ist
+     * * @param   verificationCode Code für die Verifikation
+     * @return boolean
+     */
+    public boolean verify(String verificationCode) {
+        User user = userRepository.findByVerificationCode(verificationCode);
+
+        if (user == null || user.isVerified()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setVerified(true);
+            userRepository.save(user);
+            return true;
+        }
+    }
+    /**
+     * * user erhält registrationcode, email wird aufgerufen
+     * @param   user    aktueller benutzer
+     * @param   siteURL url für die Verifiationpage
+     */
+    public void register(User user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+            String randomCode = RandomString.make(64);
+
+             user.setVerificationCode(randomCode);
+             user.setVerified(false);
+             userRepository.save(user);
+             sendVerificationEmail(user, siteURL);
+
+    }
+    /**
+     * * Schicke email mit link. Dann wird mit dem link die Verificationpage aufgerufen und der verificationcode übergeben
+     * @param   user    aktueller benutzer
+     * @param   siteURL url für die Verifiationpage
+     */
+    private void sendVerificationEmail(User user, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "wac.wram@web.de";
+        String senderName =  "WRAM Support";
+        String subject = "Please verify your registration";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Your WRAM-Team.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getUsername());
+        String verifyURL = siteURL + "/verifizieren/" + user.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
+
 }
