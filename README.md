@@ -45,6 +45,10 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 
 [Product Backlog](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Product-Backlog.pdf)
 
+[Trello-Board](https://trello.com/b/haWdalIC/wram)
+
+[Jira](http://10.20.129.72:8080/secure/RapidBoard.jspa?rapidView=141&selectedIssue=WIP-5)
+
 [Artefact](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Artefact.pdf)
 
 [Technical Stroys](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/productOwner/Technical-Storys.pdf)
@@ -64,6 +68,8 @@ Wir wollen mit unserer Anwendung (Name: Tbc) eine Plattform zum Verwalten von So
 [Präsentation Meeting 8](https://docs.google.com/presentation/d/1dQ5g3zeLpVOrHagsgzM3aOYFtfvUC6n5hW-SzEXIEyk/edit#slide=id.g18a7f952552_0_0)
 
 [Präsentation Meeting 9](https://docs.google.com/presentation/d/1tOJkgjgLz7zoxNgEibv3oUw8po4bHmq2VmBaDopdIZk/edit#slide=id.g18a7f952552_0_0)
+
+[Präsentation Meeting 10](https://docs.google.com/presentation/d/1_qRiDskaLnAH_MSYP3bTkG40k4WJHs4JzkrnnDt11oE/edit#slide=id.g19a688295aa_5_8)
 <hr width="50%" align="left">
 
 ### Senior-Programmer
