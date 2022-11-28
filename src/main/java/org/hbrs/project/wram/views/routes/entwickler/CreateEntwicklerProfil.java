@@ -65,6 +65,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     private TextField firstname;
     private TextField name;
     private TextField email;
+    private TextField username;
     private TextField phone;
     private TextArea skills;
 
@@ -122,6 +123,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         firstname = new TextField("Vorname");
         name = new TextField("Nachname");
         email = new TextField("Email");
+        username = new TextField("Username");
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
         skills.setWidthFull();
@@ -135,6 +137,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         name.setValue(aktuellerEntwickler.getName());
         email.setValue(aktuellerEntwickler.getUser().getEmail());
         email.setReadOnly(true);
+        username.setValue(aktuellerEntwickler.getUser().getUsername());
+        username.setReadOnly(true);
         if(aktuellerEntwickler.getImage() != null){
             setProfileImage();
         }
@@ -150,7 +154,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }
 
         setRequiredIndicatorVisible(firstname, name);
-        formLayout.add(title, this.image, this.uploadButton, firstname, name, email, phone, skills, bestätigungsknopf, backlink);
+        formLayout.add(title, this.image, this.uploadButton, firstname, name, email, username, phone, skills, bestätigungsknopf, backlink);
         formLayout.setMaxWidth("900px");
         return formLayout;
     }
@@ -203,6 +207,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         entwicklerNeu.setUser(user);
         entwicklerNeu.setKundenprojekt(entwicklerAlt.getKundenprojekt());
         entwicklerNeu.setId(entwicklerAlt.getId());
+        entwicklerNeu.setImage(entwicklerAlt.getImage());
         return entwicklerNeu;
     }
 
