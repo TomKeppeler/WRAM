@@ -42,7 +42,7 @@ public class UploadButton extends Upload {
      */
     private void init() {
         this.setReceiver(memoryBuffer);
-        //this.setAcceptedFileTypes("image/jpeg", "image/png", "image/jpg");
+        this.setAcceptedFileTypes("image/jpeg", "image/png", "image/jpg");
         this.setMaxFileSize(this.maxFileSizeInBytes);
         this.setUploadButton(this.descriptionButton);
         this.setWidth("175px");

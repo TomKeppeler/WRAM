@@ -125,7 +125,12 @@ public class Utils {
         else if(telefonnummer.charAt(0)=='+' && isNumber(telefonnummer.substring(1, telefonnummer.length()-1))) return true;
         else return isNumber(telefonnummer);
     }
-    
+
+    /**
+     * @apiNote this method is used to create compute a byte array to a image
+     * @param profileImage : byte[]
+     * @return Image
+     */
     public static Image generateImage(byte[] profileImage) {
         StreamResource sr = new StreamResource("user", () -> new ByteArrayInputStream(profileImage));
         return new Image(sr, "profile-pricture");

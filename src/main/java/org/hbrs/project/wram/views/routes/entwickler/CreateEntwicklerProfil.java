@@ -126,8 +126,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         skills = new TextArea("Skills");
         skills.setWidthFull();
         this.uploadButton = new UploadButton(aktuellerEntwickler.getId(), this.entwicklerService);
-        this.image.setWidth("175px");
-        this.image.setHeight("175px");
+        styleUploadButton();
+
         bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
@@ -150,9 +150,19 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }
 
         setRequiredIndicatorVisible(firstname, name);
-        formLayout.add(this.image, this.uploadButton, title, firstname, name, email, phone, skills, bestätigungsknopf, backlink);
+        formLayout.add(title, this.image, this.uploadButton, firstname, name, email, phone, skills, bestätigungsknopf, backlink);
         formLayout.setMaxWidth("900px");
         return formLayout;
+    }
+    /**
+     * This method sets the style for the upload button.
+     * @author: @tkeppe2s (Tom Keppeler)
+     */
+    private void styleUploadButton() {
+        this.image.setHeight("300px");
+        this.image.getStyle().set("border-radius", "30%");
+        this.image.getStyle().set("margin", "1 auto");
+        this.image.getStyle().set("border", "5px solid #ddd");
     }
 
     /**
@@ -161,8 +171,8 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      */
     private void setProfileImage() {
         Entwickler aktuellerEntwickler = entwicklerService.findEntwicklerByUserId((UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER));
-        Image profilImage = Utils.generateImage(this.entwicklerService.getImage(aktuellerEntwickler.getId()));
-        this.image.setSrc(profilImage.getSrc());
+        this.image = Utils.generateImage(this.entwicklerService.getImage(aktuellerEntwickler.getId()));
+        styleUploadButton();
     }
 
     /**
