@@ -222,8 +222,6 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * hat.
      * Diese Methode in der AppLayout sichert auch den un-authorisierten Zugriff auf
      * die innerliegenden
-     * Views (hier: ShowCarsView und EnterCarView) ab.
-     *
      */
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         if (control.getCurrentUser() == null) {
@@ -231,6 +229,10 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         }
     }
 
+    /**
+     * Diese Methode dient dazu, die Pflichtfelder zu markieren und mit einem
+     * Helpertext zu versehen, wenn diese leer gelassen worden sind.
+     */
     private void validateFields(){
         entwicklerDTOBinder.forField(firstname)
                 .withValidator(binderFirstname -> !binderFirstname.isEmpty(), "Bitte Vorname angeben").asRequired()
@@ -244,10 +246,19 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
     }
 
+    /**
+     * Diese Methode dient dazu, die Eingabefelder als Pflichtfelder zu markieren.
+     *
+     * @param components
+     */
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
     }
 
+    /**
+     * Diese Methode dient dazu als Helpertext unter den Eingabefeldern anzuzeigen,
+     * wie viele Zeichen erlaubt sind.
+     */
     private void setMaxCharForFields() {
         skills.setMaxLength(255);
         skills.setHelperText(skills.getValue().length() + "/" + 255);
