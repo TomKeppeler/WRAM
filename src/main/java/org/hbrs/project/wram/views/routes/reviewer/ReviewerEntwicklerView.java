@@ -18,6 +18,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -136,7 +137,7 @@ public class ReviewerEntwicklerView extends Div {
         private final TextField nachname = new TextField("Nachname");
         private final TextField email = new TextField("Email");
         private final TextField telefonnummer = new TextField("Telefonnummer");
-        private final TextField skills = new TextField("Skills");
+        private final TextArea skills = new TextArea("Skills");
 
         public EntwicklerDetailsFormLayout() {
             vorname.setReadOnly(true);
