@@ -7,6 +7,7 @@
 package org.hbrs.project.wram.views.routes.reviewer;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -14,6 +15,7 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -27,13 +29,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
+
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * Diese View dient dazu einem als Reviwer eingeloggtem User alle Entwickler anzuzeigen.
@@ -124,7 +130,8 @@ public class ReviewerEntwicklerView extends Div {
      * Hier werden alle Daten des Entwicklers angegeben.
      */
     private static class EntwicklerDetailsFormLayout extends FormLayout {
-        // Bild
+        private Image image = new Image("images/defaultP.png", "Profile Picture");
+        private Span placeholder = new Span();
         private final TextField vorname = new TextField("Vorname");
         private final TextField nachname = new TextField("Nachname");
         private final TextField email = new TextField("Email");
@@ -132,25 +139,48 @@ public class ReviewerEntwicklerView extends Div {
         private final TextField skills = new TextField("Skills");
 
         public EntwicklerDetailsFormLayout() {
-            Stream.of(vorname, nachname, email, telefonnummer, skills).forEach(field -> {
-                field.setReadOnly(true);
-                add(field);
-            });
+            vorname.setReadOnly(true);
+            nachname.setReadOnly(true);
+            email.setReadOnly(true);
+            telefonnummer.setReadOnly(true);
+            skills.setReadOnly(true);
 
             setResponsiveSteps(new ResponsiveStep("0", 4));
+            image.setMaxWidth("110px");image.setMinWidth("110px");image.setHeight("100px");
+            //um einen Zeilenumbruch zwischen Bild und textfeldern zu erzeugen.
+            setColspan(placeholder, 4);
             setColspan(vorname, 2);
             setColspan(nachname, 2);
             setColspan(email, 2);
             setColspan(telefonnummer, 2);
             setColspan(skills, 4);
+            add(image, placeholder, vorname, nachname, email, telefonnummer, skills);
         }
 
         public void setEntwickler(Entwickler entwickler) {
+            if(entwickler.getImage()!=null){
+                setProfileImage(entwickler);
+                //this.image = Utils.generateImage(entwickler.getImage());
+                //this.image = Utils.generateImage(this.entwicklerService.getImage(entwickler.getId()));
+            }
+
             if(entwickler.getFirstname()!=null){vorname.setValue(entwickler.getFirstname());}else{vorname.setValue("-");}
             if(entwickler.getName()!=null){nachname.setValue(entwickler.getName());}else{nachname.setValue("-");}
             if(entwickler.getUser().getEmail()!=null){email.setValue(entwickler.getUser().getEmail());}else{email.setValue("-");}
             if(entwickler.getPhone()!=null){telefonnummer.setValue(entwickler.getPhone());}else{telefonnummer.setValue("-");}
             if(entwickler.getSkills()!=null){skills.setValue(entwickler.getSkills());}else{skills.setValue("-");}
+        }
+
+        private void setProfileImage(Entwickler entwickler) {
+            image = Utils.generateImage(entwickler.getImage());
+            styleUploadButton();
+        }
+
+        private void styleUploadButton() {
+            this.image.setHeight("100px");
+            this.image.getStyle().set("border-radius", "30%");
+            this.image.getStyle().set("margin", "1 auto");
+            this.image.getStyle().set("border", "5px solid #ddd");
         }
     }
 
