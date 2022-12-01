@@ -8,6 +8,7 @@ package org.hbrs.project.wram.views.routes.reviewer;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
@@ -18,6 +19,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.function.SerializableBiConsumer;
 import com.vaadin.flow.router.Route;
@@ -31,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * Diese View dient dazu einem als Reviwer eingeloggtem User alle Entwickler anzuzeigen.
  * Dabei wird die View innerhalb der AppView angezeigt.
@@ -96,9 +100,58 @@ public class ReviewerEntwicklerView extends Div {
         //Grid.Column<Entwickler> statusColumn = grid.addColumn(Entwickler::getKundenprojekt).setHeader("Verfügbarkeit").setWidth("225px");
         grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
 
-        grid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
-
+        grid.setItemDetailsRenderer(createEntwicklerDetailsRenderer());
+        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        grid.setHeight("1000px");
+        
         return grid;
+    }
+
+    /**
+     * Die Methode erzeugt ein ComponentRenderer, um in der Grid
+     * alle Attribute des Entwicklers anzeigen zu können.
+     *
+     * @return
+     */
+    private static ComponentRenderer<EntwicklerDetailsFormLayout, Entwickler> createEntwicklerDetailsRenderer() {
+        return new ComponentRenderer<>(
+                EntwicklerDetailsFormLayout::new,
+                EntwicklerDetailsFormLayout::setEntwickler);
+    }
+
+    /**
+     * Klasse zur darstellung des Entwicklerprofils in der Grid.
+     * Hier werden alle Daten des Entwicklers angegeben.
+     */
+    private static class EntwicklerDetailsFormLayout extends FormLayout {
+        // Bild
+        private final TextField vorname = new TextField("Vorname");
+        private final TextField nachname = new TextField("Nachname");
+        private final TextField email = new TextField("Email");
+        private final TextField telefonnummer = new TextField("Telefonnummer");
+        private final TextField skills = new TextField("Skills");
+
+        public EntwicklerDetailsFormLayout() {
+            Stream.of(vorname, nachname, email, telefonnummer, skills).forEach(field -> {
+                field.setReadOnly(true);
+                add(field);
+            });
+
+            setResponsiveSteps(new ResponsiveStep("0", 4));
+            setColspan(vorname, 2);
+            setColspan(nachname, 2);
+            setColspan(email, 2);
+            setColspan(telefonnummer, 2);
+            setColspan(skills, 4);
+        }
+
+        public void setEntwickler(Entwickler entwickler) {
+            if(entwickler.getFirstname()!=null){vorname.setValue(entwickler.getFirstname());}else{vorname.setValue("-");}
+            if(entwickler.getName()!=null){nachname.setValue(entwickler.getName());}else{nachname.setValue("-");}
+            if(entwickler.getUser().getEmail()!=null){email.setValue(entwickler.getUser().getEmail());}else{email.setValue("-");}
+            if(entwickler.getPhone()!=null){telefonnummer.setValue(entwickler.getPhone());}else{telefonnummer.setValue("-");}
+            if(entwickler.getSkills()!=null){skills.setValue(entwickler.getSkills());}else{skills.setValue("-");}
+        }
     }
 
     /**
