@@ -94,11 +94,11 @@ public class ProjectDetailView extends Div {
 
         header = new H2("Kundenprojekt Infos.");
         zurueckLink = new RouterLink("Zurück zu meiner Projektübersicht", ProjectsOverview.class);
-        projektname = new TextField("Projektname");
-        skills = new TextArea();
+        projektname = new TextField("Projektname");projektname.setWidth("550px");
+        skills = new TextArea("Skills");
         skills.setWidthFull();
         skills.setPlaceholder("Erforderliche Skills");
-        projektbeschreibung = new TextArea();
+        projektbeschreibung = new TextArea("Projektbeschreibung");
         projektbeschreibung.setWidthFull();
         projektbeschreibung.setPlaceholder("Projektbeschreibung");
         projektname.setValue(aktuellesProjekt.getProjektname());
@@ -172,7 +172,7 @@ public class ProjectDetailView extends Div {
      * Zudem wird eine Statusanzeige als Helpertext unterhalb der Eingabefelder angezeigt.
      */
     private void setMaxCharForFields() {
-        int charLimitProjektName = 40;
+        int charLimitProjektName = 70;
         projektname.setMaxLength(charLimitProjektName);
         projektname.setHelperText(projektname.getValue().length() + "/" + charLimitProjektName);
         projektname.setValueChangeMode(ValueChangeMode.EAGER);

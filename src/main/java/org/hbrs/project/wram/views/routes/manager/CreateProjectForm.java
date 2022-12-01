@@ -114,14 +114,14 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
     public VerticalLayout createFormLayout() {
         VerticalLayout formLayout = new VerticalLayout();
         title = new H2("Erstelle ein neues Projekt.");
-        projektname = new TextField();
-        projektname.setPlaceholder("Projektname");
+        projektname = new TextField("Projektname");
+        projektname.setPlaceholder("Projektname");projektname.setWidth("550px");
 
-        skills = new TextArea();
+        skills = new TextArea("Skills");
         skills.setWidthFull();
         skills.setPlaceholder("Erforderliche Skills");
 
-        projektbeschreibung = new TextArea();
+        projektbeschreibung = new TextArea("Projektbeschreibung");
         projektbeschreibung.setWidthFull();
         projektbeschreibung.setPlaceholder("Projektbeschreibung");
         // Radiobutton für rolle
@@ -221,7 +221,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
      * wie viele Zeichen erlaubt sind.
      */
     private void setMaxCharForFields() {
-        int charLimitProjektName = 40;
+        int charLimitProjektName = 70;
         projektname.setMaxLength(charLimitProjektName);
         projektname.setHelperText("0/" + charLimitProjektName);
         projektname.setValueChangeMode(ValueChangeMode.EAGER);
