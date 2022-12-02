@@ -3,12 +3,14 @@ package org.hbrs.project.wram.views.routes.registration;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -46,6 +48,10 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
         VerticalLayout layout = new VerticalLayout();
         H1 header = new H1("Sie sind erfolgreich verifiziert!.");
         layout.add(header);
+        RouterLink link = new RouterLink("Jetzt einloggen.", LoginView.class);
+        layout.add(link);
+        layout.setAlignItems(FlexComponent.Alignment.CENTER);
+        this.add(layout);
     }
 
     private void setUpErrorLayout() {
