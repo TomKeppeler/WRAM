@@ -21,7 +21,10 @@ import com.vaadin.flow.router.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
@@ -44,7 +47,9 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private EntwicklerService entwicklerService;
+    private  User user = null;
     /**
      * sets up the UI, namely the Login Form.
      * it also handles excpetions as loggin in with an unregistered username or wrong password.
@@ -83,7 +88,15 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
           }
           if (isAuthenticated) {
               grabAndSetUserIntoSession();
-              navigateToMainPage();
+
+              // bei Entwickler wird auf Entwickler Profil navigiert
+              if (userService.getRolle() == "e" ){
+                  UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+              }
+              else {
+                  navigateToMainPage();
+              }
+
           } else {
               login.setError(true);
           }
@@ -104,7 +117,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     private void grabAndSetUserIntoSession() {
         //User und Entwickler/Manager/Reviews werden gesetzt
         // TODO: 27.10.2022 setAttribute für Entwickler/Manager/Reviews
-        final User user = loginControl.getCurrentUser();
+         user = loginControl.getCurrentUser();
 
         UI.getCurrent().getSession().setAttribute(CURRENT_USER, user.getId());
         log.info(UI.getCurrent().getSession().getAttribute(CURRENT_USER).toString());

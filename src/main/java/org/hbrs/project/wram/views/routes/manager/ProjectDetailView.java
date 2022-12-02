@@ -107,7 +107,7 @@ public class ProjectDetailView extends Div {
 
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Status");
-        oeff.setItems("Voeffentlich", "nicht oeffentliche");
+        oeff.setItems("voeffentlich", "nicht oeffentliche");
         if(aktuellesProjekt.isPublicProjekt()){oeff.setValue("oeffentlich");}else{oeff.setValue("nicht oeffentliche");}
         oeff.setEnabled(true);
 

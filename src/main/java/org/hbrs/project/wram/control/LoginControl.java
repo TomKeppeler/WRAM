@@ -29,7 +29,7 @@ public class LoginControl {
     @Autowired
     private UserRepository repository;
 
-    // wird von DB mitls  authenticateUser() geholt
+    // wird von DB mitls authenticateUser() geholt
     private User currentUser = null;
 
     /**
@@ -71,7 +71,7 @@ public class LoginControl {
 
     /**
      *
-     * @return gibt ein user zurück was bei  authenticateUser() geholt wurde
+     * @return gibt ein user zurück was bei authenticateUser() geholt wurde
      */
     public User getCurrentUser() {
         return this.currentUser;
