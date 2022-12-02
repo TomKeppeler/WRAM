@@ -155,14 +155,13 @@ public class ReviewerEntwicklerView extends Div {
             setColspan(email, 2);
             setColspan(telefonnummer, 2);
             setColspan(skills, 4);
-            add(image, placeholder, vorname, nachname, email, telefonnummer, skills);
+
         }
 
         public void setEntwickler(Entwickler entwickler) {
-            if(entwickler.getImage()!=null){
-                setProfileImage(entwickler);
-                //this.image = Utils.generateImage(entwickler.getImage());
-                //this.image = Utils.generateImage(this.entwicklerService.getImage(entwickler.getId()));
+            if(entwickler.getImage()!=null) {
+              this.image = Utils.generateImage(entwickler.getImage());
+              this.image.setMaxWidth("110px");image.setMinWidth("110px");image.setHeight("100px");
             }
 
             if(entwickler.getFirstname()!=null){vorname.setValue(entwickler.getFirstname());}else{vorname.setValue("-");}
@@ -170,19 +169,10 @@ public class ReviewerEntwicklerView extends Div {
             if(entwickler.getUser().getEmail()!=null){email.setValue(entwickler.getUser().getEmail());}else{email.setValue("-");}
             if(entwickler.getPhone()!=null){telefonnummer.setValue(entwickler.getPhone());}else{telefonnummer.setValue("-");}
             if(entwickler.getSkills()!=null){skills.setValue(entwickler.getSkills());}else{skills.setValue("-");}
+
+            add(image, placeholder, vorname, nachname, email, telefonnummer, skills);
         }
 
-        private void setProfileImage(Entwickler entwickler) {
-            image = Utils.generateImage(entwickler.getImage());
-            styleUploadButton();
-        }
-
-        private void styleUploadButton() {
-            this.image.setHeight("100px");
-            this.image.getStyle().set("border-radius", "30%");
-            this.image.getStyle().set("margin", "1 auto");
-            this.image.getStyle().set("border", "5px solid #ddd");
-        }
     }
 
     /**
