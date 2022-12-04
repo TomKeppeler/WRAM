@@ -7,9 +7,11 @@
 package org.hbrs.project.wram.views.routes.manager;
 
 import com.vaadin.flow.component.HasValueAndElement;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
@@ -107,8 +109,8 @@ public class ProjectDetailView extends Div {
 
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Status");
-        oeff.setItems("voeffentlich", "nicht oeffentliche");
-        if(aktuellesProjekt.isPublicProjekt()){oeff.setValue("oeffentlich");}else{oeff.setValue("nicht oeffentliche");}
+        oeff.setItems("oeffentlich", "nicht oeffentlich");
+        if(aktuellesProjekt.isPublicProjekt()){oeff.setValue("oeffentlich");}else{oeff.setValue("nicht oeffentlich");}
         oeff.setEnabled(true);
 
         bestätigungsknopf = new Button("Projekt updaten");
@@ -126,7 +128,8 @@ public class ProjectDetailView extends Div {
      */
     private void navigateToAppView() {
         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW);
-        Notification.show("Projekt wurde erfolgreich geupdated.", 3000, Notification.Position.MIDDLE);
+        notifyAfterUpdate();
+        //Notification.show("Projekt wurde erfolgreich geupdated.", 3000, Notification.Position.MIDDLE);
     }
 
     /**
@@ -214,5 +217,28 @@ public class ProjectDetailView extends Div {
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));
+    }
+
+    /**
+     * benachrichtigung bei einem update von Projekt
+     */
+    private void notifyAfterUpdate() {
+        Dialog confirm = new Dialog();
+        confirm.setId("confirm-profile-update");
+        confirm.open();
+
+        VerticalLayout dialoglayout = new VerticalLayout(
+                new Text("Projekt wurde erfolgreich geupdated."),
+                new Button("Ok", e ->
+                        confirm.close()
+                )
+        );
+        dialoglayout.setId("confirm-dialog-layout");
+
+        confirm.add(
+                dialoglayout
+        );
+        confirm.setCloseOnEsc(true);
+        confirm.setCloseOnOutsideClick(false);
     }
 }

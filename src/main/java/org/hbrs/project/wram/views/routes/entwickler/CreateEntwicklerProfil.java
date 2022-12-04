@@ -13,6 +13,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.dialog.Dialog;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.user.UserService;
@@ -106,8 +108,9 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * bekommt der Entwickler eine Benachrichtiung, dass es erfolgreich funktioniert hat.
      */
     private void navigateToAppView() {
-        UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW); // Appview
-        Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
+        UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+        notifyAfterUpdate();
+        //Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
     /**
@@ -266,5 +269,28 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         skills.addValueChangeListener(e ->
                 e.getSource().setHelperText(e.getValue().length() + "/" + 255)
         );
+    }
+
+    /**
+     * benachrichtigung bei einem update von Profil
+     */
+    private void notifyAfterUpdate() {
+        Dialog confirm = new Dialog();
+        confirm.setId("confirm-profile-update");
+        confirm.open();
+
+        VerticalLayout dialoglayout = new VerticalLayout(
+                new Text("Dein Profil wurde erfolgreich erstellt/ geupdated."),
+                new Button("Ok", e ->
+                        confirm.close()
+                )
+        );
+        dialoglayout.setId("confirm-dialog-layout");
+
+        confirm.add(
+                dialoglayout
+        );
+        confirm.setCloseOnEsc(true);
+        confirm.setCloseOnOutsideClick(false);
     }
 }

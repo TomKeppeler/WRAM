@@ -9,6 +9,7 @@ package org.hbrs.project.wram.views.routes.manager;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
@@ -103,7 +104,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
      */
     private void navigateToAppView() {
         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW); // Appview
-        Notification.show("Projekt erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
+        notifyAfterUpdate();
+        //Notification.show("Projekt erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
 
     /**
@@ -243,5 +245,28 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         projektbeschreibung.addValueChangeListener(e ->
                 e.getSource().setHelperText(e.getValue().length() + "/" + charLimit)
         );
+    }
+
+    /**
+     * benachrichtigung bei einem erstellt von Projekt
+     */
+    private void notifyAfterUpdate() {
+        Dialog confirm = new Dialog();
+        confirm.setId("confirm-profile-update");
+        confirm.open();
+
+        VerticalLayout dialoglayout = new VerticalLayout(
+                new Text("Projekt erfolgreich erstellt."),
+                new Button("Ok", e ->
+                        confirm.close()
+                )
+        );
+        dialoglayout.setId("confirm-dialog-layout");
+
+        confirm.add(
+                dialoglayout
+        );
+        confirm.setCloseOnEsc(true);
+        confirm.setCloseOnOutsideClick(false);
     }
 }
