@@ -62,11 +62,16 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
        RouterLink register = new RouterLink("Jetzt registrieren", RegistrationForm.class);
        HorizontalLayout registerlink = new HorizontalLayout( register);
+       String username="";
+       login.addForgotPasswordListener(e->{
+           UI.getCurrent().navigate("username_submitten"); // Login-View
 
+       });
        login.addLoginListener( e -> {
           boolean isAuthenticated = false;
           try {
               isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()));
+
           } catch (Exception exception) {
             Dialog dialog = new Dialog();
             VerticalLayout layoutDialog = new VerticalLayout();

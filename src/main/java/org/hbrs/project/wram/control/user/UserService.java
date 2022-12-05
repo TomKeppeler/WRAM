@@ -7,6 +7,7 @@ package org.hbrs.project.wram.control.user;
 
 import com.vaadin.flow.component.UI;
 import net.bytebuddy.utility.RandomString;
+import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.control.reviewer.ReviewerService;
@@ -161,6 +162,75 @@ public class UserService {
              user.setVerified(false);
              userRepository.save(user);
              sendVerificationEmail(user, siteURL);
+
+    }
+    /**
+     * Überprüfe, ob temporäres Passwort valide und unverbraucht ist
+     * * @param   verificationCode Code für das temporäre pw
+     * @return boolean
+     */
+    public boolean verifyPassword(String verificationCode) {
+        User user = userRepository.findUserByPassword(verificationCode);
+
+        if (user == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
+     * Überprüfe, ob temporäres Passwort valide und unverbraucht ist
+     * * @param   verificationCode Code für das temporäre pw
+     * @return boolean
+     */
+    public boolean verifyNewPassword(String pw) {
+        return RegisterControl.passwortCheck(pw);
+    }
+    /**
+     * * user erhält registrationcode, email wird aufgerufen
+     * @param   user    aktueller benutzer
+     * @param   siteURL url für die Verifiationpage
+     */
+    public void generatePassword(String username, String siteURL) throws UnsupportedEncodingException, MessagingException {
+        String randomCode = RandomString.make(64);
+        User user=userRepository.findUserByUsername(username);
+        user.setPassword(randomCode);
+        userRepository.save(user);
+        sendForgotPasswordEmail(user, siteURL);
+
+    }
+    /**
+     * * Schicke email mit link. Dann wird mit dem link die Passwortpage aufgerufen und der verificationcode übergeben
+     * @param   user    aktueller benutzer
+     * @param   siteURL url für die Verifiationpage
+     */
+    private void sendForgotPasswordEmail(User user, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "wac.wram@web.de";
+        String senderName =  "WRAM Support";
+        String subject = "Please update your password";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to update your password:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Your WRAM-Team.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getUsername());
+        String verifyURL = siteURL + "/passwort_erneuern/" + user.getPassword();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
 
     }
     /**
