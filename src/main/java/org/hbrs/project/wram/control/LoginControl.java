@@ -7,12 +7,6 @@
 
 package org.hbrs.project.wram.control;
 
-
-/**
- * @outhor Salah Kahlosi & Sophia
- * @vision 1.0
- * @Zuletzt bearbeiret: 14.11.22 by Salah
- */
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Encryption;
@@ -41,7 +35,8 @@ public class LoginControl {
      */
     public boolean authenticateUser(String username, String password) throws Exception {
         User user = getUser(username,password);
-        if (user == null|!user.isVerified()) {
+        user.isVerified();
+        if (user == null ) {
             return false;
         } else {
             this.currentUser = user;
@@ -67,6 +62,14 @@ public class LoginControl {
             throw new Exception("A failure occurred while trying to connect to a database with JPA.");
         }
         return user;
+    }
+    public @Nullable boolean isUsernameInUse(String username) {
+
+
+             return  repository.isUsernameInUse(username);
+
+
+
     }
 
     /**

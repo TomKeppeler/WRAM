@@ -32,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Objects;
+
 import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
@@ -65,40 +67,55 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
        login.addLoginListener( e -> {
           boolean isAuthenticated = false;
+
+
           try {
+
               isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()));
           } catch (Exception exception) {
-            Dialog dialog = new Dialog();
-            VerticalLayout layoutDialog = new VerticalLayout();
-            layoutDialog.add(new Header(new H1("Jetzt registrieren.")));
-            layoutDialog.add(new Text("Sie scheinen noch nicht registriert bzw. verifiziert zu sein."));
-            dialog.add(layoutDialog);
-            dialog.setWidth("320px");
-            dialog.setHeight("400px");
-            Button closeButton = new Button("Schließen");
-            Button registerButton = new Button("Registrieren");
-            registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-            closeButton.addClickListener(event -> dialog.close());
-            registerButton.addClickListener(event -> {dialog.close(); UI.getCurrent().navigate(Constants.Pages.REGISTRATION);});
-            HorizontalLayout buttonLayout = new HorizontalLayout(registerButton, closeButton);
-            buttonLayout.getStyle().set("flex-wrap", "wrap");
-            buttonLayout.setJustifyContentMode(JustifyContentMode.END);
-            dialog.add(buttonLayout);
-            dialog.open();
+              // falls user doch im DB vorhanden ist
+              if (loginControl.isUsernameInUse(e.getUsername())){
+                  login.setError(true);
+              }
+              //  falls user doch nicht im DB vorhanden ist
+              else {
+                  Dialog dialog = new Dialog();
+                  VerticalLayout layoutDialog = new VerticalLayout();
+                  layoutDialog.add(new Header(new H1("Jetzt registrieren.")));
+                  layoutDialog.add(new Text("Sie scheinen noch nicht registriert bzw. verifiziert zu sein."));
+                  dialog.add(layoutDialog);
+                  dialog.setWidth("320px");
+                  dialog.setHeight("400px");
+                  Button closeButton = new Button("Schließen");
+                  Button registerButton = new Button("Registrieren");
+                  registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+                  closeButton.addClickListener(event -> {dialog.close();
+                      UI.getCurrent().navigate(Constants.Pages.REGISTRATION);//ToDo als zwichen lösung
+                      UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);//ToDo beim schließen wird der login Button nicht gezeigt
+
+                  });
+
+                  registerButton.addClickListener(event -> {dialog.close();
+                      UI.getCurrent().navigate(Constants.Pages.REGISTRATION);});
+                  HorizontalLayout buttonLayout = new HorizontalLayout(registerButton, closeButton);
+                  buttonLayout.getStyle().set("flex-wrap", "wrap");
+                  buttonLayout.setJustifyContentMode(JustifyContentMode.END);
+                  dialog.add(buttonLayout);
+                  dialog.open();
+              }
+
           }
           if (isAuthenticated) {
               grabAndSetUserIntoSession();
 
               // bei Entwickler wird auf Entwickler Profil navigiert
-              if (userService.getRolle() == "e" ){
+              if (Objects.equals(userService.getRolle(), "e")){
                   UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
               }
               else {
                   navigateToMainPage();
               }
 
-          } else {
-              login.setError(true);
           }
        });
        layout.add(new Header(new H1("Willkommen in der Zukunft des Projektmanagements.")));
