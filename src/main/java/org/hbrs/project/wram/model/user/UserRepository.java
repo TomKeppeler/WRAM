@@ -24,6 +24,12 @@ public interface UserRepository extends JpaRepository<User,UUID> {
     @Query("select user from User user where user.username=:username and user.password=:password")
     User findUserByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
+    @Query("select user from User user where user.password=:password")
+    User findUserByPassword(@Param("password") String password);
+
+    @Query("select user from User user where user.username=:username")
+    User findUserByUsername(@Param("username") String username);
+
     @Query("SELECT (count(u.id) > 0)    from User u where u.email=:email")
     boolean isEmailInUse(@Param("email") String email);
 
@@ -36,6 +42,8 @@ public interface UserRepository extends JpaRepository<User,UUID> {
 
     @Query("select u from User u WHERE u.verificationCode = ?1")
     User findByVerificationCode(String code);
+
+   //todo:Insert in jpa
 
 
 

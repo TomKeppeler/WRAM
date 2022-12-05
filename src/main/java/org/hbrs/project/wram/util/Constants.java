@@ -23,6 +23,9 @@ public class Constants {
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
         public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
         public static final String VERIFY_VIEW = "verifizieren"; //Seite zur Verifikation
+        public static final String Password_VIEW = "passwort_erneuern"; //Seite zur Verifikation
+        public static final String Username_VIEW = "username_submitten"; //Seite zur Verifikation
+
 
         public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
         public static final String PROJECT_DETAIL = "projektdetails";
