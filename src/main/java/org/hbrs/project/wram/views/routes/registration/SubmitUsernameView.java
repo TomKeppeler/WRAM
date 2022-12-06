@@ -23,6 +23,8 @@ import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
+import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,7 +34,7 @@ import java.io.UnsupportedEncodingException;
 
 
 @PageTitle("username_submitten")
-@Route(value = Constants.Pages.Username_VIEW)
+@Route(value = Constants.Pages.Username_VIEW, layout = AppViewOutside.class)
 @Slf4j
 public class SubmitUsernameView extends Div  {
 

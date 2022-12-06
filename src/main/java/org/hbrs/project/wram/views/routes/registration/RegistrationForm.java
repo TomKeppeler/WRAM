@@ -14,8 +14,10 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -45,6 +47,7 @@ import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.util.Utils;
+import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,9 +56,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Dabei kann man sich als Manager, Reviewer oder Entwickler registrieren.
  */
 @PageTitle("Registrierung")
-@Route(value = Constants.Pages.REGISTRATION)
+@Route(value = Constants.Pages.REGISTRATION, layout = AppViewOutside.class)
 @Slf4j
 public class RegistrationForm extends VerticalLayout {
+    VerticalLayout layout = new VerticalLayout();
 
     @Autowired
     UserRepository userRepository;

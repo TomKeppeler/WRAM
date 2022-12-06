@@ -10,12 +10,13 @@ import com.vaadin.flow.router.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @PageTitle("verifizieren")
-@Route(value = Constants.Pages.VERIFY_VIEW)
+@Route(value = Constants.Pages.VERIFY_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class VerifyView extends Div implements HasUrlParameter<String> {
 

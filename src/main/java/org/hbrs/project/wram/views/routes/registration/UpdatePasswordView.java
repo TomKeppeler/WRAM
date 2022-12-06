@@ -26,6 +26,7 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
+import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,7 +34,7 @@ import javax.annotation.PostConstruct;
 
 
 @PageTitle("passwort_erneuern")
-@Route(value = Constants.Pages.Password_VIEW)
+@Route(value = Constants.Pages.Password_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
 

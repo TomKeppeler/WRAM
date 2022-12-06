@@ -27,6 +27,7 @@ import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +41,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  */
 @Route(value = Constants.Pages.LOGIN_VIEW)
-@RouteAlias(value = Constants.Pages.MAIN_VIEW)
+@RouteAlias(value = Constants.Pages.MAIN_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
