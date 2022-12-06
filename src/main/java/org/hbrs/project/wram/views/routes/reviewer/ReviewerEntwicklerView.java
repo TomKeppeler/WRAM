@@ -46,7 +46,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  * Dabei wird die View innerhalb der AppView angezeigt.
  */
 @CssImport("./styles/views/main/main-view.css")
-@Route(value = Constants.Pages.ENTWICKLERZUWEISEN, layout = AppView.class)
+@Route(value = Constants.Pages.REVIEWERENTWICKLER, layout = AppView.class)
 public class ReviewerEntwicklerView extends Div {
 
 
@@ -133,7 +133,7 @@ public class ReviewerEntwicklerView extends Div {
          * Klasse zur darstellung des Entwicklerprofils in der Grid.
          * Hier werden alle Daten des Entwicklers angegeben.
          */
-        private static class EntwicklerDetailsFormLayout extends FormLayout {
+        protected static class EntwicklerDetailsFormLayout extends FormLayout {
             private Image image = new Image("images/defaultP.png", "Profile Picture");
             private Span placeholder = new Span();
             private final TextField vorname = new TextField("Vorname");

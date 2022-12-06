@@ -27,9 +27,10 @@ public class Constants {
         public static final String Username_VIEW = "username_submitten"; //Seite zur Verifikation
 
 
-        public static final String ENTWICKLERZUWEISEN = "EntwicklerZuweisen";
+        public static final String REVIEWERENTWICKLER = "Entwickler";
         public static final String PROJECT_DETAIL = "projektdetails";
         public static final String REVIEWERPROJEKTE = "projekte";
+        public static final String REVIEWERENTWICKLERZUWEISEN = "entwicklerZuweisen";
     }
 
 

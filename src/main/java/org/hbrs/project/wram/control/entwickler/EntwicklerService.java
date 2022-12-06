@@ -90,4 +90,8 @@ public class EntwicklerService {
         Entwickler entwickler = this.entwicklerRepository.findById(id).orElseGet(null);
         return entwickler.getImage();
     }
+
+    public List<Entwickler> findAllFreeEntwickler() {
+        return entwicklerRepository.findAllByKundenprojektIsNull();
+    }
 }

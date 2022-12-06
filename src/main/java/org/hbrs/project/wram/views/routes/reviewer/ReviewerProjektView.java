@@ -82,11 +82,29 @@ public class ReviewerProjektView extends Div {
         // Skills
         Grid.Column<Kundenprojekt> skillsColumn = grid.addColumn(Kundenprojekt::getSkills).setHeader("Skills").setWidth("225px");
 
+        // Entwickler zuweisen
+        Grid.Column<Kundenprojekt> entwicklerAnfragenColumn = grid.addComponentColumn(kundenprojekt -> {
+            Button bearbeiten = new Button( VaadinIcon.PLUS_CIRCLE.create());
+            bearbeiten.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+            bearbeiten.addClickListener(e ->
+                    entwicklerAnfragen(kundenprojekt)
+            );
+            return bearbeiten;
+        });
+        entwicklerAnfragenColumn.setHeader("Entwickler zuweisen");
+
+
+        // Projektdaten ausklappen
         grid.setItemDetailsRenderer(createProjektDetailsRenderer());
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setHeight("1000px");
 
         return grid;
+    }
+
+    private void entwicklerAnfragen(Kundenprojekt kundenprojekt) {
+        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_PROJECT, kundenprojekt);
+        UI.getCurrent().navigate(Constants.Pages.REVIEWERENTWICKLERZUWEISEN);
     }
 
     private static ComponentRenderer<ReviewerProjektView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
