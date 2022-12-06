@@ -155,7 +155,6 @@ public class ReviewerEntwicklerZuweisenView extends Div {
         //Reviewer
         Reviewer aktuellerReviewer = reviewerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
         Anfrage a = Anfrage.builder()
-                .accepted("false")
                 .entwicklerProfil(entwickler)
                 .kundenprojekt(aktuellesProjekt)
                 .reviewer(aktuellerReviewer)
