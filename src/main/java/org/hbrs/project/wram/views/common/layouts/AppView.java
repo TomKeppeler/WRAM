@@ -18,6 +18,8 @@ import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
+import org.hbrs.project.wram.views.routes.Hilfe;
+import org.hbrs.project.wram.views.routes.UeberUns;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
@@ -218,6 +220,10 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             tabs = Utils.append( tabs , createTab("Kundenprojekte", ReviewerProjektView.class));
         }
 
+        //tabs = Utils.append( tabs , createTab("Hilfe", Hilfe.class));
+        //tabs = Utils.append( tabs , createTab("Über uns", UeberUns.class));
+
+
 
         // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
         /*Tab projectsTab = ;
@@ -239,8 +245,8 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
         // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
         // gelenkt
-        if (!checkIfUserIsLoggedIn())
-            return;
+        /*if (!checkIfUserIsLoggedIn())
+            return;*/
 
         // Der aktuell-selektierte Tab wird gehighlighted.
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
@@ -249,7 +255,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hello " + this.getCurrentNameOfUser());
+        helloUser.setText("Hello " + this.getCurrentNameOfUser()+" by WAC!");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {

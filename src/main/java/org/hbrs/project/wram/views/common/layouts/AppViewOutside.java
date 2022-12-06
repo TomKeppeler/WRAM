@@ -181,18 +181,9 @@ public class AppViewOutside extends AppLayout{
     private Component[] createMenuItems() {
 
         Tab [] tabs = new Tab[0];
+        tabs = Utils.append( tabs , createTab("Hilfe", Hilfe.class));
+        tabs = Utils.append( tabs , createTab("Über uns ", UeberUns.class));
 
-
-
-            tabs = Utils.append( tabs , createTab("Hilfe", Hilfe.class));
-            tabs = Utils.append( tabs , createTab("Über uns ", UeberUns.class));
-
-
-
-        // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
-        /*Tab projectsTab = ;
-        Tab createProjectsTab2 = ;
-        Component[] components = new Component[] { projectsTab, createProjectsTab2 };*/
         return tabs;
     }
 
@@ -207,10 +198,6 @@ public class AppViewOutside extends AppLayout{
     protected void afterNavigation() {
         super.afterNavigation();
 
-        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
-        // gelenkt
-
-
         // Der aktuell-selektierte Tab wird gehighlighted.
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
 
@@ -218,7 +205,7 @@ public class AppViewOutside extends AppLayout{
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hello my dear by WAC!" );
+        helloUser.setText("Hello by WAC!" );
     }
 
     private Optional<Tab> getTabForComponent(Component component) {

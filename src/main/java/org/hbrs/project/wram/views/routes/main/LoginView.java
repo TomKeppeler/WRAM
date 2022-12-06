@@ -63,8 +63,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
        VerticalLayout layout = new VerticalLayout();
        LoginForm login = new LoginForm();
 
-       RouterLink register = new RouterLink("Jetzt registrieren", RegistrationForm.class);
-       HorizontalLayout registerlink = new HorizontalLayout( register);
+       //RouterLink register = new RouterLink("Jetzt registrieren", RegistrationForm.class);
+       //HorizontalLayout registerlink = new HorizontalLayout( register);
        String username="";
        login.addForgotPasswordListener(e->{
            UI.getCurrent().navigate("username_submitten"); // Login-View
@@ -125,7 +125,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
           }
        });
        layout.add(new Header(new H1("Willkommen in der Zukunft des Projektmanagements.")));
-       layout.add(login, registerlink);
+       layout.add(login );
+        //layout.add(registerlink );
        layout.setAlignItems( FlexComponent.Alignment.CENTER );
 
        add(layout);

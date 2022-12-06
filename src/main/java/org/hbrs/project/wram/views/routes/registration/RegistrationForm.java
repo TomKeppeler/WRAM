@@ -221,9 +221,10 @@ public class RegistrationForm extends VerticalLayout {
         setRequiredIndicatorVisible(firstname, name, username, email, passwort, rolle, passwortWiederholung);
         bestätigungsknopf = new Button("Jetzt Registrieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
+        //RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
         formLayout.add(title, firstname, name, username, email, passwort, passwortWiederholung, rolle,
-                bestätigungsknopf, loginView);
+                bestätigungsknopf);
+        //loginView
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
