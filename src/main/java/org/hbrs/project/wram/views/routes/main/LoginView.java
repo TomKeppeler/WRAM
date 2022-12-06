@@ -41,7 +41,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  */
 @Route(value = Constants.Pages.LOGIN_VIEW)
-@RouteAlias(value = Constants.Pages.MAIN_VIEW,layout = AppViewOutside.class)
+@RouteAlias(value = Constants.Pages.LOGIN_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
