@@ -12,6 +12,7 @@ import org.hbrs.project.wram.model.anfrage.Anfrage;
 import org.hbrs.project.wram.model.anfrage.AnfrageRepository;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,8 @@ public class AnfrageService {
         return this.anfrageRepository.save(anfrage);
     }
 
-
-
-
+    public boolean anfrageAlreadyExists(Entwickler entwickler, Kundenprojekt kundenprojekt) {
+        Anfrage a = this.anfrageRepository.findByEntwicklerProfilAndKundenprojekt(entwickler, kundenprojekt);
+        return a==null?false:true;
+    }
 }

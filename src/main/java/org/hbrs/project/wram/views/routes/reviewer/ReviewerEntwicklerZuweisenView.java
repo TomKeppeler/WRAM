@@ -152,15 +152,19 @@ public class ReviewerEntwicklerZuweisenView extends Div {
     }
 
     private void sendeAnfrage(Entwickler entwickler) {
-        //Reviewer
-        Reviewer aktuellerReviewer = reviewerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
-        Anfrage a = Anfrage.builder()
-                .entwicklerProfil(entwickler)
-                .kundenprojekt(aktuellesProjekt)
-                .reviewer(aktuellerReviewer)
-                .build();
-        anfrageService.doCreatAnfrage(a);
-        Notification.show("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
+        if(anfrageService.anfrageAlreadyExists(entwickler, aktuellesProjekt)){
+            Notification.show(entwickler.getFirstname() + " wurde bereits für " + aktuellesProjekt.getProjektname() + " angefragt.");
+        }else{
+            //Reviewer
+            Reviewer aktuellerReviewer = reviewerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
+            Anfrage a = Anfrage.builder()
+                    .entwicklerProfil(entwickler)
+                    .kundenprojekt(aktuellesProjekt)
+                    .reviewer(aktuellerReviewer)
+                    .build();
+            anfrageService.doCreatAnfrage(a);
+            Notification.show("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
+        }
     }
 
     /**
