@@ -47,13 +47,13 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
     @Autowired
     private UserRepository userRepository;
 
-    private H3 title;
-    private TextField username;
-    private PasswordField passwort;
-    private PasswordField passwortWiederholung;
+    private H3 title = new H3("Erstellen und bestätigen sie ein neues passwort");
+    private TextField username = new TextField("Username");
+    private PasswordField passwort = new PasswordField("Passwort");
+    private PasswordField passwortWiederholung = new PasswordField("Wiederholen Sie Ihr Passwort");
 
-
-    private Button bestätigungsknopf;
+    private Button bestätigungsknopf = new Button("Abschicken");
+    private boolean added = false;
 
     /**
      * * Übergabe des durch die URL transferierten Verificationcodes
@@ -75,11 +75,14 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
         if (!service.verifyPassword(verificationCode)) {
             setUpErrorLayout();
         }
-        add(createFormLayout());
+        if(!added) {
+            add(createFormLayout());
+            added = true;
+        }
         this.setWidthFull();
         bestätigungsknopf.addClickListener(createUserAndRollEventListener());
     }
-    
+
     /**
      * Erzeuge neues Passwort und speichere es ab
      *
@@ -96,7 +99,7 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
              if(newPassword!=null&&service.verifyNewPassword(newPassword)&&userRepository.findUserByPassword(newPassword)==null&&passwort.getValue().equals(passwortWiederholung.getValue())) {
                  user.setPassword(Encryption.sha256(passwortWiederholung.getValue()));
                  userRepository.save(user);
-                 UI.getCurrent().navigate(""); // Login-View
+                 UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
                  Notification.show("Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
                          Notification.Position.MIDDLE);
              }else{
@@ -111,16 +114,10 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
      */
     public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        title = new H3("Erstellen und bestätigen sie ein neues passwort");
-        username = new TextField("Username");
-        passwort = new PasswordField("Passwort");
-        passwortWiederholung = new PasswordField("Wiederholen Sie Ihr Passwort");
-
 
         username.setRequiredIndicatorVisible(true);
         passwort.setRequiredIndicatorVisible(true);
         passwortWiederholung.setRequiredIndicatorVisible(true);
-        bestätigungsknopf = new Button("Jetzt Registrieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
         formLayout.add(title,username, passwort, passwortWiederholung,bestätigungsknopf, loginView);
@@ -129,7 +126,6 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
         formLayout.setMaxWidth("900px");
         formLayout.setColspan(title, 2);
         formLayout.setColspan(bestätigungsknopf, 2);
-
         return formLayout;
     }
     private void setUpErrorLayout() {

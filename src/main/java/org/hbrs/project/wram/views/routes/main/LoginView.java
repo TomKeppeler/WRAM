@@ -40,6 +40,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 /**
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  */
+@PageTitle("login")
 @Route(value = Constants.Pages.LOGIN_VIEW)
 @RouteAlias(value = Constants.Pages.LOGIN_VIEW,layout = AppViewOutside.class)
 @Slf4j
@@ -152,7 +153,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
      * his method navigates to the individual Landing Page of the user.
      */
     private void navigateToMainPage() {
-        UI.getCurrent().navigate(Constants.Pages.WELCOME_VIEW);
+        UI.getCurrent().navigate(Constants.Pages.MAIN_VIEW);
     }
 
     /**

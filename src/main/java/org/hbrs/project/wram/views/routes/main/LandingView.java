@@ -32,9 +32,9 @@ import org.hbrs.project.wram.util.Constants;
  * Dabei wird die View innerhalb der AppView angezeigt.
  */
 
-@Route(value = Constants.Pages.WELCOME_VIEW, layout = AppView.class)
+@Route(value = Constants.Pages.MAIN_VIEW, layout = AppView.class)
 @RouteAlias(value = "landing", layout = AppView.class)
-@PageTitle("")
+@PageTitle("") // note to myself:Change back to ""
 public class LandingView extends VerticalLayout implements BeforeEnterObserver {
 
     @PostConstruct
