@@ -11,6 +11,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -86,7 +87,7 @@ public class EntwicklerAnfragView extends Div {
 
 
         Grid.Column<Anfrage> ReviewerColumn = grid.addColumn((Anfrage a)->{
-            return a.getReviewer().getName();})
+            return a.getReviewer().getName()+ ", " + a.getReviewer().getFirstname();})
                 .setHeader("Zuweisender Reviewer").setWidth("100px");
 
         //Reason
@@ -96,20 +97,18 @@ public class EntwicklerAnfragView extends Div {
 
 
         //return "Noch kein Begründung nngegeben";
-        })
-
-                .setHeader("Reason").setWidth("225px");
+        }).setHeader("Begründung").setWidth("225px");
 
         // Projektdaten ausklappen
-        //grid.setItemDetailsRenderer(createProjektDetailsRenderer());
-        //grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        grid.setItemDetailsRenderer(createProjektDetailsRenderer());
+        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setHeight("1000px");
 
         return grid;
     }
 
 
-    private static ComponentRenderer<EntwicklerAnfragView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
+    private static ComponentRenderer<EntwicklerAnfragView.ProjektDetailsFormLayout, Anfrage> createProjektDetailsRenderer() {
         return new ComponentRenderer<>(
                 EntwicklerAnfragView.ProjektDetailsFormLayout::new,
                 EntwicklerAnfragView.ProjektDetailsFormLayout::setProjekt);
@@ -118,8 +117,9 @@ public class EntwicklerAnfragView extends Div {
     private static class ProjektDetailsFormLayout extends FormLayout {
         private final TextField projektname = new TextField("Projektname");
         private final TextArea projektbeschreibung = new TextArea("Projektbeschreibung");
-        private final TextArea skills = new TextArea("Skills");
+        private final TextArea skills = new TextArea("Benötigte Skills");
 
+        //private final TextArea skills = new TextArea("Benötigte Skills");
         public ProjektDetailsFormLayout() {
             projektname.setReadOnly(true);
             projektbeschreibung.setReadOnly(true);
@@ -132,10 +132,14 @@ public class EntwicklerAnfragView extends Div {
             add(projektname, projektbeschreibung, skills);
         }
 
-        public void setProjekt(Kundenprojekt kundenprojekt) {
-            if(kundenprojekt.getProjektname()!=null){projektname.setValue(kundenprojekt.getProjektname());}else{projektname.setValue("-");}
-            if(kundenprojekt.getProjektbeschreibung()!=null){projektbeschreibung.setValue(kundenprojekt.getProjektbeschreibung());}else{projektbeschreibung.setValue("-");}
-            if(kundenprojekt.getSkills()!=null){skills.setValue(kundenprojekt.getSkills());}else{skills.setValue("-");}
+        public void setProjekt(Anfrage anfrage) {
+            if(anfrage.getKundenprojekt()!=null){
+                projektname.setValue(anfrage.getKundenprojekt().getProjektname());}
+            else{projektname.setValue("-");}
+
+            if(anfrage.getKundenprojekt()!=null){projektbeschreibung.setValue(anfrage.getKundenprojekt().getProjektbeschreibung());}
+            else{projektbeschreibung.setValue("-");}
+            if(anfrage.getKundenprojekt()!=null){skills.setValue(anfrage.getKundenprojekt().getSkills());}else{skills.setValue("-");}
         }
 
     }
