@@ -51,8 +51,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private EntwicklerService entwicklerService;
+
     private  User user = null;
     /**
      * sets up the UI, namely the Login Form.

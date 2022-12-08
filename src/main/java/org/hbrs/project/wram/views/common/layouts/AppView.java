@@ -21,6 +21,9 @@ import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.Hilfe;
 import org.hbrs.project.wram.views.routes.UeberUns;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
+import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAntraegeView;
+import org.hbrs.project.wram.views.routes.main.LandingView;
+import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
@@ -204,7 +207,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Component[] createMenuItems() {
 
         Tab [] tabs = new Tab[0];
-
+        tabs = Utils.append( tabs , createTab("Home", LandingView.class));
 
         if(userService.getRolle() =="m"){
             logger.log(Level.INFO, "User is \"Manager\"!");
@@ -213,6 +216,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         } else if (userService.getRolle() =="e") {
             logger.log(Level.INFO, "User is \"Entwickler\"!");
             tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
+            tabs = Utils.append( tabs , createTab("Anträge anschauen", EntwicklerAntraegeView.class));
         }
         else if (userService.getRolle() =="r") {
             logger.log(Level.INFO, "User is \"Reviewer\"!");
@@ -225,10 +229,6 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
 
 
-        // ToDo für die Teams: Weitere Tabs aus ihrem Projekt hier einfügen!
-        /*Tab projectsTab = ;
-        Tab createProjectsTab2 = ;
-        Component[] components = new Component[] { projectsTab, createProjectsTab2 };*/
         return tabs;
     }
 

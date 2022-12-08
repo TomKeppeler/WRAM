@@ -20,17 +20,25 @@ public class Constants {
         public static final String LANDING_PAGE = "main";
         public static final String REGISTRATION = "registrieren"; //Navigation zur registrieren seite
         public static final String CREATEPROJECT = "ProjektErstellen";//Navigation zum Projekt Erstellen seite bei Manager
-        public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
+
         public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
         public static final String VERIFY_VIEW = "verifizieren"; //Seite zur Verifikation
         public static final String Password_VIEW = "passwort_erneuern"; //Seite zur Verifikation
         public static final String Username_VIEW = "username_submitten"; //Seite zur Verifikation
 
+        // für entwickler
+        public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
+        public static final String ENTWICKLERANTRAEGEVIEW="EntwicklerAntraege";// Entwickler zugewiessene Anträge anschauen
 
         public static final String REVIEWERENTWICKLER = "Entwickler";
         public static final String PROJECT_DETAIL = "projektdetails";
         public static final String REVIEWERPROJEKTE = "projekte";
         public static final String REVIEWERENTWICKLERZUWEISEN = "entwicklerZuweisen";
+
+
+        // Sonstiges
+        public static final String HilfeOUT="HilfeOut";
+        public static final String UeberUnsOut="UeberunsOut";
     }
 
 

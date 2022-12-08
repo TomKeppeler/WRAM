@@ -15,13 +15,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
+import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 
 import javax.annotation.PostConstruct;
 
-@PageTitle("Hilfe")
+@PageTitle("HilfeOut")
 @CssImport("./styles/views/main/main-view.css")
-@Route(value = "Hilfe", layout = AppViewOutside.class)
+@Route(value = Constants.Pages.HilfeOUT, layout = AppViewOutside.class)
 @Slf4j
 public class Hilfe extends Div {
 

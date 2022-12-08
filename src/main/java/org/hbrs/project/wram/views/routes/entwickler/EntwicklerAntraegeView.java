@@ -1,30 +1,34 @@
-
 /**
  * @outhor  Salah
  * @vision 1.0
  * @Zuletzt bearbeiret: 06.12.22 by Salah
  *
  */
-package org.hbrs.project.wram.views.routes;
+package org.hbrs.project.wram.views.routes.entwickler;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
+import org.hbrs.project.wram.views.common.layouts.AppView;
 
 import javax.annotation.PostConstruct;
 
-@PageTitle("UeberunsOut")
+/**
+ * Diese View dient dazu einem als Entwickler zugewissene Anträge anzuschauen
+ * Dabei wird die View innerhalb der AppView angezeigt.
+ */
+
+@PageTitle("EntwicklerAntraege")
 @CssImport("./styles/views/main/main-view.css")
-@Route(value = Constants.Pages.UeberUnsOut, layout = AppViewOutside.class)
+@Route(value = Constants.Pages.ENTWICKLERANTRAEGEVIEW, layout = AppView.class)
 @Slf4j
-public class UeberUns extends Div {
-    private H2 title;
+public class EntwicklerAntraegeView extends Div {
+    private H1 title;
 
     @PostConstruct
     private void init() {
@@ -34,7 +38,7 @@ public class UeberUns extends Div {
     }
 
     /**
-     * Diese Methode erzeugt das Formlayout darstellt.
+     * Diese Methode erzeugt das Formlayout Hife funktion darstellt.
      *
      * @return Instanz des Layouts
      */
@@ -42,12 +46,11 @@ public class UeberUns extends Div {
         VerticalLayout formLayout = new VerticalLayout();
 
 
-        title = new H2("Es gibt nichts über uns :$");
+        title = new H1("EntwicklerAntraege");
 
         formLayout.add(title);
         formLayout.setMaxWidth("900px");
         return formLayout;
     }
-
 
 }
