@@ -53,7 +53,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EntwicklerAnfrageView extends Div {
     private H2 header;
 
-    private List<Anfrage> anfrage = new ArrayList<>();
+    private List<Anfrage>  anfrage = new ArrayList<>();
+    private List<Anfrage> anfragePublic = new ArrayList<>();//isEntwicklerpublic
 
     @Autowired
     private AnfrageService anfrageService;
@@ -67,6 +68,13 @@ public class EntwicklerAnfrageView extends Div {
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
         anfrage = anfrageService.findAllByEntwicklerId(entwicklerService.getByUserId(userID).getId());
+
+        //isEntwicklerpublic
+        for (Anfrage a: anfrage) {
+            if (a.isEntwicklerpublic())
+            anfragePublic.add(a);
+        }
+
 
         VerticalLayout layout = new VerticalLayout();
         layout.add(header);
@@ -82,7 +90,7 @@ public class EntwicklerAnfrageView extends Div {
         Grid<Anfrage> grid = new Grid<>();
 
         // Befüllen der Tabelle mit den zuvor ausgelesenen Anfrage
-        ListDataProvider<Anfrage> dataProvider = new ListDataProvider<>(anfrage);
+        ListDataProvider<Anfrage> dataProvider = new ListDataProvider<>(anfragePublic);
         grid.setDataProvider(dataProvider);
 
         // Projekt name
