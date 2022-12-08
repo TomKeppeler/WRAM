@@ -60,9 +60,8 @@ public class EntwicklerAnfragView extends Div {
         header = new H2("Neue Antfragen");
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
-        //TODo nur entwickler zugewissene Anfragen Anzeigen
-        //anfrage =  anfrageService.findAllAnfraegeojektByEntwickler();
         anfrage = anfrageService.findAllByEntwicklerId(entwicklerService.getByUserId(userID).getId());
+
         VerticalLayout layout = new VerticalLayout();
         layout.add(header);
         add(layout, setUpGrid());
@@ -81,13 +80,25 @@ public class EntwicklerAnfragView extends Div {
         grid.setDataProvider(dataProvider);
 
         // Projekt name
-        Grid.Column<Anfrage> KundenprojektColumn = grid.addColumn(Anfrage::getKundenprojekt).setHeader("Kundenprojekt").setWidth("225px");
+        Grid.Column<Anfrage> KundenprojektColumn = grid.addColumn((Anfrage a)->{
+            return a.getKundenprojekt().getProjektname();
+        }).setHeader("Kundenprojekt").setWidth("225px");
 
 
-        Grid.Column<Anfrage> ReviewerColumn = grid.addColumn(Anfrage::getReviewer).setHeader("Zuweisender Reviewer").setWidth("100px");
+        Grid.Column<Anfrage> ReviewerColumn = grid.addColumn((Anfrage a)->{
+            return a.getReviewer().getName();})
+                .setHeader("Zuweisender Reviewer").setWidth("100px");
 
         //Reason
-        Grid.Column<Anfrage> ReasonColumn = grid.addColumn(Anfrage::getReason).setHeader("Reason").setWidth("225px");
+        Grid.Column<Anfrage> ReasonColumn = grid.addColumn((Anfrage a)->{
+            //if (a.getReason() != null || a.getReason().equals("")){
+                return a.getReason();
+
+
+        //return "Noch kein Begründung nngegeben";
+        })
+
+                .setHeader("Reason").setWidth("225px");
 
         // Projektdaten ausklappen
         //grid.setItemDetailsRenderer(createProjektDetailsRenderer());
