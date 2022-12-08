@@ -9,6 +9,7 @@
 import java.util.List;
 import java.util.UUID;
 
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,7 @@ public interface EntwicklerRepository extends JpaRepository<Entwickler, UUID> {
 
 
     public List<Entwickler> findAllByKundenprojektIsNull();
+
+    /*@Query("SELECT kundenprojkt_id from Entwickler entwickler where entwickler.id=:entwicklerId")
+    public List<Kundenprojekt> findAllKundenprojektsIDByEntwicklerID(@Param("entwicklerId") UUID uuid);*/
 }

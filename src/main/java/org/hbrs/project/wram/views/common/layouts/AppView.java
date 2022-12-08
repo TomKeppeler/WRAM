@@ -209,15 +209,20 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         Tab [] tabs = new Tab[0];
         tabs = Utils.append( tabs , createTab("Home", LandingView.class));
 
+        // Manager Tabs
         if(userService.getRolle() =="m"){
             logger.log(Level.INFO, "User is \"Manager\"!");
             tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
             tabs = Utils.append(tabs, createTab("Neues Projekt erstellen", CreateProjectForm.class));
-        } else if (userService.getRolle() =="e") {
+        }
+        // Entwickler Tabs
+        else if (userService.getRolle() =="e") {
             logger.log(Level.INFO, "User is \"Entwickler\"!");
             tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
-            tabs = Utils.append( tabs , createTab("Anträge anschauen", EntwicklerAntraegeView.class));
+            tabs = Utils.append( tabs , createTab("zugewiesene Anträge anschauen", EntwicklerAntraegeView.class));
         }
+
+        // Reviewer Tabs
         else if (userService.getRolle() =="r") {
             logger.log(Level.INFO, "User is \"Reviewer\"!");
             tabs = Utils.append( tabs , createTab("Entwickler", ReviewerEntwicklerView.class));

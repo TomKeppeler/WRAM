@@ -13,8 +13,10 @@ import javax.annotation.Nullable;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
+import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
+import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class EntwicklerService {
 
     @Autowired
     private EntwicklerRepository entwicklerRepository;
+    @Autowired
+    private KundenprojektService kundenprojektService;
 
     /**
      * @param entwickler
@@ -94,4 +98,9 @@ public class EntwicklerService {
     public List<Entwickler> findAllFreeEntwickler() {
         return entwicklerRepository.findAllByKundenprojektIsNull();
     }
+    public List<Kundenprojekt> findAllNewKundenprojekts(UUID uuid) {
+        //return entwicklerRepository.findAllKundenprojektsIDByEntwicklerID(uuid);
+        return kundenprojektService.findAllPublicKundenprojekt();
+    }
+
 }
