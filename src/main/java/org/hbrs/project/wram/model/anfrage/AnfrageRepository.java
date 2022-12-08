@@ -19,5 +19,9 @@ public interface AnfrageRepository extends JpaRepository<Anfrage, UUID> {
 
     Anfrage findByEntwicklerProfilAndKundenprojekt(Entwickler e, Kundenprojekt k);
 
-   //List<Anfrage>  findByfindByEntwicklerProfil(Entwickler e);
+   List<Anfrage> findAllByEntwicklerProfilId(UUID  EntwicklerProfilID);
+
+
+    List<Anfrage> findAll();
+
 }

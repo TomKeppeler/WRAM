@@ -21,6 +21,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
+import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
@@ -49,7 +50,7 @@ public class EntwicklerAnfragView extends Div {
     private List<Anfrage> anfrage = new ArrayList<>();
 
     @Autowired
-    private KundenprojektService kundenprojektService;
+    private AnfrageService anfrageService;
 
     @Autowired
     private EntwicklerService entwicklerService;
@@ -59,8 +60,9 @@ public class EntwicklerAnfragView extends Div {
         header = new H2("Neue Antfragen");
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
-        //TODo nur entwickler zugewissene Projekte Anzeigen
-        //anfrage =  kundenprojektService.findAllAnfraegeojektByEntwickler(entwicklerService.getByUserId(userID));
+        //TODo nur entwickler zugewissene Anfragen Anzeigen
+        //anfrage =  anfrageService.findAllAnfraegeojektByEntwickler();
+        anfrage = anfrageService.findAllByEntwicklerId(entwicklerService.getByUserId(userID).getId());
         VerticalLayout layout = new VerticalLayout();
         layout.add(header);
         add(layout, setUpGrid());

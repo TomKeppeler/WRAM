@@ -42,7 +42,12 @@ public class AnfrageService {
         return a==null?false:true;
     }
 
-    /*public List<Anfrage> findAllByEntwickler(Entwickler entwickler) {
-        return  anfrageRepository.findByfindByEntwicklerProfil(entwickler);
-    }*/
+    public List<Anfrage> findAllByEntwicklerId(UUID id) {
+        return  anfrageRepository.findAllByEntwicklerProfilId(id);
+        //return null;
+    }
+    public List<Anfrage> findAll() {
+        return  anfrageRepository.findAll();
+    }
+
 }

@@ -53,12 +53,7 @@ public class KundenprojektService {
      * @param entwickler<Anfrage>
      * @return
      */
-    public List<Anfrage> findAllAnfraegeojektByEntwickler(Entwickler entwickler){
-        //return kundenprojektRepository.findAllByEntwicklerId(id);
-        //return anfrageService.findAllByEntwickler(entwickler);
-        //return findAllPublicKundenprojekt();
-        return null;
-    }
+
 
     /**
      * hollt von DB aller Kundenprojekt
