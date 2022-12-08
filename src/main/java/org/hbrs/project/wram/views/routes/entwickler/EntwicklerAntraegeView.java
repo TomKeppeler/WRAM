@@ -63,7 +63,9 @@ public class EntwicklerAntraegeView extends Div {
     public void init() {
         header = new H2("Neue Anträge.");
         //Entwickler entwickler = (Entwickler) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        //kundenprojektDTOS =  entwicklerService.findAllNewKundenprojekts(entwickler.getId());
+
+        //TODo nur entwickler zugewissene Projekte Anzeigen
+        kundenprojektDTOS =  entwicklerService.findAllNewKundenprojekts();
         VerticalLayout layout = new VerticalLayout();
         layout.add(header, setUpGrid());
         add(layout);
@@ -87,17 +89,7 @@ public class EntwicklerAntraegeView extends Div {
         // Skills
         Grid.Column<Kundenprojekt> skillsColumn = grid.addColumn(Kundenprojekt::getSkills).setHeader("Skills").setWidth("225px");
 
-        /*
-        Grid.Column<Kundenprojekt> entwicklerAnfragenColumn = grid.addComponentColumn(kundenprojekt -> {
-            Button bearbeiten = new Button( VaadinIcon.PLUS_CIRCLE.create());
-            bearbeiten.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-            bearbeiten.addClickListener(e ->
-                    entwicklerAnfragen(kundenprojekt)
-            );
-            return bearbeiten;
-        });
-        entwicklerAnfragenColumn.setHeader("XXXX");
-*/
+
 
         // Projektdaten ausklappen
         grid.setItemDetailsRenderer(createProjektDetailsRenderer());
