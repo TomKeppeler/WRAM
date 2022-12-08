@@ -41,4 +41,8 @@ public class AnfrageService {
         Anfrage a = this.anfrageRepository.findByEntwicklerProfilAndKundenprojekt(entwickler, kundenprojekt);
         return a==null?false:true;
     }
+
+    /*public List<Anfrage> findAllByEntwickler(Entwickler entwickler) {
+        return  anfrageRepository.findByfindByEntwicklerProfil(entwickler);
+    }*/
 }

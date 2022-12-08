@@ -11,7 +11,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -24,6 +23,7 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
+import org.hbrs.project.wram.model.anfrage.Anfrage;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
@@ -39,14 +39,14 @@ import java.util.UUID;
  * Dabei wird die View innerhalb der AppView angezeigt.
  */
 
-@PageTitle("EntwicklerAntraege")
+@PageTitle("EntwicklerAnfrage")
 @CssImport("./styles/views/main/main-view.css")
-@Route(value = Constants.Pages.ENTWICKLERANTRAEGEVIEW, layout = AppView.class)
+@Route(value = Constants.Pages.ENTWICKLERANFRAGEVIEW, layout = AppView.class)
 @Slf4j
-public class EntwicklerAntraegeView extends Div {
+public class EntwicklerAnfragView extends Div {
     private H2 header;
 
-    private List<Kundenprojekt> kundenprojektDTOS = new ArrayList<>();
+    private List<Anfrage> anfrage = new ArrayList<>();
 
     @Autowired
     private KundenprojektService kundenprojektService;
@@ -56,13 +56,13 @@ public class EntwicklerAntraegeView extends Div {
 
     @PostConstruct
     public void init() {
-        header = new H2("Neue Anträge.");
+        header = new H2("Neue Antfragen");
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
         //TODo nur entwickler zugewissene Projekte Anzeigen
-        kundenprojektDTOS =  kundenprojektService.findAllKundenprojektByEntwicklerId(entwicklerService.getByUserId(userID).getId());
+        //anfrage =  kundenprojektService.findAllAnfraegeojektByEntwickler(entwicklerService.getByUserId(userID));
         VerticalLayout layout = new VerticalLayout();
-        layout.add(header, setUpGrid());
+        layout.add(header);
         add(layout);
     }
 
@@ -72,31 +72,31 @@ public class EntwicklerAntraegeView extends Div {
      * @return Component Grid
      */
     private Component setUpGrid() {
-        Grid<Kundenprojekt> grid = new Grid<>();
+        Grid<Anfrage> grid = new Grid<>();
 
         // Befüllen der Tabelle mit den zuvor ausgelesenen Projekt
-        ListDataProvider<Kundenprojekt> dataProvider = new ListDataProvider<>(kundenprojektDTOS);
+        ListDataProvider<Anfrage> dataProvider = new ListDataProvider<>(anfrage);
         grid.setDataProvider(dataProvider);
 
         // Projekt name
-        Grid.Column<Kundenprojekt> projektnameColumn = grid.addColumn(Kundenprojekt::getProjektname).setHeader("Projektname").setWidth("100px");
+        //Grid.Column<Anfrage> projektnameColumn = grid.addColumn(Anfrage::getReviewer).setHeader("Projektname").setWidth("100px");
 
         // Skills
-        Grid.Column<Kundenprojekt> skillsColumn = grid.addColumn(Kundenprojekt::getSkills).setHeader("Skills").setWidth("225px");
+        //Grid.Column<Anfrage> skillsColumn = grid.addColumn(Anfrage::getReason).setHeader("Skills").setWidth("225px");
 
         // Projektdaten ausklappen
-        grid.setItemDetailsRenderer(createProjektDetailsRenderer());
-        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+        //grid.setItemDetailsRenderer(createProjektDetailsRenderer());
+        //grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setHeight("1000px");
 
         return grid;
     }
 
 
-    private static ComponentRenderer<EntwicklerAntraegeView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
+    private static ComponentRenderer<EntwicklerAnfragView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
         return new ComponentRenderer<>(
-                EntwicklerAntraegeView.ProjektDetailsFormLayout::new,
-                EntwicklerAntraegeView.ProjektDetailsFormLayout::setProjekt);
+                EntwicklerAnfragView.ProjektDetailsFormLayout::new,
+                EntwicklerAnfragView.ProjektDetailsFormLayout::setProjekt);
     }
 
     private static class ProjektDetailsFormLayout extends FormLayout {

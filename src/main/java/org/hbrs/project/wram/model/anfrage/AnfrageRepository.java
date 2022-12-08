@@ -6,6 +6,7 @@
  */
 package org.hbrs.project.wram.model.anfrage;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.hbrs.project.wram.model.entwickler.Entwickler;
@@ -17,4 +18,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AnfrageRepository extends JpaRepository<Anfrage, UUID> {
 
     Anfrage findByEntwicklerProfilAndKundenprojekt(Entwickler e, Kundenprojekt k);
+
+   //List<Anfrage>  findByfindByEntwicklerProfil(Entwickler e);
 }

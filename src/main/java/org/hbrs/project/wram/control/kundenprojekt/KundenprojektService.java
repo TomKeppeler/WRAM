@@ -7,6 +7,9 @@
 package org.hbrs.project.wram.control.kundenprojekt;
 
 import lombok.RequiredArgsConstructor;
+import org.hbrs.project.wram.control.anfrage.AnfrageService;
+import org.hbrs.project.wram.model.anfrage.Anfrage;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.kundenprojekt.KundenprojektRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class KundenprojektService {
     @Autowired
     private KundenprojektRepository kundenprojektRepository;
 
+    @Autowired
+    private AnfrageService anfrageService;
     /**
      * speischert ein Kundenprojekt mittels kundenprojektRepository
      * @param kundenprojekt
@@ -45,12 +50,14 @@ public class KundenprojektService {
 
     /**
      * hollt von DB alle Kundenprojekt mittels EntwicklerId, die zu einem Entwickler zungewissen sind
-     * @param id
+     * @param entwickler<Anfrage>
      * @return
      */
-    public List<Kundenprojekt> findAllKundenprojektByEntwicklerId(UUID id){
-        //return kundenprojektRepository.findKundenprojekByEntwicklerId(id);
-        return findAllPublicKundenprojekt();
+    public List<Anfrage> findAllAnfraegeojektByEntwickler(Entwickler entwickler){
+        //return kundenprojektRepository.findAllByEntwicklerId(id);
+        //return anfrageService.findAllByEntwickler(entwickler);
+        //return findAllPublicKundenprojekt();
+        return null;
     }
 
     /**

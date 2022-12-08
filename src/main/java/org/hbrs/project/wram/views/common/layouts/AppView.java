@@ -18,12 +18,10 @@ import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
-import org.hbrs.project.wram.views.routes.Hilfe;
-import org.hbrs.project.wram.views.routes.UeberUns;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
-import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAntraegeView;
+
+import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfragView;
 import org.hbrs.project.wram.views.routes.main.LandingView;
-import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
@@ -34,7 +32,6 @@ import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
@@ -219,7 +216,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         else if (userService.getRolle() =="e") {
             logger.log(Level.INFO, "User is \"Entwickler\"!");
             tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
-            tabs = Utils.append( tabs , createTab("zugewiesene Anträge", EntwicklerAntraegeView.class));
+            tabs = Utils.append( tabs , createTab("zugewiesene Anfragen", EntwicklerAnfragView.class));
         }
 
         // Reviewer Tabs

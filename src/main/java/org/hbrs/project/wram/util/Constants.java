@@ -28,7 +28,7 @@ public class Constants {
 
         // für entwickler
         public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
-        public static final String ENTWICKLERANTRAEGEVIEW="EntwicklerAntraege";// Entwickler zugewiessene Anträge anschauen
+        public static final String ENTWICKLERANFRAGEVIEW="EntwicklerAnfrage";// Entwickler zugewiessene Anträge anschauen
 
         public static final String REVIEWERENTWICKLER = "Entwickler";
         public static final String PROJECT_DETAIL = "projektdetails";
