@@ -42,6 +42,17 @@ public class KundenprojektService {
         return kundenprojektRepository.findKundenprojektByManagerId(id);
     }
 
+
+    /**
+     * hollt von DB alle Kundenprojekt mittels EntwicklerId, die zu einem Entwickler zungewissen sind
+     * @param id
+     * @return
+     */
+    public List<Kundenprojekt> findAllKundenprojektByEntwicklerId(UUID id){
+        //return kundenprojektRepository.findKundenprojekByEntwicklerId(id);
+        return findAllPublicKundenprojekt();
+    }
+
     /**
      * hollt von DB aller Kundenprojekt
      * @return

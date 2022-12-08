@@ -8,16 +8,12 @@ package org.hbrs.project.wram.views.routes.entwickler;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -28,12 +24,9 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
-import org.hbrs.project.wram.views.routes.reviewer.ReviewerProjektView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -67,7 +60,7 @@ public class EntwicklerAntraegeView extends Div {
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
         //TODo nur entwickler zugewissene Projekte Anzeigen
-        kundenprojektDTOS =  entwicklerService.findAllNewKundenprojekts(entwicklerService.getByUserId(userID).getId());
+        kundenprojektDTOS =  kundenprojektService.findAllKundenprojektByEntwicklerId(entwicklerService.getByUserId(userID).getId());
         VerticalLayout layout = new VerticalLayout();
         layout.add(header, setUpGrid());
         add(layout);
@@ -91,8 +84,6 @@ public class EntwicklerAntraegeView extends Div {
         // Skills
         Grid.Column<Kundenprojekt> skillsColumn = grid.addColumn(Kundenprojekt::getSkills).setHeader("Skills").setWidth("225px");
 
-
-
         // Projektdaten ausklappen
         grid.setItemDetailsRenderer(createProjektDetailsRenderer());
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
@@ -101,10 +92,6 @@ public class EntwicklerAntraegeView extends Div {
         return grid;
     }
 
-    private void entwicklerAnfragen(Kundenprojekt kundenprojekt) {
-        UI.getCurrent().getSession().setAttribute(Constants.CURRENT_PROJECT, kundenprojekt);
-        UI.getCurrent().navigate(Constants.Pages.REVIEWERENTWICKLERZUWEISEN);
-    }
 
     private static ComponentRenderer<EntwicklerAntraegeView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
         return new ComponentRenderer<>(
