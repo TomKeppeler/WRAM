@@ -63,26 +63,29 @@ public class EntwicklerAnfragView extends Div {
         //anfrage =  kundenprojektService.findAllAnfraegeojektByEntwickler(entwicklerService.getByUserId(userID));
         VerticalLayout layout = new VerticalLayout();
         layout.add(header);
-        add(layout);
+        add(layout, setUpGrid());
     }
 
     /**
-     * Diese Methode dient dazu, eine Tabelle mit allen Entwickler Kundenprojekten anzuzeigen.
+     * Diese Methode dient dazu, eine Tabelle mit allen Anfragen ein Entwickler.
      * Dabei werden Name und Skills eines Kundenprojektes angezeigt.
      * @return Component Grid
      */
     private Component setUpGrid() {
         Grid<Anfrage> grid = new Grid<>();
 
-        // Befüllen der Tabelle mit den zuvor ausgelesenen Projekt
+        // Befüllen der Tabelle mit den zuvor ausgelesenen Anfrage
         ListDataProvider<Anfrage> dataProvider = new ListDataProvider<>(anfrage);
         grid.setDataProvider(dataProvider);
 
         // Projekt name
-        //Grid.Column<Anfrage> projektnameColumn = grid.addColumn(Anfrage::getReviewer).setHeader("Projektname").setWidth("100px");
+        Grid.Column<Anfrage> KundenprojektColumn = grid.addColumn(Anfrage::getKundenprojekt).setHeader("Kundenprojekt").setWidth("225px");
 
-        // Skills
-        //Grid.Column<Anfrage> skillsColumn = grid.addColumn(Anfrage::getReason).setHeader("Skills").setWidth("225px");
+
+        Grid.Column<Anfrage> ReviewerColumn = grid.addColumn(Anfrage::getReviewer).setHeader("Zuweisender Reviewer").setWidth("100px");
+
+        //Reason
+        Grid.Column<Anfrage> ReasonColumn = grid.addColumn(Anfrage::getReason).setHeader("Reason").setWidth("225px");
 
         // Projektdaten ausklappen
         //grid.setItemDetailsRenderer(createProjektDetailsRenderer());
