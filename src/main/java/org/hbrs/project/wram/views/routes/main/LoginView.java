@@ -96,9 +96,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
                   Button registerButton = new Button("Registrieren");
                   registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
                   closeButton.addClickListener(event -> {dialog.close();
-                      UI.getCurrent().navigate(Constants.Pages.REGISTRATION);//ToDo als zwichen lösung
-                      UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);//ToDo beim schließen wird der login Button nicht gezeigt
-
+                      UI.getCurrent().getPage().reload();
                   });
 
                   registerButton.addClickListener(event -> {dialog.close();

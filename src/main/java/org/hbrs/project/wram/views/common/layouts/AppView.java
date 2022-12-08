@@ -13,6 +13,9 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
@@ -21,7 +24,7 @@ import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
 
 
-import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfragView;
+import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfrageView;
 import org.hbrs.project.wram.views.routes.main.LandingView;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
@@ -205,6 +208,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private Component[] createMenuItems() {
 
         Tab [] tabs = new Tab[0];
+        Icon icon = new Icon("home-o");
         tabs = Utils.append( tabs , createTab("Home", LandingView.class));
 
         // Manager Tabs
@@ -215,9 +219,14 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         }
         // Entwickler Tabs
         else if (userService.getRolle() =="e") {
+
+            //Tab profile = new Tab(VaadinIcon.USER.create());
+            //profile.add(new RouterLink("Mein Profile", CreateEntwicklerProfil.class));
             logger.log(Level.INFO, "User is \"Entwickler\"!");
-            tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
-            tabs = Utils.append( tabs , createTab("zugewiesene Anfragen", EntwicklerAnfragView.class));
+            tabs = Utils.append( tabs , createTab("Profile", CreateEntwicklerProfil.class));
+            //tabs = Utils.append( tabs , profile);
+            tabs = Utils.append( tabs , createTab("zugewiesene Anfragen", EntwicklerAnfrageView.class));
+
         }
 
         // Reviewer Tabs
@@ -227,6 +236,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             tabs = Utils.append( tabs , createTab("Kundenprojekte", ReviewerProjektView.class));
         }
 
+        //ToDo
         //tabs = Utils.append( tabs , createTab("Hilfe", Hilfe.class));
         //tabs = Utils.append( tabs , createTab("Über uns", UeberUns.class));
 

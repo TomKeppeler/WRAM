@@ -7,16 +7,18 @@
 package org.hbrs.project.wram.views.routes.entwickler;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -28,11 +30,7 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
-import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
-import org.hbrs.project.wram.model.entwickler.Entwickler;
-import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Diese View dient dazu einem als Entwickler zugewissene Anträge anzuschauen
@@ -51,7 +50,7 @@ import java.util.UUID;
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.ENTWICKLERANFRAGEVIEW, layout = AppView.class)
 @Slf4j
-public class EntwicklerAnfragView extends Div {
+public class EntwicklerAnfrageView extends Div {
     private H2 header;
 
     private List<Anfrage> anfrage = new ArrayList<>();
@@ -99,12 +98,30 @@ public class EntwicklerAnfragView extends Div {
         //Reason
         Grid.Column<Anfrage> StatusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
         Grid.Column<Anfrage> AnnhemenColumn = grid.addComponentColumn(anfrage -> {
-            Button ansehen = new Button("Annehmen");
-            ansehen.addClickListener(e ->
-                    //TODO
-                    annehmen(anfrage)
+            Button annehmenButton= null;
+            Icon lumoIcon = null;
+            if (anfrage.isAccepted()){
+
+                lumoIcon= new Icon("lumo", "cross");
+                lumoIcon.setColor("Red");
+                annehmenButton = new Button("Ablehnen",lumoIcon);
+
+            }
+            else {
+                lumoIcon = new Icon("lumo", "checkmark");
+                lumoIcon.setColor("Green");
+                annehmenButton = new Button("Annehmen", lumoIcon);
+            }
+            annehmenButton.addClickListener(event ->{
+                annehmen(anfrage);
+
+                UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+                UI.getCurrent().navigate(Constants.Pages.ENTWICKLERANFRAGEVIEW);
+                    }
+
             );
-            return ansehen;
+
+            return annehmenButton;
         }).setAutoWidth(true).setFlexGrow(0);
 
         // Projektdaten ausklappen
@@ -116,10 +133,10 @@ public class EntwicklerAnfragView extends Div {
     }
 
 
-    private static ComponentRenderer<EntwicklerAnfragView.ProjektDetailsFormLayout, Anfrage> createProjektDetailsRenderer() {
+    private static ComponentRenderer<EntwicklerAnfrageView.ProjektDetailsFormLayout, Anfrage> createProjektDetailsRenderer() {
         return new ComponentRenderer<>(
-                EntwicklerAnfragView.ProjektDetailsFormLayout::new,
-                EntwicklerAnfragView.ProjektDetailsFormLayout::setProjekt);
+                EntwicklerAnfrageView.ProjektDetailsFormLayout::new,
+                EntwicklerAnfrageView.ProjektDetailsFormLayout::setProjekt);
     }
 
     private static class ProjektDetailsFormLayout extends FormLayout {
@@ -128,14 +145,17 @@ public class EntwicklerAnfragView extends Div {
         private final TextArea skills = new TextArea("Benötigte Skills");
 
         private final TextArea reason = new TextArea("Ablehnungsbegründung");
+
+
         public ProjektDetailsFormLayout() {
             projektname.setReadOnly(true);
             projektbeschreibung.setReadOnly(true);
             skills.setReadOnly(true);
+            reason.setReadOnly(true);
 
             setResponsiveSteps(new ResponsiveStep("0", 4));
             setColspan(projektname, 2);
-            setColspan(reason, 2);
+            setColspan(reason, 4);
             setColspan(projektbeschreibung, 4);
             setColspan(skills, 4);
             add(projektname, projektbeschreibung, skills,reason);
@@ -152,8 +172,10 @@ public class EntwicklerAnfragView extends Div {
             if(anfrage.getKundenprojekt()!=null){skills.setValue(anfrage.getKundenprojekt().getSkills());}
             else{skills.setValue("-");}
 
-            if(anfrage.getReason()!=null){projektbeschreibung.setValue(anfrage.getReason());}
+            if(anfrage.getReason()!=null){reason.setValue(anfrage.getReason());}
             else{projektbeschreibung.setValue("-");}
+
+
 
         }
 
@@ -179,24 +201,68 @@ public class EntwicklerAnfragView extends Div {
         if (isAccepted) {
             span.setText("Angenommen");
         } else {
-            span.setText("Noch nicht angenommen");
+            span.setText("Nicht angenommen");
         }
     };
 
     private void annehmen(Anfrage anfrage) {
-        /*if(anfrageService.anfrageAlreadyExists(entwickler, aktuellesProjekt)){
-            Notification.show(entwickler.getFirstname() + " wurde bereits für " + aktuellesProjekt.getProjektname() + " angefragt.");
+        if(anfrage.isAccepted()){
+
+            notifyAfterUpdateWithOkay("Anfrage wird abgelehnt!",anfrage);
+
+            anfrage.setAccepted(false);
+            anfrageService.doCreatAnfrage(anfrage);
+
         }else{
-            //Reviewer
-            Reviewer aktuellerReviewer = reviewerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
-            Anfrage a = Anfrage.builder()
-                    .entwicklerProfil(entwickler)
-                    .kundenprojekt(aktuellesProjekt)
-                    .reviewer(aktuellerReviewer)
-                    .build();
-            anfrageService.doCreatAnfrage(a);
-            Notification.show("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
-        }*/
+
+            notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
+            anfrage.setAccepted(true);
+            anfrageService.doCreatAnfrage(anfrage);
+        }
+       // UI.getCurrent().getPage().reload();
+    }
+
+
+
+
+    public  void notifyAfterUpdateWithOkay(String benachrichtigung, Anfrage anfrage) {
+
+        Dialog dialog = new Dialog();
+
+        dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
+        dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
+        dialog.open();
+        TextArea TextArea = new TextArea("Bitte Ablehnungsbegründung eingeben!");
+
+        VerticalLayout dialoglayout = new VerticalLayout();
+        dialoglayout.setId("confirm-dialog-layout");
+
+        if ((benachrichtigung.equals("Anfrage wird abgelehnt!"))){
+            dialoglayout.add(TextArea);
+        }
+
+        dialoglayout.add(    new Text(benachrichtigung),
+
+                new Button("Speichern", e ->{
+                    anfrage.setReason(TextArea.getValue());
+                    anfrageService.doCreatAnfrage(anfrage);
+                    dialog.close();
+                }),
+
+                new Button("Abbrechen", e ->{
+                    dialog.close();
+                })
+
+        );
+
+
+
+        dialog.add(
+                dialoglayout
+        );
+
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(false);
     }
 
 

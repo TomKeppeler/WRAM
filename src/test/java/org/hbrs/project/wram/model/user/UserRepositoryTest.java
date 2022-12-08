@@ -16,6 +16,7 @@ class UserRepositoryTest {
         userRepository.save(user);
         User user1 = userRepository.findUserByUsernameAndPassword("s1","1");
         assertNotNull(user1);
+
         assertEquals(user1.getPassword(),user.getPassword());
         userRepository.delete(user1);
         assertNull(userRepository.findUserByUsernameAndPassword("s1","1"));

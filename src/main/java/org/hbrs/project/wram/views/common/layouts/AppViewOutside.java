@@ -71,19 +71,7 @@ public class AppViewOutside extends AppLayout{
         addToDrawer(createDrawerContent(menu));
     }
 
-    /**
-     * @return boolean: checks if User is in session.
-     */
-    private boolean checkIfUserIsLoggedIn() {
-        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite
-        // gelenkt
-        UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-        boolean checkUser = (userID == null);
-        if (checkUser) {
-            UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW);
-        }
-        return checkUser;
-    }
+
 
     /**
      * Erzeugung der horizontalen Leiste (Header).
