@@ -98,8 +98,9 @@ public class EntwicklerService {
     public List<Entwickler> findAllFreeEntwickler() {
         return entwicklerRepository.findAllByKundenprojektIsNull();
     }
-    public List<Kundenprojekt> findAllNewKundenprojekts() {
-        //return entwicklerRepository.findAllKundenprojektsIDByEntwicklerID(uuid);
+    public List<Kundenprojekt> findAllNewKundenprojekts(UUID id) {
+        //TODo nur entwickler zugewissene Projekte Anzeigen
+        //return entwicklerRepository.findAllKundenprojektIDtByEntwickler(id );
         return kundenprojektService.findAllPublicKundenprojekt();
     }
 

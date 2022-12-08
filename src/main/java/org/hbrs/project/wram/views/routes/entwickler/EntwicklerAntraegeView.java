@@ -30,6 +30,7 @@ import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
+import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.reviewer.ReviewerProjektView;
@@ -38,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Diese View dient dazu einem als Entwickler zugewissene Anträge anzuschauen
@@ -62,17 +64,17 @@ public class EntwicklerAntraegeView extends Div {
     @PostConstruct
     public void init() {
         header = new H2("Neue Anträge.");
-        //Entwickler entwickler = (Entwickler) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
         //TODo nur entwickler zugewissene Projekte Anzeigen
-        kundenprojektDTOS =  entwicklerService.findAllNewKundenprojekts();
+        kundenprojektDTOS =  entwicklerService.findAllNewKundenprojekts(entwicklerService.getByUserId(userID).getId());
         VerticalLayout layout = new VerticalLayout();
         layout.add(header, setUpGrid());
         add(layout);
     }
 
     /**
-     * Diese Methode dient dazu, eine Tabelle mit allen öffentlichen Kundenprojekten anzuzeigen.
+     * Diese Methode dient dazu, eine Tabelle mit allen Entwickler Kundenprojekten anzuzeigen.
      * Dabei werden Name und Skills eines Kundenprojektes angezeigt.
      * @return Component Grid
      */

@@ -25,6 +25,7 @@ public interface EntwicklerRepository extends JpaRepository<Entwickler, UUID> {
 
     public List<Entwickler> findAllByKundenprojektIsNull();
 
-    /*@Query("SELECT kundenprojkt_id from Entwickler entwickler where entwickler.id=:entwicklerId")
-    public List<Kundenprojekt> findAllKundenprojektsIDByEntwicklerID(@Param("entwicklerId") UUID uuid);*/
+
+    @Query("SELECT kundenprojektId from Entwickler entwickler where entwickler.id =: entwicklerID")
+    public List<Kundenprojekt> findAllKundenprojektIDtByEntwickler(UUID entwicklerID);
 }

@@ -219,7 +219,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         else if (userService.getRolle() =="e") {
             logger.log(Level.INFO, "User is \"Entwickler\"!");
             tabs = Utils.append( tabs , createTab("Mein Profile", CreateEntwicklerProfil.class));
-            tabs = Utils.append( tabs , createTab("zugewiesene Anträge anschauen", EntwicklerAntraegeView.class));
+            tabs = Utils.append( tabs , createTab("zugewiesene Anträge", EntwicklerAntraegeView.class));
         }
 
         // Reviewer Tabs
