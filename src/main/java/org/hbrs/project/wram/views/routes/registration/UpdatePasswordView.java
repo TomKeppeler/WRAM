@@ -31,15 +31,15 @@ import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 
 @PageTitle("passwort_erneuern")
 @Route(value = Constants.Pages.Password_VIEW,layout = AppViewOutside.class)
 @Slf4j
-public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
+public class UpdatePasswordView extends Div  {
 
-    private String verificationCode;
-    private String userId;
 
     @Autowired
     private UserService service;
@@ -55,26 +55,10 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
     private Button bestätigungsknopf = new Button("Abschicken");
     private boolean added = false;
 
-    /**
-     * * Übergabe des durch die URL transferierten Verificationcodes
-     * @param   beforeEvent   aktueller benutzer
-     * @param   s übergabeparameter für verificationcode
-     */
-    @Override
-    public void setParameter(BeforeEvent beforeEvent, String s) {
-        if (s == null) {
-            verificationCode = null;
-            userId = null;
-        } else {
-            verificationCode = s;
-            this.init();
-        }
-    }
+
     @PostConstruct
     private void init() {
-        if (!service.verifyPassword(verificationCode)) {
-            setUpErrorLayout();
-        }
+
         if(!added) {
             add(createFormLayout());
             added = true;
@@ -91,17 +75,23 @@ public class UpdatePasswordView extends Div implements HasUrlParameter<String> {
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
             String tmpuser=username.getValue();
-            User user=userRepository.findUserByUsernameAndPassword(tmpuser,verificationCode);
+            User user=userRepository.findUserByUsername(tmpuser);
             String newPassword=passwortWiederholung.getValue();
             if(user==null){
                  Notification.show("Username falsch!!!!");
              }
              if(newPassword!=null&&service.verifyNewPassword(newPassword)&&userRepository.findUserByPassword(newPassword)==null&&passwort.getValue().equals(passwortWiederholung.getValue())) {
                  user.setPassword(Encryption.sha256(passwortWiederholung.getValue()));
+                 user.setVerified(false);
                  userRepository.save(user);
-                 UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
-                 Notification.show("Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
-                         Notification.Position.MIDDLE);
+                 try {
+                     service.generatePassword(tmpuser,"localhost:8080");
+                 } catch (UnsupportedEncodingException ex) {
+                     ex.printStackTrace();
+                 } catch (MessagingException ex) {
+                     ex.printStackTrace();
+                 }
+
              }else{
                  Notification.show("passwort exisitert schon oder ist null");
              }

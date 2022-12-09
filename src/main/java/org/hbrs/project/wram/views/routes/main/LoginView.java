@@ -67,7 +67,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
        //HorizontalLayout registerlink = new HorizontalLayout( register);
        String username="";
        login.addForgotPasswordListener(e->{
-           UI.getCurrent().navigate("username_submitten"); // Login-View
+           UI.getCurrent().navigate("passwort_erneuern"); // Login-View
 
        });
        login.addLoginListener( e -> {

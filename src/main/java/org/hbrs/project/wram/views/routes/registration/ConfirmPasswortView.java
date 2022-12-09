@@ -33,10 +33,10 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 
-@PageTitle("username_submitten")
-@Route(value = Constants.Pages.Username_VIEW, layout = AppViewOutside.class)
+@PageTitle("passwort_bestaetigen")
+@Route(value = Constants.Pages.Confirm_Password_VIEW, layout = AppViewOutside.class)
 @Slf4j
-public class SubmitUsernameView extends Div  {
+public class ConfirmPasswortView extends Div  implements HasUrlParameter<String> {
 
 
 
@@ -47,28 +47,17 @@ public class SubmitUsernameView extends Div  {
     private UserRepository userRepository;
 
     private H3 title;
-    private TextField email;
 
 
+    private String username;
 
     private Button bestätigungsknopf;
 
-    /**
-     * * Übergabe des durch die URL transferierten Verificationcodes
-     * @param   beforeEvent   aktueller benutzer
-     * @param   s übergabeparameter für verificationcode
-     */
-
     @PostConstruct
     private void init() {
-
         add(createFormLayout());
-       /* clearForm();*/
-
-       // this.setHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
         this.setWidthFull();
         bestätigungsknopf.addClickListener(createUserAndRollEventListener());
-
     }
 
 
@@ -79,18 +68,11 @@ public class SubmitUsernameView extends Div  {
      */
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
-                String tmpusername=email.getValue();
-              if(userRepository.findUserByUsername(tmpusername)!=null){
-                  try {
-                      service.generatePassword(tmpusername,"localhost:8080");
-                  } catch (UnsupportedEncodingException ex) {
-                      ex.printStackTrace();
-                  } catch (MessagingException ex) {
-                      ex.printStackTrace();
-                  }
-              }else{
-                  Notification.show("email abgelehnt");
-              }
+            User us=userRepository.findUserByUsername(username);
+            us.setVerified(true);
+            UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
+            Notification.show("Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
+                    Notification.Position.MIDDLE);
         };
     }
     /**
@@ -100,16 +82,12 @@ public class SubmitUsernameView extends Div  {
      */
     public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        title = new H3("Geben sie den Username ein");
+        title = new H3("Bestätigen Sie das neue Passwort");
 
-        email= new TextField("Username");
-
-
-        email.setRequiredIndicatorVisible(true);
-        bestätigungsknopf = new Button("Jetzt Username abgeben");
+        bestätigungsknopf = new Button("Jetzt Passwort bestätigen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         RouterLink loginView = new RouterLink("Zurück zum Login", LoginView.class);
-        formLayout.add(title,email, bestätigungsknopf, loginView);
+        formLayout.add(title, bestätigungsknopf, loginView);
 
         // Max width of the Form
         formLayout.setMaxWidth("900px");
@@ -126,4 +104,10 @@ public class SubmitUsernameView extends Div  {
         layout.add(header, div);
     }
 
+    @Override
+    public void setParameter(BeforeEvent beforeEvent, String s) {
+        if(!s.equals(null)){
+            this.username=s;
+        }
+    }
 }

@@ -157,27 +157,13 @@ public class UserService {
      */
     public void register(User user, String siteURL) throws UnsupportedEncodingException, MessagingException {
             String randomCode = RandomString.make(64);
-
              user.setVerificationCode(randomCode);
              user.setVerified(false);
              userRepository.save(user);
              sendVerificationEmail(user, siteURL);
 
     }
-    /**
-     * Überprüfe, ob temporäres Passwort valide und unverbraucht ist
-     * * @param   verificationCode Code für das temporäre pw
-     * @return boolean
-     */
-    public boolean verifyPassword(String verificationCode) {
-        User user = userRepository.findUserByPassword(verificationCode);
 
-        if (user == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
     /**
      * Überprüfe, ob temporäres Passwort valide und unverbraucht ist
      * * @param   verificationCode Code für das temporäre pw
@@ -192,10 +178,7 @@ public class UserService {
      * @param   siteURL url für die Verifiationpage
      */
     public void generatePassword(String username, String siteURL) throws UnsupportedEncodingException, MessagingException {
-        String randomCode = RandomString.make(64);
         User user=userRepository.findUserByUsername(username);
-        user.setPassword(randomCode);
-        userRepository.save(user);
         sendForgotPasswordEmail(user, siteURL);
 
     }
@@ -224,7 +207,7 @@ public class UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/passwort_erneuern/" + user.getPassword();
+        String verifyURL = siteURL + "/passwort_bestaetigen/" + user.getUsername();
 
         content = content.replace("[[URL]]", verifyURL);
 
