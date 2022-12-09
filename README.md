@@ -102,11 +102,11 @@ Ein Projekt von: <br/>[Fabio Bender](https://git.fslab.de/fbend12s), [Lukas Lesc
 
 ### Software-Architekt
 [UseCaseDiagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/UseCaseDiagramm.svg) <br>
-[Architektur-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ArchitekturDiagramm_Bausteinsicht.drawio.pdf)
+[Architektur-Diagramm](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/Architektur_Bausteinsicht.pdf)
 <hr width="50%" align="left">
 
 ### Datenbank-Experte
 
-[Semantisch ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Semantisch.svg) <br>
-[Logisches ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ERDiagramm-Logisch.svg) <br>
+[Semantisch ER-Diagramm ](https://git.fslab.de/tkeppe2s/bsi-projekt-ws22-tbc/-/blob/main/docs/diagram/ER-Diagramm_semantisch.pdf) <br>
+
 <hr width="50%" align="left">
