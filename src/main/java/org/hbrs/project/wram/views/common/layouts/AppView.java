@@ -27,6 +27,7 @@ import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
 
 import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfrageView;
 import org.hbrs.project.wram.views.routes.main.LandingView;
+import org.hbrs.project.wram.views.routes.manager.BearbeiteteAnfragen;
 import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
@@ -216,6 +217,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         if(userService.getRolle() =="m"){
             logger.log(Level.INFO, "User is \"Manager\"!");
             tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
+            tabs = Utils.append(tabs, createTab("Bearbeitete Anfrage", BearbeiteteAnfragen.class));
             tabs = Utils.append(tabs, createTab("Neues Projekt erstellen", CreateProjectForm.class));
             tabs = Utils.append(tabs, createTab("Anfrage an Entwickler senden", ZuweisungSenden.class));
         }
