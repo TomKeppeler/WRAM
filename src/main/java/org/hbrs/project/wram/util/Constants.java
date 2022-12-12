@@ -19,7 +19,11 @@ public class Constants {
         public static final String PROJECTS_OVERVIEW = "all-projects";//Navigation zur projects bei Manager
         public static final String LANDING_PAGE = "main";
         public static final String REGISTRATION = "registrieren"; //Navigation zur registrieren seite
+
+        //Manager
         public static final String CREATEPROJECT = "ProjektErstellen";//Navigation zum Projekt Erstellen seite bei Manager
+        public static final String ZUWEISUNGSENDEN = "ZuweisungSenden";
+
 
         public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
         public static final String VERIFY_VIEW = "verifizieren"; //Seite zur Verifikation

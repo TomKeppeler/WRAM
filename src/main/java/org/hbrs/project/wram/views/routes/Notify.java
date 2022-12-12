@@ -8,7 +8,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 public class Notify {
 
     /**
-     * benachrichtigung bei einem update von Projekt
+     * benachrichtigung bei einem update
      */
     public static void notifyAfterUpdateWithOkay(String benachrichtigung) {
         Dialog confirm = new Dialog();

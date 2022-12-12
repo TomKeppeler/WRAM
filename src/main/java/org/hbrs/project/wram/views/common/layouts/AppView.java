@@ -18,6 +18,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.manager.ZuweisungSenden;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
@@ -216,6 +217,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             logger.log(Level.INFO, "User is \"Manager\"!");
             tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
             tabs = Utils.append(tabs, createTab("Neues Projekt erstellen", CreateProjectForm.class));
+            tabs = Utils.append(tabs, createTab("Anfrage an Entwickler senden", ZuweisungSenden.class));
         }
         // Entwickler Tabs
         else if (userService.getRolle() =="e") {
@@ -225,7 +227,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             logger.log(Level.INFO, "User is \"Entwickler\"!");
             tabs = Utils.append( tabs , createTab("Profile", CreateEntwicklerProfil.class));
             //tabs = Utils.append( tabs , profile);
-            tabs = Utils.append( tabs , createTab("zugewiesene Anfragen", EntwicklerAnfrageView.class));
+            tabs = Utils.append( tabs , createTab("Zugewiesene Anfragen", EntwicklerAnfrageView.class));
 
         }
 
