@@ -53,6 +53,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EntwicklerAnfrageView extends Div {
     private H2 header;
 
+
+
     private List<Anfrage>  anfrage = new ArrayList<>();
     private List<Anfrage> anfragePublic = new ArrayList<>();//isEntwicklerpublic
 
@@ -123,7 +125,6 @@ public class EntwicklerAnfrageView extends Div {
             annehmenButton.addClickListener(event ->{
                 annehmen(anfrage);
                 UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
-                UI.getCurrent().navigate(Constants.Pages.ENTWICKLERANFRAGEVIEW);
                     }
 
             );
@@ -218,14 +219,19 @@ public class EntwicklerAnfrageView extends Div {
             notifyAfterUpdateWithOkay("Anfrage wird abgelehnt!",anfrage);
 
             anfrage.setAccepted(false);
-            anfrageService.doCreatAnfrage(anfrage);
+
+
 
         }else{
 
             notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
             anfrage.setAccepted(true);
-            anfrageService.doCreatAnfrage(anfrage);
+
         }
+        System.out.println(anfrage.isBearbeitet()+": bearbeitet");
+        anfrage.setBearbeitet(true);
+        anfrageService.doCreatAnfrage(anfrage);
+
 
     }
 

@@ -39,8 +39,10 @@ public class Anfrage extends BaseEntity {
     private boolean entwicklerpublic;
 
     @Column(name = "accepted", nullable = true)
-    private boolean accepted;
+    private boolean accepted ;
 
+    @Column(name = "bearbeitet", nullable = true)
+    private boolean bearbeitet = false;
 
     @NotNull
     @ManyToOne(optional = false)
