@@ -13,12 +13,10 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.manager.ZuweisungSenden;
+import org.hbrs.project.wram.views.routes.manager.ZuweisungSenden;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;

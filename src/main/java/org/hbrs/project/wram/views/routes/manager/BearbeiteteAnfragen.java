@@ -11,6 +11,7 @@ package org.hbrs.project.wram.views.routes.manager;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -18,6 +19,7 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -108,6 +110,20 @@ public class BearbeiteteAnfragen extends Div {
 
         //Reason
         Grid.Column<Anfrage> StatusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
+
+        // navigiere zu ENTWICKLER_PROFIL_BY_MANAGER
+        Grid.Column<Anfrage>  EntwicklerProfil = grid.addComponentColumn((Anfrage a) -> {
+            Icon icon = new Icon("lumo", "user");
+            Button entwicklerProfilButton= new Button("Entwickler", icon);
+
+            entwicklerProfilButton.addClickListener(event ->{
+                        EntwicklerProfilByManager.setEntwickler(a.getEntwicklerProfil());
+                        UI.getCurrent().navigate(Constants.Pages.ENTWICKLER_PROFIL_BY_MANAGER);
+                    }
+            );
+
+            return  entwicklerProfilButton;
+        }).setWidth("100px");
 
         // Projektdaten ausklappen
         grid.setItemDetailsRenderer(createProjektDetailsRenderer());

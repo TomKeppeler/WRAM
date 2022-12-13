@@ -4,7 +4,7 @@
  * @Zuletzt bearbeiret: 06.12.22 by Salah
  *
  */
-package org.hbrs.project.wram.model.manager;
+package org.hbrs.project.wram.views.routes.manager;
 
 
 import com.vaadin.flow.component.Component;
@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.Notify;
@@ -50,6 +51,8 @@ import java.util.UUID;
 @Route(value = Constants.Pages.ZUWEISUNGSENDEN, layout = AppView.class)
 @Slf4j
 public class ZuweisungSenden extends Div {
+
+    private  static Entwickler entwickler= null;
     private H2 header;
 
     private List<Anfrage> anfrage = new ArrayList<>();
@@ -125,6 +128,21 @@ public class ZuweisungSenden extends Div {
 
             return anfrageSendenButton;
         }).setAutoWidth(true).setFlexGrow(0);
+
+        // navigiere zu ENTWICKLER_PROFIL_BY_MANAGER
+        Grid.Column<Anfrage>  EntwicklerProfil = grid.addComponentColumn((Anfrage a) -> {
+            Icon icon = new Icon("lumo", "user");
+            Button entwicklerProfilButton= new Button("Entwickler", icon);
+
+            entwicklerProfilButton.addClickListener(event ->{
+                EntwicklerProfilByManager.setEntwickler(a.getEntwicklerProfil());
+                UI.getCurrent().navigate(Constants.Pages.ENTWICKLER_PROFIL_BY_MANAGER);
+                    }
+            );
+
+            return  entwicklerProfilButton;
+                }).setWidth("100px");
+
 
         // Projektdaten ausklappen
         grid.setItemDetailsRenderer(createProjektDetailsRenderer());
@@ -218,6 +236,7 @@ public class ZuweisungSenden extends Div {
         }
         anfrageService.doCreatAnfrage(anfrage);
     }
+
 
 
 

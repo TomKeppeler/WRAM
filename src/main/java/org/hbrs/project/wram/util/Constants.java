@@ -26,6 +26,8 @@ public class Constants {
         public static final String PROJECTS_OVERVIEW = "all-projects";//Navigation zur projects bei Manager
         public static final String BEARBEITETE_ANFRAGEN = "BearbeiteteAnfragen";//
 
+        public static final String ENTWICKLER_PROFIL_BY_MANAGER = "EntwicklerProfilByManager";//
+
         public static final String LOGIN_VIEW = "login";//Navigation zur Login seite
         public static final String VERIFY_VIEW = "verifizieren"; //Seite zur Verifikation
         public static final String Password_VIEW = "passwort_erneuern"; //Seite zur Verifikation
