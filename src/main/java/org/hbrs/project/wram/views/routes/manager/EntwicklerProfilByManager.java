@@ -79,7 +79,7 @@ public class EntwicklerProfilByManager extends Div {
         VerticalLayout formLayout = new VerticalLayout();
 
 
-        title = new H2("Entwickler Profil Von " +aktuellerEntwickler.getFirstname()+" " +aktuellerEntwickler.getName());
+        title = new H2("Entwickler Profil von " +aktuellerEntwickler.getFirstname()+" " +aktuellerEntwickler.getName());
         email = new TextField("Email");
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
