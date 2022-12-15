@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
+import org.hbrs.project.wram.model.anfrage.AnfrageRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.Notify;
@@ -261,18 +262,22 @@ public class EntwicklerAnfrageView extends Div {
     }
 
     private static class ProjektDetailsFormLayout extends FormLayout {
+        @Autowired
+        private AnfrageRepository anfrageService;
         private final TextField projektname = new TextField("Projektname");
         private final TextArea projektbeschreibung = new TextArea("Projektbeschreibung");
         private final TextArea skills = new TextArea("Benötigte Skills");
 
         private final TextArea reason = new TextArea("Ablehnungsbegründung");
 
+        //private Button begruendungButton = new Button("Speichern");
+
+
 
         public ProjektDetailsFormLayout() {
             projektname.setReadOnly(true);
             projektbeschreibung.setReadOnly(true);
             skills.setReadOnly(true);
-            reason.setReadOnly(true);
 
             setResponsiveSteps(new ResponsiveStep("0", 4));
             setColspan(projektname, 2);
@@ -296,7 +301,14 @@ public class EntwicklerAnfrageView extends Div {
             if(anfrage.getReason()!=null){reason.setValue(anfrage.getReason());}
             else{reason.setValue("-");}
 
+            // Begründung bearbeiten
+            /*begruendungButton.addClickListener(event ->{
+                anfrage.setReason(reason.getValue());
+                anfrageService.save(anfrage);
+                Notify.notifyAfterUpdateWithOkay("Begründung gespeichert!");
+            }
 
+            );*/
 
         }
 
