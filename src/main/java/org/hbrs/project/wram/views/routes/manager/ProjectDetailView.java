@@ -45,7 +45,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
  * Die View wird aufgerufen, nachdem der Manager in seiner Projektübersicht bei einem Projekt auf bearbeiten klickt.
  * Dabei wird die View innerhalb der AppView angezeigt.
  */
-@PageTitle("Projekt")
+@PageTitle("Projekt Details")
 @Route(value = Constants.Pages.PROJECT_DETAIL, layout = AppView.class)
 @Slf4j
 public class ProjectDetailView extends Div {

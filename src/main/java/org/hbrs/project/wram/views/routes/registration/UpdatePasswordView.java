@@ -35,7 +35,7 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 
-@PageTitle("passwort_erneuern")
+@PageTitle("Passwort erneuern")
 @Route(value = Constants.Pages.Password_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class UpdatePasswordView extends Div  {

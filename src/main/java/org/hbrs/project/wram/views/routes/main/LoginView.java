@@ -40,7 +40,7 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 /**
  * View zur Darstellung der Startseite. Diese zeigt dem Benutzer ein Login-Formular an.
  */
-@PageTitle("login")
+@PageTitle("Login")
 @Route(value = Constants.Pages.LOGIN_VIEW)
 @RouteAlias(value = Constants.Pages.LOGIN_VIEW,layout = AppViewOutside.class)
 @Slf4j

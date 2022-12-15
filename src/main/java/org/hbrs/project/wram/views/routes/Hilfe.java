@@ -20,7 +20,7 @@ import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 
 import javax.annotation.PostConstruct;
 
-@PageTitle("HilfeOut")
+@PageTitle("Hilfe")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.HilfeOUT, layout = AppViewOutside.class)
 @Slf4j

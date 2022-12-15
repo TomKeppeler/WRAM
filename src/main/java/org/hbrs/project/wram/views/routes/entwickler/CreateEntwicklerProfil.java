@@ -57,7 +57,7 @@ import lombok.extern.slf4j.Slf4j;
  * Wenn ein Profil erstellt wurde, kann dies nachträglich bearbeitet werden.
  */
 
-@PageTitle("EntwicklerProfilErstellen")
+@PageTitle("Profil erstellen")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.CREATEENTWICKLERPROFIL, layout = AppView.class)
 @Slf4j

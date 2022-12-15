@@ -33,7 +33,7 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 
-@PageTitle("passwort_bestaetigen")
+@PageTitle("Passwort bestaetigen")
 @Route(value = Constants.Pages.Confirm_Password_VIEW, layout = AppViewOutside.class)
 @Slf4j
 public class ConfirmPasswortView extends Div  implements HasUrlParameter<String> {

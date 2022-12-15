@@ -33,6 +33,7 @@ import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -46,7 +47,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Dabei wird die View innerhalb der AppView angezeigt.
  */
 
-@PageTitle("EntwicklerAnfrage")
+@PageTitle("Meine Anfrage")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.ENTWICKLERANFRAGEVIEW, layout = AppView.class)
 @Slf4j
@@ -107,29 +108,44 @@ public class EntwicklerAnfrageView extends Div {
 
         //Reason
         Grid.Column<Anfrage> StatusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
+
+        // Anfrage annehmen
         Grid.Column<Anfrage> AnnhemenColumn = grid.addComponentColumn(anfrage -> {
             Button annehmenButton= null;
-            Icon lumoIcon = null;
-            if (anfrage.isAccepted()){
-
-                lumoIcon= new Icon("lumo", "cross");
-                lumoIcon.setColor("Red");
-                annehmenButton = new Button("Ablehnen",lumoIcon);
-
-            }
-            else {
-                lumoIcon = new Icon("lumo", "checkmark");
+            Icon lumoIcon =  new Icon("lumo", "checkmark");
                 lumoIcon.setColor("Green");
+
                 annehmenButton = new Button("Annehmen", lumoIcon);
-            }
+
             annehmenButton.addClickListener(event ->{
-                annehmen(anfrage);
-                UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
-                    }
+                if (anfrage.isAccepted())
+                    Notify.notifyAfterUpdateWithOkay("Antrag wurde bereits angenommen!");
+                else{
+                    annehmen(anfrage);
+                    UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);}
+                }
 
             );
 
             return annehmenButton;
+        }).setAutoWidth(true).setFlexGrow(0);
+
+        // Anfrage ablehnen
+        Grid.Column<Anfrage> AblehnenColumn = grid.addComponentColumn(anfrage -> {
+            Button ablehnenButton = null;
+            Icon lumoIcon = new Icon("lumo", "cross");// Icon X
+                lumoIcon.setColor("Red");// Icon Farbe
+
+                ablehnenButton = new Button("Ablehnen",lumoIcon);
+
+            ablehnenButton.addClickListener(event ->{
+                ablehnen(anfrage);
+                        UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+                    }
+
+            );
+
+            return ablehnenButton;
         }).setAutoWidth(true).setFlexGrow(0);
 
         // Projektdaten ausklappen
@@ -138,6 +154,103 @@ public class EntwicklerAnfrageView extends Div {
         grid.setHeight("1000px");
 
         return grid;
+    }
+
+    /**
+     * Diese Methode dient dazu einen StatusComponentRenderer zur Anzeige des Status in der Grid zu erstellen
+     * @return ComponentRenderer
+     */
+    private static ComponentRenderer<Span, Anfrage> createStatusComponentRenderer () {
+        return new ComponentRenderer<>(Span::new, statusComponentUpdater);
+    }
+
+    /**
+     * Hilfmethode für das erstellen des ComponentRenderer
+     */
+    private static final SerializableBiConsumer<Span, Anfrage> statusComponentUpdater = (
+            span, anfrage) -> {
+        boolean isAccepted = (anfrage.isAccepted());
+        String theme = String.format("badge %s", isAccepted ? "success" : "error");
+        span.getElement().setAttribute("theme", theme);
+
+        if (isAccepted) {
+            span.setText("Angenommen");
+        } else {
+            span.setText("Nicht angenommen");
+        }
+    };
+
+    /**
+     * Hilfmethode um Antrag anzunehmen
+     * dabei wird der User benachrichtigt
+     */
+    private void annehmen(Anfrage anfrage) {
+        notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
+        anfrage.setAccepted(true);
+        anfrage.setBearbeitet(true);
+        anfrageService.doCreatAnfrage(anfrage);
+    }
+
+    /**
+     * Hilfmethode um Antrag abzulehnen
+     * dabei wird der User benachrichtigt
+     */
+    private void ablehnen(Anfrage anfrage) {
+        notifyAfterUpdateWithOkay("Anfrage wird abgelehnt!",anfrage);
+        anfrage.setAccepted(false);
+        anfrage.setBearbeitet(true);
+        anfrageService.doCreatAnfrage(anfrage);
+    }
+
+
+
+    /**
+     * User benachrichtigen
+     */
+    public  void notifyAfterUpdateWithOkay(String benachrichtigung, Anfrage anfrage) {
+
+        Dialog dialog = new Dialog();
+        // dialog grosse
+        dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
+        dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
+
+        dialog.open();
+
+        // Feld um bei Ablehnung eine Begründung einzugeben
+        TextArea textArea = new TextArea("Bitte Ablehnungsbegründung eingeben!");
+
+
+
+        VerticalLayout dialoglayout = new VerticalLayout();
+        dialoglayout.setId("confirm-dialog-layout");
+
+        if ((benachrichtigung.equals("Anfrage wird abgelehnt!"))){
+            dialoglayout.add(textArea);
+        }
+
+        dialoglayout.add(    new Text(benachrichtigung),
+
+                new Button("Speichern", e ->{
+                    anfrage.setReason(textArea.getValue());
+                    anfrageService.doCreatAnfrage(anfrage);
+
+                    dialog.close();
+                })/*,
+
+                new Button("Abbrechen", e ->{
+                    dialog.close();
+                })*/
+
+        );
+
+
+
+        dialog.add(
+                dialoglayout
+        );
+
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(false);
     }
 
 
@@ -187,99 +300,6 @@ public class EntwicklerAnfrageView extends Div {
 
         }
 
-    }
-
-    /**
-     * Diese Methode dient dazu einen StatusComponentRenderer zur Anzeige des Status in der Grid zu erstellen
-     * @return ComponentRenderer
-     */
-    private static ComponentRenderer<Span, Anfrage> createStatusComponentRenderer () {
-        return new ComponentRenderer<>(Span::new, statusComponentUpdater);
-    }
-
-    /**
-     * Hilfmethode für das erstellen des ComponentRenderer
-     */
-    private static final SerializableBiConsumer<Span, Anfrage> statusComponentUpdater = (
-            span, anfrage) -> {
-        boolean isAccepted = (anfrage.isAccepted());
-        String theme = String.format("badge %s", isAccepted ? "success" : "error");
-        span.getElement().setAttribute("theme", theme);
-
-        if (isAccepted) {
-            span.setText("Angenommen");
-        } else {
-            span.setText("Nicht angenommen");
-        }
-    };
-
-    private void annehmen(Anfrage anfrage) {
-        if(anfrage.isAccepted()){
-
-            notifyAfterUpdateWithOkay("Anfrage wird abgelehnt!",anfrage);
-
-            anfrage.setAccepted(false);
-
-
-
-        }else{
-
-            notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
-            anfrage.setAccepted(true);
-
-        }
-        System.out.println(anfrage.isBearbeitet()+": bearbeitet");
-        anfrage.setBearbeitet(true);
-        anfrageService.doCreatAnfrage(anfrage);
-
-
-    }
-
-
-
-
-    public  void notifyAfterUpdateWithOkay(String benachrichtigung, Anfrage anfrage) {
-
-        Dialog dialog = new Dialog();
-
-        dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
-        dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
-        dialog.open();
-        TextArea textArea = new TextArea("Bitte Ablehnungsbegründung eingeben!");
-
-
-
-
-        VerticalLayout dialoglayout = new VerticalLayout();
-        dialoglayout.setId("confirm-dialog-layout");
-
-        if ((benachrichtigung.equals("Anfrage wird abgelehnt!"))){
-            dialoglayout.add(textArea);
-        }
-
-        dialoglayout.add(    new Text(benachrichtigung),
-
-                new Button("Speichern", e ->{
-                    anfrage.setReason(textArea.getValue());
-                    anfrageService.doCreatAnfrage(anfrage);
-
-                    dialog.close();
-                })/*,
-
-                new Button("Abbrechen", e ->{
-                    dialog.close();
-                })*/
-
-        );
-
-
-
-        dialog.add(
-                dialoglayout
-        );
-
-        dialog.setCloseOnEsc(true);
-        dialog.setCloseOnOutsideClick(false);
     }
 
 

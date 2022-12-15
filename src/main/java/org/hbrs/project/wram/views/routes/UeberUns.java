@@ -19,7 +19,7 @@ import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 
 import javax.annotation.PostConstruct;
 
-@PageTitle("UeberunsOut")
+@PageTitle("Über uns")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.UeberUnsOut, layout = AppViewOutside.class)
 @Slf4j

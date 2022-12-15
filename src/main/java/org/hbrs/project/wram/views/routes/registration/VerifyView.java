@@ -15,7 +15,7 @@ import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-@PageTitle("verifizieren")
+@PageTitle("Verifizieren")
 @Route(value = Constants.Pages.VERIFY_VIEW,layout = AppViewOutside.class)
 @Slf4j
 public class VerifyView extends Div implements HasUrlParameter<String> {
