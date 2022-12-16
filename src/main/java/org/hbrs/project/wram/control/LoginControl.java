@@ -35,10 +35,14 @@ public class LoginControl {
      */
     public boolean authenticateUser(String username, String password) throws Exception {
         User user = getUser(username,password);
-        //user.isVerified();
         if (user == null ) {
             return false;
         } else {
+            try{
+                user.isVerified();
+            }catch (Exception e){
+                throw e;
+            }
             this.currentUser = user;
         }
         return true;
