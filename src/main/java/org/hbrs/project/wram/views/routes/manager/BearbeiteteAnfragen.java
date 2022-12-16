@@ -52,7 +52,7 @@ import java.util.UUID;
 public class BearbeiteteAnfragen extends Div {
 
 
-    private H2 header;
+
 
     private List<Anfrage> anfrage = new ArrayList<>();
 
@@ -66,8 +66,8 @@ public class BearbeiteteAnfragen extends Div {
 
     @PostConstruct
     public void init() {
-        header = new H2("Bearbeitete Anfragen");
-        UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        H2 header = new H2("Bearbeitete Anfragen");
+        //UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
 
         anfrage = anfrageService.findAll();
 
@@ -95,24 +95,24 @@ public class BearbeiteteAnfragen extends Div {
         grid.setDataProvider(dataProvider);
 
         // Projekt name
-        Grid.Column<Anfrage> KundenprojektColumn = grid.addColumn((Anfrage a)->{
+        Grid.Column<Anfrage> kundenprojektColumn = grid.addColumn((Anfrage a)->{
             return a.getKundenprojekt().getProjektname();
         }).setHeader("Kundenprojekt").setWidth("225px");
 
 
-        Grid.Column<Anfrage> ReviewerColumn = grid.addColumn((Anfrage a)->{
+        Grid.Column<Anfrage> reviewerColumn = grid.addColumn((Anfrage a)->{
                     return  a.getReviewer().getFirstname()+ " " + a.getReviewer().getName();})
-                .setHeader("Zuweisender Reviewer").setWidth("100px");
+                .setHeader("Zuweisender Reviewer").setWidth("101px");
 
-        Grid.Column<Anfrage> EntwicklerColumn = grid.addColumn((Anfrage a)->{
+        Grid.Column<Anfrage> entwicklerColumn = grid.addColumn((Anfrage a)->{
                     return a.getEntwicklerProfil().getFirstname() + " " + a.getEntwicklerProfil().getName();})
                 .setHeader("Entwickler").setWidth("100px");
 
         //Reason
-        Grid.Column<Anfrage> StatusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
+        Grid.Column<Anfrage> statusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
 
         // navigiere zu ENTWICKLER_PROFIL_BY_MANAGER
-        Grid.Column<Anfrage>  EntwicklerProfil = grid.addComponentColumn((Anfrage a) -> {
+        Grid.Column<Anfrage>  entwicklerProfil = grid.addComponentColumn((Anfrage a) -> {
             Icon icon = new Icon("lumo", "user");
             Button entwicklerProfilButton= new Button("Entwickler", icon);
 
@@ -194,8 +194,8 @@ public class BearbeiteteAnfragen extends Div {
      * Hilfmethode für das erstellen des ComponentRenderer
      */
     private static final SerializableBiConsumer<Span, Anfrage> statusComponentUpdater = (
-            span, anfrage) -> {
-        boolean isAccepted = (anfrage.isAccepted());
+            span, a) -> {
+        boolean isAccepted = (a.isAccepted());
         String theme = String.format("badge %s", isAccepted ? "success" : "error");
         span.getElement().setAttribute("theme", theme);
 

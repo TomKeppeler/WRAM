@@ -35,7 +35,7 @@ public class LoginControl {
      */
     public boolean authenticateUser(String username, String password) throws Exception {
         User user = getUser(username,password);
-        user.isVerified();
+        //user.isVerified();
         if (user == null ) {
             return false;
         } else {
