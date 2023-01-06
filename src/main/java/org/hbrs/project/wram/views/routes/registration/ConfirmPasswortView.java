@@ -70,8 +70,9 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
         return e -> {
             User us=userRepository.findUserByUsername(username);
             us.setVerified(true);
+            userRepository.save(us);
             UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
-            Notification.show("Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
+            Notification.show(""+us.getUsername()+"Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
                     Notification.Position.MIDDLE);
         };
     }
@@ -106,7 +107,7 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
-        if(!s.equals(null)){
+        if(s!=null){
             this.username=s;
         }
     }

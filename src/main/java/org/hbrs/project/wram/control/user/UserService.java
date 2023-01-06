@@ -18,6 +18,7 @@ import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -140,8 +141,7 @@ public class UserService {
      */
     public boolean verify(String verificationCode) {
         User user = userRepository.findByVerificationCode(verificationCode);
-
-        if (user == null || user.isVerified()) {
+        if (user == null) {
             return false;
         } else {
             user.setVerificationCode(null);
