@@ -168,7 +168,7 @@ public class UserService {
              try {
                  sendVerificationEmail(user, siteURL);
              }catch (Exception e){
-                 Notification.show(Arrays.toString(e.getStackTrace()));
+                 Notification.show("Message:"+Arrays.toString(e.getStackTrace()));
              }
 
 
