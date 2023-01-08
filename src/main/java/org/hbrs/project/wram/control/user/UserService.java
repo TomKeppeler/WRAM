@@ -168,7 +168,7 @@ public class UserService {
              try {
                  sendVerificationEmail(user, siteURL);
              }catch (Exception e){
-                 Notify.notifyAfterUpdateWithOkay("Message:"+Arrays.toString(e.getStackTrace()));
+                 Notify.notifyAfterUpdateWithOkay("Message:"+e.getMessage());
                  userRepository.delete(user);
              }
 
