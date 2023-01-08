@@ -144,14 +144,15 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
           if (isAuthenticated) {
               grabAndSetUserIntoSession();
 
+              /*
               // bei Entwickler wird auf Entwickler Profil navigiert
               if (Objects.equals(userService.getRolle(), "e")){
                   UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
               }
               else {
-                  navigateToMainPage();
               }
-
+               */
+              navigateToMainPage();
           }
        });
        layout.add(new Header(new H1("Willkommen in der Zukunft des Projektmanagements.")));

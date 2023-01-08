@@ -150,6 +150,7 @@ public class EntwicklerAnfrageView extends Div {
                     currentEntwickler.setKundenprojekt(null);
                     ablehnen(anfrage);
                     entwicklerService.doCreatEntwickler(currentEntwickler);
+                    UI.getCurrent().getPage().reload();
                 });
                 return ablehnenButton;
             }

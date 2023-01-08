@@ -86,7 +86,7 @@ public class EntwicklerProfilByManager extends Div {
         skills.setWidthFull();
 
 
-        RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
+        RouterLink backlink = new RouterLink("Zurück zur Startseite", LandingView.class);
 
         email.setValue(aktuellerEntwickler.getUser().getEmail());
         email.setReadOnly(true);

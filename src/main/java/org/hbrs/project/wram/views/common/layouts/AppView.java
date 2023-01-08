@@ -215,9 +215,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         if(userService.getRolle() =="m"){
             logger.log(Level.INFO, "User is \"Manager\"!");
             tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
-            tabs = Utils.append(tabs, createTab("Bearbeitete Anfrage", BearbeiteteAnfragen.class));
             tabs = Utils.append(tabs, createTab("Neues Projekt erstellen", CreateProjectForm.class));
             tabs = Utils.append(tabs, createTab("Anfrage an Entwickler senden", ZuweisungSenden.class));
+            tabs = Utils.append(tabs, createTab("Bearbeitete Anfrage", BearbeiteteAnfragen.class));
         }
         // Entwickler Tabs
         else if (userService.getRolle() =="e") {
@@ -225,9 +225,9 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
             //Tab profile = new Tab(VaadinIcon.USER.create());
             //profile.add(new RouterLink("Mein Profile", CreateEntwicklerProfil.class));
             logger.log(Level.INFO, "User is \"Entwickler\"!");
-            tabs = Utils.append( tabs , createTab("Profile", CreateEntwicklerProfil.class));
+            tabs = Utils.append( tabs , createTab("Mein Profil", CreateEntwicklerProfil.class));
             //tabs = Utils.append( tabs , profile);
-            tabs = Utils.append( tabs , createTab("Zugewiesene Anfragen", EntwicklerAnfrageView.class));
+            tabs = Utils.append( tabs , createTab("Projektanfragen", EntwicklerAnfrageView.class));
 
         }
 
