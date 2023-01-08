@@ -167,7 +167,7 @@ public class UserService {
              userRepository.save(user);
              try {
                  sendVerificationEmail(user, siteURL);
-             }catch (Exception e){
+             }catch (MessagingException e){
                  Notification.show("Message:"+Arrays.toString(e.getStackTrace()));
              }
 
