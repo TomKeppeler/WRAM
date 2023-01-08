@@ -114,7 +114,7 @@ public class RegisterControl {
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
         try {
-            userService.register(user, "localhost:8080");
+            userService.register(user, "http://sepp-test.inf.h-brs.de:8080/WAC-0.0.1-SNAPSHOT");
         }catch (UnsupportedEncodingException| MessagingException e){
 
         }

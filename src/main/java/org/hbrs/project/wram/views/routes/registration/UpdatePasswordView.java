@@ -85,7 +85,7 @@ public class UpdatePasswordView extends Div  {
                  user.setVerified(false);
                  userRepository.save(user);
                  try {
-                     service.generatePassword(tmpuser,"localhost:8080");
+                     service.generatePassword(tmpuser,"http://sepp-test.inf.h-brs.de:8080/WAC-0.0.1-SNAPSHOT");
                  } catch (UnsupportedEncodingException ex) {
                      ex.printStackTrace();
                  } catch (MessagingException ex) {
