@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -167,8 +168,7 @@ public class UserService {
              try {
                  sendVerificationEmail(user, siteURL);
              }catch (Exception e){
-                 Notification.show(e.getMessage());
-                 
+                 Notification.show(Arrays.toString(e.getStackTrace()));
              }
 
 
