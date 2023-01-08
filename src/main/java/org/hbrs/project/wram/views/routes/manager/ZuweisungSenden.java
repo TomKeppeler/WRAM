@@ -175,21 +175,17 @@ public class ZuweisungSenden extends Div {
         private final TextArea projektbeschreibung = new TextArea("Projektbeschreibung");
         private final TextArea skills = new TextArea("Benötigte Skills");
 
-        private final TextArea reason = new TextArea("Ablehnungsbegründung");
-
 
         public ProjektDetailsFormLayout() {
             projektname.setReadOnly(true);
             projektbeschreibung.setReadOnly(true);
             skills.setReadOnly(true);
-            reason.setReadOnly(true);
 
             setResponsiveSteps(new ResponsiveStep("0", 4));
             setColspan(projektname, 2);
-            setColspan(reason, 4);
             setColspan(projektbeschreibung, 4);
             setColspan(skills, 4);
-            add(projektname, projektbeschreibung, skills,reason);
+            add(projektname, projektbeschreibung, skills);
         }
 
         public void setProjekt(Anfrage anfrage) {
@@ -203,8 +199,6 @@ public class ZuweisungSenden extends Div {
             if(anfrage.getKundenprojekt()!=null){skills.setValue(anfrage.getKundenprojekt().getSkills());}
             else{skills.setValue("-");}
 
-            if(anfrage.getReason()!=null){reason.setValue(anfrage.getReason());}
-            else{reason.setValue("-");}
 
 
 

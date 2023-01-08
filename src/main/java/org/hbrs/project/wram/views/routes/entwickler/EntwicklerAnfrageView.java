@@ -278,7 +278,7 @@ public class EntwicklerAnfrageView extends Div {
             projektname.setReadOnly(true);
             projektbeschreibung.setReadOnly(true);
             skills.setReadOnly(true);
-
+            reason.setReadOnly(true);
             setResponsiveSteps(new ResponsiveStep("0", 4));
             setColspan(projektname, 2);
             setColspan(reason, 4);
@@ -300,7 +300,6 @@ public class EntwicklerAnfrageView extends Div {
 
             if(anfrage.getReason()!=null){reason.setValue(anfrage.getReason());}
             else{reason.setValue("-");}
-
             // Begründung bearbeiten
             /*begruendungButton.addClickListener(event ->{
                 anfrage.setReason(reason.getValue());
