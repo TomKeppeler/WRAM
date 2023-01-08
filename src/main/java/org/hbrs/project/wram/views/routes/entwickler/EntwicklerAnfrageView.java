@@ -32,11 +32,14 @@ import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
 import org.hbrs.project.wram.model.anfrage.AnfrageRepository;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.Notify;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.vaadin.flow.component.notification.Notification;
+import javax.annotation.PostConstruct;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,20 +115,22 @@ public class EntwicklerAnfrageView extends Div {
 
         // Anfrage annehmen
         Grid.Column<Anfrage> AnnhemenColumn = grid.addComponentColumn(anfrage -> {
+
             Button annehmenButton= null;
             Icon lumoIcon =  new Icon("lumo", "checkmark");
                 lumoIcon.setColor("Green");
 
                 annehmenButton = new Button("Annehmen", lumoIcon);
-
+            if(anfrage.isAccepted()){
+                annehmenButton.setEnabled(false);
+            }
             annehmenButton.addClickListener(event ->{
                 if (anfrage.isAccepted())
                     Notify.notifyAfterUpdateWithOkay("Antrag wurde bereits angenommen!");
                 else{
                     annehmen(anfrage);
-                    UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);}
+                    }
                 }
-
             );
 
             return annehmenButton;
@@ -138,12 +143,23 @@ public class EntwicklerAnfrageView extends Div {
                 lumoIcon.setColor("Red");// Icon Farbe
 
                 ablehnenButton = new Button("Ablehnen",lumoIcon);
-
+            if(anfrage.isBearbeitet() && anfrage.isAccepted()){
+                ablehnenButton.setText("Projekt Verlassen");
+                ablehnenButton.addClickListener(event ->{
+                    Entwickler currentEntwickler = entwicklerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
+                    currentEntwickler.setKundenprojekt(null);
+                    ablehnen(anfrage);
+                    entwicklerService.doCreatEntwickler(currentEntwickler);
+                });
+                return ablehnenButton;
+            }
+            if(anfrage.isBearbeitet() && !anfrage.isAccepted()){
+                ablehnenButton.setEnabled(false);
+            }
             ablehnenButton.addClickListener(event ->{
                 ablehnen(anfrage);
                         UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
                     }
-
             );
 
             return ablehnenButton;
@@ -173,12 +189,17 @@ public class EntwicklerAnfrageView extends Div {
         boolean isAccepted = (anfrage.isAccepted());
         String theme = String.format("badge %s", isAccepted ? "success" : "error");
         span.getElement().setAttribute("theme", theme);
-
-        if (isAccepted) {
-            span.setText("Angenommen");
+        if(!anfrage.isBearbeitet()){
+            span.setText("nicht bearbeitet");
+            span.getStyle().set("color", "grey");
+        } else if (anfrage.isAccepted()){
+            span.setText("angenommen");
+            span.getStyle().set("color", "green");
         } else {
-            span.setText("Nicht angenommen");
+            span.setText("nicht angenommen");
+            span.getStyle().set("color", "red");
         }
+
     };
 
     /**
@@ -186,10 +207,20 @@ public class EntwicklerAnfrageView extends Div {
      * dabei wird der User benachrichtigt
      */
     private void annehmen(Anfrage anfrage) {
-        notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
-        anfrage.setAccepted(true);
-        anfrage.setBearbeitet(true);
-        anfrageService.doCreatAnfrage(anfrage);
+        UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        Entwickler currentEntwickler = entwicklerService.getByUserId(userID);
+        if(currentEntwickler.getKundenprojekt() == null ){
+            notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
+            anfrage.setAccepted(true);
+            anfrage.setBearbeitet(true);
+            anfrageService.doCreatAnfrage(anfrage);
+            currentEntwickler.setKundenprojekt(anfrage.getKundenprojekt());
+            entwicklerService.doCreatEntwickler(currentEntwickler);
+            Notification.show("Sie haben die Anfrage angenommen!");
+        } else {
+
+            Notification.show("Sie sind schon einem Kundenprojekt zugeteilt!");
+        }
     }
 
     /**
