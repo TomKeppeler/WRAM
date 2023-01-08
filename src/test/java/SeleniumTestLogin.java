@@ -12,7 +12,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SeleniumTestLogin {
-/*
+
     private static WebDriver driver = null;
     private WebDriverWait webDriverWait = null;
 
@@ -38,13 +38,18 @@ public class SeleniumTestLogin {
         //assertEquals(driver.findElement(By.xpath("/html/body/vaadin-app-layout/vaadin-horizontal-layout/vaadin-horizontal-layout/h3")).getText(), "Hallo!");
 
         //webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//[@id="button"]")));
-        /*try{
+        /**try{
             driver.findElement(By.xpath("")).click(); //Button aus irgendeinem Grund leider nicht interactable
         }catch (ElementNotInteractableException e) {
             WebElement webElement = driver.findElement(By.xpath(""));
             Actions actions = new Actions(driver);
             actions.moveToElement(webElement).click();
-        }
+        }*/
+
+
+
+
+
     }
 
 
@@ -55,6 +60,6 @@ public class SeleniumTestLogin {
     }
 
 
-*/
+
 
 }

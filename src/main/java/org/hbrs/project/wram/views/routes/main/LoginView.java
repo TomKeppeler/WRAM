@@ -28,6 +28,7 @@ import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.hbrs.project.wram.views.routes.registration.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -71,6 +72,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
        });
        login.addLoginListener( e -> {
+
           boolean isAuthenticated = false;
 
 
@@ -79,10 +81,40 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
               isAuthenticated = (loginControl.authenticateUser(e.getUsername(), e.getPassword()));
 
           } catch (Exception exception) {
-              // falls user doch im DB vorhanden ist
+              // falls doch im DB vorhanden ist
               if (loginControl.isUsernameInUse(e.getUsername())){
+                  if (!userService.findUserByUsername(e.getUsername()).isVerified()){
+                      Dialog confirm = new Dialog();
+                      confirm.setId("confirm-profile-update");
+                      confirm.open();
+
+                      VerticalLayout dialoglayout = new VerticalLayout(
+                              new Text("Bitte Verifizieren Sie sich über den Link in Ihrem Email"),
+                              new Button("Ok", x -> {
+                                  confirm.close();
+                                  UI.getCurrent().getPage().reload();
+                              }
+
+                              )
+                      );
+
+                      confirm.add(
+                              dialoglayout
+                      );
+                      confirm.setCloseOnEsc(true);
+                      confirm.setCloseOnOutsideClick(false);
+
+
+
+
+
+
+                  }
+
+                  else
                   login.setError(true);
               }
+
               //  falls user doch nicht im DB vorhanden ist
               else {
                   Dialog dialog = new Dialog();

@@ -38,7 +38,9 @@ public class LoginControl {
         User user = getUser(username,password);
        // user.isVerified();
         if (user == null||!user.isVerified() ) {
-            return false;
+                throw new IllegalAccessException();
+
+
         } else {
             this.currentUser = user;
         }

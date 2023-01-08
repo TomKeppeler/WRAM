@@ -123,6 +123,9 @@ public class UserService {
         return this.userRepository.findUserByUsernameAndPassword(username, pw);
     }
 
+    public User findUserByUsername(String username){
+        return this.userRepository.findUserByUsername(username);
+    }
     /**
      * User mit ID x wird von DB gelöscht
      * @param id
@@ -174,7 +177,7 @@ public class UserService {
     }
     /**
      * * user erhält registrationcode, email wird aufgerufen
-     * @param   user    aktueller benutzer
+     * @param   username    aktueller benutzer
      * @param   siteURL url für die Verifiationpage
      */
     public void generatePassword(String username, String siteURL) throws UnsupportedEncodingException, MessagingException {

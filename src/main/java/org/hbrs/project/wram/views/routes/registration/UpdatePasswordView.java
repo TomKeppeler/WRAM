@@ -27,6 +27,7 @@ import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -78,7 +79,7 @@ public class UpdatePasswordView extends Div  {
             User user=userRepository.findUserByUsername(tmpuser);
             String newPassword=passwortWiederholung.getValue();
             if(user==null){
-                 Notification.show("Username falsch!!!!");
+                 Notify.notifyAfterUpdateWithOkay("Username falsch!!!!");
              }
              if(newPassword!=null&&service.verifyNewPassword(newPassword)&&userRepository.findUserByPassword(newPassword)==null&&passwort.getValue().equals(passwortWiederholung.getValue())) {
                  user.setPassword(Encryption.sha256(passwortWiederholung.getValue()));
@@ -93,6 +94,7 @@ public class UpdatePasswordView extends Div  {
                  }
 
              }else{
+                 //Todo
                  Notification.show("passwort exisitert schon oder ist null");
              }
         };
