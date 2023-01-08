@@ -111,20 +111,24 @@ public class ZuweisungSenden extends Div {
         //Reason
         Grid.Column<Anfrage> statusColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
         Grid.Column<Anfrage> annhemenColumn = grid.addComponentColumn(anfrageP -> {
-            Button anfrageSendenButton= null;
-            Icon lumoIcon = null;
+            Button anfrageSendenButton = new Button();
             if (anfrageP.isEntwicklerpublic()){
 
-                lumoIcon= new Icon("lumo", "cross");
+                Icon lumoIcon= new Icon("lumo", "cross");
                 lumoIcon.setColor("Red");
-                anfrageSendenButton = new Button("Anfrage nicht senden",lumoIcon);
+                anfrageSendenButton.setText("Anfrage nicht senden");
 
             }
             else {
-                lumoIcon = new Icon("lumo", "checkmark");
+                Icon lumoIcon = new Icon("lumo", "checkmark");
                 lumoIcon.setColor("Green");
-                anfrageSendenButton = new Button("Anfrage senden", lumoIcon);
+                anfrageSendenButton.setText("Anfrage senden");
             }
+            if(anfrageP.isAccepted()) {
+                anfrageSendenButton.setEnabled(false);
+                anfrageSendenButton.setText("Anfrage angenommen");
+            }
+
             anfrageSendenButton.addClickListener(event ->{
                         senden(anfrageP);
                         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW);
@@ -224,12 +228,12 @@ public class ZuweisungSenden extends Div {
         boolean isEntwicklerpublic = (a.isEntwicklerpublic());
         String theme = String.format("badge %s", isEntwicklerpublic ? "success" : "error");
         span.getElement().setAttribute("theme", theme);
-
         if (isEntwicklerpublic) {
             span.setText("gesendet");
         } else {
             span.setText("Nicht gesendet");
         }
+
     };
 
     private void senden(Anfrage anfrage) {
