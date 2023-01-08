@@ -163,7 +163,13 @@ public class UserService {
              user.setVerificationCode(randomCode);
              user.setVerified(false);
              userRepository.save(user);
-             sendVerificationEmail(user, siteURL);
+             try {
+                 sendVerificationEmail(user, siteURL);
+             }catch (Exception exception ){
+                 Notify.notifyAfterUpdateWithOkay("Bitte gültige Email angeben");
+                 userRepository.delete(user);
+             }
+
 
     }
 
