@@ -25,6 +25,7 @@ import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -72,8 +73,8 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
             us.setVerified(true);
             userRepository.save(us);
             UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
-            Notification.show(""+us.getUsername()+"Sie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.", 3000,
-                    Notification.Position.MIDDLE);
+            Notify.notifyAfterUpdateWithOkay("Hallo"+us.getUsername()+"!\nSie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.");
+
         };
     }
     /**

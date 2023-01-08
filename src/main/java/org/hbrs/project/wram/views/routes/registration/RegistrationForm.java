@@ -117,10 +117,10 @@ public class RegistrationForm extends VerticalLayout {
                 if (this.userService.isEmailAlreadyInDatabase(userDTO)) {
                     Notification
                             .show("Es existiert bereits ein Account mit der E-mail adresse " + userDTO
-                                    .getEmail(), 3000, Notification.Position.MIDDLE);
+                                    .getEmail(), 5000, Notification.Position.MIDDLE);
                 } else if (this.userService.isUsernameAlreadyInDatabase(userDTO)) {
                     Notification.show("Es existiert bereits ein Account mit dem Username " + userDTO
-                            .getUsername(), 3000, Notification.Position.MIDDLE);
+                            .getUsername(), 5000, Notification.Position.MIDDLE);
                 } else {
                     if (rolle.getValue().equals(rolleEntwickler)) {
 
