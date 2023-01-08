@@ -167,7 +167,8 @@ public class UserService {
              try {
                  sendVerificationEmail(user, siteURL);
              }catch (Exception e){
-                 e.printStackTrace();
+                 Notification.show(e.getMessage());
+                 
              }
 
 
