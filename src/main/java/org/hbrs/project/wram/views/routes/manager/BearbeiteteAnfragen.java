@@ -31,7 +31,9 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
+import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,18 +65,21 @@ public class BearbeiteteAnfragen extends Div {
 
     @Autowired
     private EntwicklerService entwicklerService;
+    @Autowired
+    private ManagerService managerService;
 
     @PostConstruct
     public void init() {
         H2 header = new H2("Bearbeitete Anfragen");
-        //UUID userID = (UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
-
+        UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
         anfrage = anfrageService.findAll();
-
         //Bearbeitete Anfrage von Entwickler
         for (Anfrage a: anfrage) {
-            if (a.isBearbeitet())
-                bearbeiteteAnfrage.add(a);
+            if(a.getKundenprojekt().getManager().getId().equals(this.managerService.findManagerByUserId(userID).getId())){
+                if (a.isBearbeitet()) {
+                    bearbeiteteAnfrage.add(a);
+                }
+            }
         }
 
         VerticalLayout layout = new VerticalLayout();

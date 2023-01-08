@@ -29,8 +29,10 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.anfrage.AnfrageService;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.control.manager.ManagerService;
 import org.hbrs.project.wram.model.anfrage.Anfrage;
 import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.Notify;
@@ -60,15 +62,21 @@ public class ZuweisungSenden extends Div {
     private AnfrageService anfrageService;
 
     @Autowired
+    private ManagerService managerService;
+    @Autowired
     private EntwicklerService entwicklerService;
 
     @PostConstruct
     public void init() {
         H2 header = new H2("Alle Anfragen");
-        //UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
+        ArrayList<Anfrage> anfrageList = (ArrayList<Anfrage>) anfrageService.findAll();
 
-        anfrage = anfrageService.findAll();
-
+        for (Anfrage a : anfrageList) {
+            if (a.getKundenprojekt().getManager().getId().equals(this.managerService.findManagerByUserId(userID).getId())) {
+                anfrage.add(a);
+            }
+        }
         VerticalLayout layout = new VerticalLayout();
         layout.add(header);
         add(layout, setUpGrid());
