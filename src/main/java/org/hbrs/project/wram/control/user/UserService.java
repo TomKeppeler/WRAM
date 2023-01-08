@@ -6,6 +6,7 @@
 package org.hbrs.project.wram.control.user;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
 import net.bytebuddy.utility.RandomString;
 import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
@@ -163,8 +164,11 @@ public class UserService {
              user.setVerificationCode(randomCode);
              user.setVerified(false);
              userRepository.save(user);
-             sendVerificationEmail(user, siteURL);
-
+             try {
+                 sendVerificationEmail(user, siteURL);
+             }catch (Exception e){
+                 e.printStackTrace();
+             }
 
 
 
