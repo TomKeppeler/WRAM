@@ -108,7 +108,6 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * bekommt der Entwickler eine Benachrichtiung, dass es erfolgreich funktioniert hat.
      */
     private void navigateToAppView() {
-        UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
         notifyAfterUpdate();
         //Notification.show("Entwicklerprofil erfolgreich erstellt.", 3000, Notification.Position.MIDDLE);
     }
@@ -281,8 +280,10 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
         VerticalLayout dialoglayout = new VerticalLayout(
                 new Text("Dein Profil wurde erfolgreich erstellt/ geupdated."),
-                new Button("Ok", e ->
-                        confirm.close()
+                new Button("Ok", e -> {
+                    confirm.close();
+                    UI.getCurrent().getPage().reload();
+                    }
                 )
         );
         dialoglayout.setId("confirm-dialog-layout");

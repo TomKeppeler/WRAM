@@ -150,7 +150,7 @@ public class EntwicklerAnfrageView extends Div {
                     currentEntwickler.setKundenprojekt(null);
                     ablehnen(anfrage);
                     entwicklerService.doCreatEntwickler(currentEntwickler);
-                    UI.getCurrent().getPage().reload();
+                    //UI.getCurrent().getPage().reload();
                 });
                 return ablehnenButton;
             }
@@ -159,7 +159,7 @@ public class EntwicklerAnfrageView extends Div {
             }
             ablehnenButton.addClickListener(event ->{
                 ablehnen(anfrage);
-                        UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+                        //UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
                     }
             );
 
@@ -217,7 +217,8 @@ public class EntwicklerAnfrageView extends Div {
             anfrageService.doCreatAnfrage(anfrage);
             currentEntwickler.setKundenprojekt(anfrage.getKundenprojekt());
             entwicklerService.doCreatEntwickler(currentEntwickler);
-            Notification.show("Sie haben die Anfrage angenommen!");
+            //UI.getCurrent().getPage().reload();
+            //Notification.show("Sie haben die Anfrage angenommen!");
         } else {
 
             Notification.show("Sie sind schon einem Kundenprojekt zugeteilt!");
@@ -244,14 +245,16 @@ public class EntwicklerAnfrageView extends Div {
 
         Dialog dialog = new Dialog();
         // dialog grosse
-        dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
-        dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
+        //dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
+        //dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
+        dialog.setHeight("130px");
+        dialog.setWidth("400px");
 
         dialog.open();
 
         // Feld um bei Ablehnung eine Begründung einzugeben
         TextArea textArea = new TextArea("Bitte Ablehnungsbegründung eingeben!");
-
+        textArea.setWidth("350px");
 
 
         VerticalLayout dialoglayout = new VerticalLayout();
@@ -259,6 +262,8 @@ public class EntwicklerAnfrageView extends Div {
 
         if ((benachrichtigung.equals("Anfrage wird abgelehnt!"))){
             dialoglayout.add(textArea);
+            dialog.setHeight("250px");
+            dialog.setWidth("430px");
         }
 
         dialoglayout.add(    new Text(benachrichtigung),
@@ -268,6 +273,7 @@ public class EntwicklerAnfrageView extends Div {
                     anfrageService.doCreatAnfrage(anfrage);
 
                     dialog.close();
+                    UI.getCurrent().getPage().reload();
                 })/*,
 
                 new Button("Abbrechen", e ->{
