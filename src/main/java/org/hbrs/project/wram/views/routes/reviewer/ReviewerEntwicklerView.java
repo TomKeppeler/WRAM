@@ -206,7 +206,7 @@ public class ReviewerEntwicklerView extends Div {
          * Diese Methode dient dazu einen StatusComponentRenderer zur Anzeige des Status in der Grid zu erstellen
          * @return ComponentRenderer
          */
-        private static ComponentRenderer<Span, Entwickler> createStatusComponentRenderer () {
+        public static ComponentRenderer<Span, Entwickler> createStatusComponentRenderer () {
             return new ComponentRenderer<>(Span::new, statusComponentUpdater);
         }
 

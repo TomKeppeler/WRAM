@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView.createStatusComponentRenderer;
+
 /**
  * Diese View dient dazu einem als Reviwer eingeloggtem User die Möglichkeit zu geben, Entwickler zu Kundenprojekten zuzuweisen.
  * Dabei wird die View innerhalb der AppView angezeigt.
@@ -76,7 +78,7 @@ public class ReviewerEntwicklerZuweisenView extends Div {
     @PostConstruct
     public void init() {
         header = new H2("Entwickler zu Kundenprojekten zuweisen.");
-        entwicklers = entwicklerService.findAllFreeEntwickler();
+        entwicklers = entwicklerService.findAllEntwickler();
         VerticalLayout layout = new VerticalLayout();
         layout.add(header, setUpUI(), setUpGrid());
         add(layout);
@@ -113,6 +115,9 @@ public class ReviewerEntwicklerZuweisenView extends Div {
 
         // skills
         Grid.Column<Entwickler> skillColumn = grid.addColumn(Entwickler::getSkills).setHeader("Skills").setWidth("225px");
+
+        // status
+        grid.addColumn(createStatusComponentRenderer()).setHeader("Status").setAutoWidth(true);
 
         // Anfrage senden
         Grid.Column<Entwickler> anfrageSendenColumn = grid.addComponentColumn(entwickler -> {
