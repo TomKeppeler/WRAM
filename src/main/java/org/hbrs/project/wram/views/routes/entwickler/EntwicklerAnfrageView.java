@@ -61,6 +61,7 @@ public class EntwicklerAnfrageView extends Div {
 
 
     private List<Anfrage>  anfrage = new ArrayList<>();
+    //Liste der Anfragen, welche dem Entwickler angeigt werden
     private List<Anfrage> anfragePublic = new ArrayList<>();//isEntwicklerpublic
 
     @Autowired
@@ -78,8 +79,9 @@ public class EntwicklerAnfrageView extends Div {
 
         //isEntwicklerpublic
         for (Anfrage a: anfrage) {
-            if (a.isEntwicklerpublic())
-            anfragePublic.add(a);
+            if (a.isEntwicklerpublic()) {
+                if((!a.isBearbeitet()&&!a.isAccepted())||(a.isBearbeitet()&&a.isAccepted()))anfragePublic.add(a);
+            }
         }
 
 
