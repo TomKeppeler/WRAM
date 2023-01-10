@@ -45,6 +45,10 @@ public class Manager extends BaseEntity {
     @OneToMany(mappedBy = "manager", orphanRemoval = false)
     private Collection<Kundenprojekt> kundenprojekt;
 
+    /**
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -62,26 +66,34 @@ public class Manager extends BaseEntity {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Manager other = (Manager) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         if (firstname == null) {
-            if (other.firstname != null)
+            if (other.firstname != null) {
                 return false;
-        } else if (!firstname.equals(other.firstname))
+            }
+        } else if (!firstname.equals(other.firstname)) {
             return false;
+        }
         if (user == null) {
             return other.user == null;
-        } else return user.equals(other.user);
+        } else {
+            return user.equals(other.user);
+        }
     }
-
 }
