@@ -93,7 +93,9 @@ public class UpdatePasswordView extends Div  {
                      ex.printStackTrace();
                  }
 
-             }else{
+             } else if (!passwortWiederholung.getValue().equals(passwort.getValue())) {
+                 Notify.notifyAfterUpdateWithOkay("Passwort stimmt nicht überein");
+             } else{
                  //Todo
                  Notification.show("passwort exisitert schon oder ist null");
              }
