@@ -15,6 +15,9 @@ import javax.annotation.PostConstruct;
 
 import com.vaadin.flow.component.icon.Icon;
 import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.control.manager.ManagerService;
+import org.hbrs.project.wram.control.reviewer.ReviewerService;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.views.routes.manager.ZuweisungSenden;
 import org.hbrs.project.wram.model.user.User;
@@ -75,6 +78,13 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     private LoginControl control;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ManagerService managerService;
+    @Autowired
+    private EntwicklerService entwicklerService;
+    @Autowired
+    private ReviewerService reviewerService;
 
     @PostConstruct
     private void init() {
@@ -270,7 +280,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hello " + this.getCurrentNameOfUser()+" by WAC!");
+        helloUser.setText("Hallo " + getname() +" by WAC!");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
@@ -310,6 +320,15 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         if (control.getCurrentUser() == null) {
             beforeEnterEvent.rerouteTo(Constants.Pages.LOGIN_VIEW);
         }
+    }
+
+    private String getname(){
+        if (userService.getRolle() == "m") return managerService.findManagerByUserId(control.getCurrentUser()
+                .getId()).getFirstname();
+        if (userService.getRolle() == "e") return entwicklerService.findEntwicklerByUserId(control.getCurrentUser()
+                .getId()).getFirstname();
+          return reviewerService.findReviewerByUserId(control.getCurrentUser()
+                .getId()).getFirstname();
     }
 
 

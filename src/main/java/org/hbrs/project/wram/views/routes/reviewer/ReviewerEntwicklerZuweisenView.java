@@ -41,6 +41,7 @@ import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppView;
+import org.hbrs.project.wram.views.routes.Notify;
 import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -158,7 +159,8 @@ public class ReviewerEntwicklerZuweisenView extends Div {
 
     private void sendeAnfrage(Entwickler entwickler) {
         if(anfrageService.anfrageAlreadyExists(entwickler, aktuellesProjekt)){
-            Notification.show(entwickler.getFirstname() + " wurde bereits für " + aktuellesProjekt.getProjektname() + " angefragt.");
+            Notify.notifyAfterUpdateWithOkay(entwickler.getFirstname() + " wurde bereits für " + aktuellesProjekt.getProjektname() + " angefragt.");
+
         }else{
             //Reviewer
             Reviewer aktuellerReviewer = reviewerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
@@ -168,7 +170,7 @@ public class ReviewerEntwicklerZuweisenView extends Div {
                     .reviewer(aktuellerReviewer)
                     .build();
             anfrageService.doCreatAnfrage(a);
-            Notification.show("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
+            Notify.notifyAfterUpdateWithOkay("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
         }
     }
 

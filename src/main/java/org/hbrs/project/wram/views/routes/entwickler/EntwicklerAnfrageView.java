@@ -213,17 +213,17 @@ public class EntwicklerAnfrageView extends Div {
         UUID userID =(UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER);
         Entwickler currentEntwickler = entwicklerService.getByUserId(userID);
         if(currentEntwickler.getKundenprojekt() == null ){
-            notifyAfterUpdateWithOkay("Anfrage wird angenommen!",anfrage);
+            Notify.notifyAfterUpdateWithOkay("Anfrage wird angenommen!");
             anfrage.setAccepted(true);
             anfrage.setBearbeitet(true);
             anfrageService.doCreatAnfrage(anfrage);
             currentEntwickler.setKundenprojekt(anfrage.getKundenprojekt());
             entwicklerService.doCreatEntwickler(currentEntwickler);
-            //UI.getCurrent().getPage().reload();
-            //Notification.show("Sie haben die Anfrage angenommen!");
+            UI.getCurrent().getPage().reload();
+            //Notification.show("Sie haben die Anfrage angenommen!",4000,"");
         } else {
+Notify.notifyAfterUpdateWithOkay("Sie sind schon einem Kundenprojekt zugeteilt!");
 
-            Notification.show("Sie sind schon einem Kundenprojekt zugeteilt!");
         }
     }
 
@@ -245,6 +245,7 @@ public class EntwicklerAnfrageView extends Div {
      */
     public  void notifyAfterUpdateWithOkay(String benachrichtigung, Anfrage anfrage) {
 
+        Boolean ablehnenn = false;
         Dialog dialog = new Dialog();
         // dialog grosse
         //dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
@@ -266,24 +267,36 @@ public class EntwicklerAnfrageView extends Div {
             dialoglayout.add(textArea);
             dialog.setHeight("250px");
             dialog.setWidth("430px");
+            ablehnenn = true;
         }
 
+        Boolean finalAblehnenn = ablehnenn;
         dialoglayout.add(    new Text(benachrichtigung),
 
                 new Button("Speichern", e ->{
-                    anfrage.setReason(textArea.getValue());
-                    anfrageService.doCreatAnfrage(anfrage);
+                    if (textArea.getValue().equals("") /*&& finalAblehnenn*/){
+                        Notify.notifyAfterUpdateWithOkay("Bitte Ablehnungsbegründung angeben");
+                    }
+                    else {
+                        anfrage.setReason(textArea.getValue());
+                        anfrageService.doCreatAnfrage(anfrage);
 
-                    dialog.close();
-                    UI.getCurrent().getPage().reload();
-                })/*,
+                        dialog.close();
+                        UI.getCurrent().getPage().reload();
+                        Notify.notifyAfterUpdateWithOkay("Anfrage wurde erfolgreich bearbeitet bzw. abgelehnt!");
+                    }
 
-                new Button("Abbrechen", e ->{
-                    dialog.close();
-                })*/
+                })
+
+
 
         );
+        /*if (finalAblehnenn){
+            dialoglayout.add( new Button("Abbrechen", e ->{
+                dialog.close();
+            }));
 
+        }*/
 
 
         dialog.add(
