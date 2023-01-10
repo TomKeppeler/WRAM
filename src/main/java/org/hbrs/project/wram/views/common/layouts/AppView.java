@@ -2,38 +2,9 @@
  * @outhor Tom, Salah & Sophia
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.common.layouts;
 
-import java.util.Optional;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-
-import com.vaadin.flow.component.icon.Icon;
-import org.hbrs.project.wram.control.LoginControl;
-import org.hbrs.project.wram.control.entwickler.EntwicklerService;
-import org.hbrs.project.wram.control.manager.ManagerService;
-import org.hbrs.project.wram.control.reviewer.ReviewerService;
-import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.views.routes.manager.ZuweisungSenden;
-import org.hbrs.project.wram.model.user.User;
-import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.util.Utils;
-import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
-
-
-import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfrageView;
-import org.hbrs.project.wram.views.routes.main.LandingView;
-import org.hbrs.project.wram.views.routes.manager.BearbeiteteAnfragen;
-import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
-import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
-import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
-import org.hbrs.project.wram.views.routes.reviewer.ReviewerProjektView;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
@@ -43,6 +14,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -50,13 +22,32 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.PWA;
+import org.hbrs.project.wram.control.LoginControl;
+import org.hbrs.project.wram.control.entwickler.EntwicklerService;
+import org.hbrs.project.wram.control.manager.ManagerService;
+import org.hbrs.project.wram.control.reviewer.ReviewerService;
+import org.hbrs.project.wram.control.user.UserService;
+import org.hbrs.project.wram.model.user.User;
+import org.hbrs.project.wram.util.Constants;
+import org.hbrs.project.wram.util.Utils;
+import org.hbrs.project.wram.views.routes.entwickler.CreateEntwicklerProfil;
+import org.hbrs.project.wram.views.routes.entwickler.EntwicklerAnfrageView;
+import org.hbrs.project.wram.views.routes.main.LandingView;
+import org.hbrs.project.wram.views.routes.manager.BearbeiteteAnfragen;
+import org.hbrs.project.wram.views.routes.manager.CreateProjectForm;
+import org.hbrs.project.wram.views.routes.manager.ProjectsOverview;
+import org.hbrs.project.wram.views.routes.manager.ZuweisungSenden;
+import org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView;
+import org.hbrs.project.wram.views.routes.reviewer.ReviewerProjektView;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -69,11 +60,10 @@ import com.vaadin.flow.server.PWA;
 @JsModule("./styles/shared-styles.js")
 public class AppView extends AppLayout implements BeforeEnterObserver {
 
+    private static final Logger logger = Logger.getGlobal();
     private Tabs menu;
     private H1 viewTitle;
     private H1 helloUser;
-    private static final Logger logger = Logger.getGlobal();
-
     @Autowired
     private LoginControl control;
     @Autowired
@@ -86,11 +76,17 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
     @Autowired
     private ReviewerService reviewerService;
 
+    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
+        final Tab tab = new Tab();
+        tab.add(new RouterLink(text, navigationTarget));
+        ComponentUtil.setData(tab, Class.class, navigationTarget);
+        return tab;
+    }
+
     @PostConstruct
     private void init() {
         setUpUI();
     }
-
 
     /**
      * responsible for adding all generated Components to this View
@@ -123,7 +119,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     /**
      * Erzeugung der horizontalen Leiste (Header).
-     * 
+     *
      * @return
      */
     private Component createHeaderContent() {
@@ -172,7 +168,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
      * Diese besteht aus dem Logo ganz oben links sowie den Menu-Einträgen (menu
      * items).
      * Die Menu Items sind zudem verlinkt zu den internen Tab-Components.
-     * 
+     *
      * @param menu
      * @return
      */
@@ -199,7 +195,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     /**
      * Erzeugung des Menu auf der vertikalen Leiste (Drawer)
-     * 
+     *
      * @return
      */
     private Tabs createMenu() {
@@ -217,35 +213,35 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
 
     private Component[] createMenuItems() {
 
-        Tab [] tabs = new Tab[0];
+        Tab[] tabs = new Tab[0];
         Icon icon = new Icon("home-o");
-        tabs = Utils.append( tabs , createTab("Home", LandingView.class));
+        tabs = Utils.append(tabs, createTab("Home", LandingView.class));
 
         // Manager Tabs
-        if(userService.getRolle() =="m"){
+        if (userService.getRolle() == "m") {
             logger.log(Level.INFO, "User is \"Manager\"!");
-            tabs = Utils.append( tabs , createTab("Meine Projekte", ProjectsOverview.class));
+            tabs = Utils.append(tabs, createTab("Meine Projekte", ProjectsOverview.class));
             tabs = Utils.append(tabs, createTab("Neues Projekt erstellen", CreateProjectForm.class));
             tabs = Utils.append(tabs, createTab("Anfrage an Entwickler senden", ZuweisungSenden.class));
             tabs = Utils.append(tabs, createTab("Bearbeitete Anfrage", BearbeiteteAnfragen.class));
         }
         // Entwickler Tabs
-        else if (userService.getRolle() =="e") {
+        else if (userService.getRolle() == "e") {
 
             //Tab profile = new Tab(VaadinIcon.USER.create());
             //profile.add(new RouterLink("Mein Profile", CreateEntwicklerProfil.class));
             logger.log(Level.INFO, "User is \"Entwickler\"!");
-            tabs = Utils.append( tabs , createTab("Mein Profil", CreateEntwicklerProfil.class));
+            tabs = Utils.append(tabs, createTab("Mein Profil", CreateEntwicklerProfil.class));
             //tabs = Utils.append( tabs , profile);
-            tabs = Utils.append( tabs , createTab("Projektanfragen", EntwicklerAnfrageView.class));
+            tabs = Utils.append(tabs, createTab("Projektanfragen", EntwicklerAnfrageView.class));
 
         }
 
         // Reviewer Tabs
-        else if (userService.getRolle() =="r") {
+        else if (userService.getRolle() == "r") {
             logger.log(Level.INFO, "User is \"Reviewer\"!");
-            tabs = Utils.append( tabs , createTab("Entwickler", ReviewerEntwicklerView.class));
-            tabs = Utils.append( tabs , createTab("Kundenprojekte", ReviewerProjektView.class));
+            tabs = Utils.append(tabs, createTab("Entwickler", ReviewerEntwicklerView.class));
+            tabs = Utils.append(tabs, createTab("Kundenprojekte", ReviewerProjektView.class));
         }
 
         //ToDo
@@ -253,15 +249,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         //tabs = Utils.append( tabs , createTab("Über uns", UeberUns.class));
 
 
-
         return tabs;
-    }
-
-    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
-        final Tab tab = new Tab();
-        tab.add(new RouterLink(text, navigationTarget));
-        ComponentUtil.setData(tab, Class.class, navigationTarget);
-        return tab;
     }
 
     @Override
@@ -280,7 +268,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hallo " + getname() +" by WAC!");
+        helloUser.setText("Hallo " + getname() + " by WAC!");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
@@ -322,12 +310,12 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         }
     }
 
-    private String getname(){
+    private String getname() {
         if (userService.getRolle() == "m") return managerService.findManagerByUserId(control.getCurrentUser()
                 .getId()).getFirstname();
         if (userService.getRolle() == "e") return entwicklerService.findEntwicklerByUserId(control.getCurrentUser()
                 .getId()).getFirstname();
-          return reviewerService.findReviewerByUserId(control.getCurrentUser()
+        return reviewerService.findReviewerByUserId(control.getCurrentUser()
                 .getId()).getFirstname();
     }
 

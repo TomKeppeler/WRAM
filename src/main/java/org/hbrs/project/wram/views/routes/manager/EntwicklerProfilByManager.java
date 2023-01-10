@@ -1,8 +1,7 @@
 /**
- * @outhor  Salah
+ * @outhor Salah
  * @vision 1.0
  * @Zuletzt bearbeiret: 13.12.22 by Salah
- *
  */
 
 package org.hbrs.project.wram.views.routes.manager;
@@ -31,8 +30,8 @@ import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.routes.main.LandingView;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import javax.annotation.PostConstruct;
+
 @PageTitle("Entwickler Profil")
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.ENTWICKLER_PROFIL_BY_MANAGER, layout = AppView.class)
@@ -40,20 +39,12 @@ import javax.annotation.PostConstruct;
 public class EntwicklerProfilByManager extends Div {
 
     private static Entwickler aktuellerEntwickler = null;
-
+    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
     private H2 title;
-
     private TextField email;
-
     private TextField phone;
     private TextArea skills;
-
     private Image image = new Image("images/defaultP.png", "Profile Picture");
-
-
-
-    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
-
     @Autowired
     private EntwicklerService entwicklerService;
 
@@ -63,12 +54,15 @@ public class EntwicklerProfilByManager extends Div {
     @Autowired
     private LoginControl control;
 
+    static void setEntwickler(Entwickler entwickler1) {
+        aktuellerEntwickler = entwickler1;
+    }
+
     @PostConstruct
     private void init() {
 
         add(createFormLayout());
     }
-
 
     /**
      * Diese Methode erzeugt das Formlayout, welches Komponenten von ProfilInformationen.
@@ -79,7 +73,7 @@ public class EntwicklerProfilByManager extends Div {
         VerticalLayout formLayout = new VerticalLayout();
 
 
-        title = new H2("Entwickler Profil von " +aktuellerEntwickler.getFirstname()+" " +aktuellerEntwickler.getName());
+        title = new H2("Entwickler Profil von " + aktuellerEntwickler.getFirstname() + " " + aktuellerEntwickler.getName());
         email = new TextField("Email");
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
@@ -91,30 +85,27 @@ public class EntwicklerProfilByManager extends Div {
         email.setValue(aktuellerEntwickler.getUser().getEmail());
         email.setReadOnly(true);
 
-        if(aktuellerEntwickler.getImage() != null){
+        if (aktuellerEntwickler.getImage() != null) {
             setProfileImage();
         }
-        if(aktuellerEntwickler.getPhone()==null || aktuellerEntwickler.getPhone().length()==0){
+        if (aktuellerEntwickler.getPhone() == null || aktuellerEntwickler.getPhone().length() == 0) {
             phone.setPlaceholder("Telefonnummer");
-        }else {
+        } else {
             phone.setValue(aktuellerEntwickler.getPhone());
         }
         phone.setReadOnly(true);
-        if(aktuellerEntwickler.getSkills()==null || aktuellerEntwickler.getSkills().length()==0){
+        if (aktuellerEntwickler.getSkills() == null || aktuellerEntwickler.getSkills().length() == 0) {
             skills.setPlaceholder("Skills");
-        }else{
+        } else {
             skills.setValue(aktuellerEntwickler.getSkills());
         }
         skills.setReadOnly(true);
 
 
-
-
-        formLayout.add(title, this.image, email,  phone, skills, backlink);
+        formLayout.add(title, this.image, email, phone, skills, backlink);
         formLayout.setMaxWidth("900px");
         return formLayout;
     }
-
 
     /**
      * @apiNote the image is fetcht from the database via the entwicklerService and set in the image component
@@ -123,11 +114,6 @@ public class EntwicklerProfilByManager extends Div {
     private void setProfileImage() {
         this.image = Utils.generateImage(this.entwicklerService.getImage(aktuellerEntwickler.getId()));
 
-    }
-
-
-    static void setEntwickler(Entwickler entwickler1){
-        aktuellerEntwickler =  entwickler1;
     }
 
 

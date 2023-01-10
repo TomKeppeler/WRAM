@@ -1,8 +1,7 @@
 /**
- * @outhor  Salah
+ * @outhor Salah
  * @vision 1.0
  * @Zuletzt bearbeiret: 06.12.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes;
 
@@ -11,7 +10,6 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;

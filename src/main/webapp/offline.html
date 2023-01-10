@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <base href="."/>
-  <title>WRAM</title>
-  <link
-      href="icons/favicon-144x144.png"
-      rel="icon"
-      sizes="144x144"
-      type="image/png"
-  />
-  <link
-      href="icons/favicon-192x192.png"
-      rel="icon"
-      sizes="192x192"
-      type="image/png"
-  />
-  <link
-      href="icons/favicon-512x512.png"
-      rel="icon"
-      sizes="512x512"
-      type="image/png"
-  />
-  <link
-      href="icons/favicon-16x16.png"
-      rel="shortcut icon"
-      sizes="16x16"
-      type="image/png"
-  />
-  <meta
-      content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"
-      name="viewport"
-  />
-  <style>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <base href="."/>
+    <title>WRAM</title>
+    <link
+            href="icons/favicon-144x144.png"
+            rel="icon"
+            sizes="144x144"
+            type="image/png"
+    />
+    <link
+            href="icons/favicon-192x192.png"
+            rel="icon"
+            sizes="192x192"
+            type="image/png"
+    />
+    <link
+            href="icons/favicon-512x512.png"
+            rel="icon"
+            sizes="512x512"
+            type="image/png"
+    />
+    <link
+            href="icons/favicon-16x16.png"
+            rel="shortcut icon"
+            sizes="16x16"
+            type="image/png"
+    />
+    <meta
+            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"
+            name="viewport"
+    />
+    <style>
     @font-face {
       font-family: "Alegreya Sans SC";
       src: url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@100&display=swap");
@@ -152,29 +152,31 @@
         height: auto;
       }
     }
-  </style>
+
+    </style>
 </head>
 <body class="page">
 <div class="offline" id="offline">
-  <div class="content">
-    <header class="title">
-      <h1>WRAM</h1>
-    </header>
-    <section class="message">
-      <h2>You are offline</h2>
-      <p>
-        Eventuell liegt es am VPN ;) WRAM requires an internet
-        connection to work. You do not seem to have access to the server
-        right now. Check your internet connection and try reloading the page
-        to use the application.
-      </p>
-    </section>
-  </div>
+    <div class="content">
+        <header class="title">
+            <h1>WRAM</h1>
+        </header>
+        <section class="message">
+            <h2>You are offline</h2>
+            <p>
+                Eventuell liegt es am VPN ;) WRAM requires an internet
+                connection to work. You do not seem to have access to the server
+                right now. Check your internet connection and try reloading the page
+                to use the application.
+            </p>
+        </section>
+    </div>
 </div>
 <script>
   window.addEventListener("online", function () {
     window.location.reload();
   });
+
 </script>
 </body>
 </html>

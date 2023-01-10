@@ -2,21 +2,15 @@
  * @outhor Tom
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.model.kundenprojekt;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
+import lombok.*;
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.manager.Manager;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /** Diese Klasse stellt die Entity Kundenprojekt mit ihren Attributen dar.*/
 
@@ -26,19 +20,19 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name="kundenprojekt", schema = "public")
+@Table(name = "kundenprojekt", schema = "public")
 public class Kundenprojekt extends BaseEntity {
-    
+
     @NotNull
-    @Column(name="public_projekt", nullable = false)
+    @Column(name = "public_projekt", nullable = false)
     private boolean publicProjekt;
 
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(
-        name = "manager_id",
-        referencedColumnName = "id",
-        foreignKey = @ForeignKey(name = "fk_manager_id"))
+            name = "manager_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_manager_id"))
     private Manager manager;
 
     @NotNull
@@ -66,6 +60,7 @@ public class Kundenprojekt extends BaseEntity {
         result = prime * result + ((manager == null) ? 0 : manager.hashCode());
         return result;
     }
+
     /**
      * equals methode
      * @param obj
@@ -83,11 +78,8 @@ public class Kundenprojekt extends BaseEntity {
         if (publicProjekt != other.publicProjekt)
             return false;
         if (manager == null) {
-            if (other.manager != null)
-                return false;
-        } else if (!manager.equals(other.manager))
-            return false;
-        return true;
+            return other.manager == null;
+        } else return manager.equals(other.manager);
     }
-    
+
 }

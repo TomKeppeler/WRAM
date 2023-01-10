@@ -2,11 +2,12 @@
  * @outhor Fabio, Salah & Lukas
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes.manager;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.HasValueAndElement;
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -20,8 +21,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
-import java.util.UUID;
-import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
@@ -31,9 +30,13 @@ import org.hbrs.project.wram.model.kundenprojekt.KundenprojektDTO;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.views.common.layouts.AppView;
-import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.annotation.PostConstruct;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * Diese View dient dazu einem als Manager eingeloggtem User ein Kundenprojekt erstellen können.
@@ -44,18 +47,13 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class CreateProjectForm extends Div implements BeforeEnterObserver {
 
+    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
+    RadioButtonGroup<String> oeff;
     private H2 title;
-
     private TextField projektname;
     private TextArea skills;
     private TextArea projektbeschreibung;
-
-    RadioButtonGroup<String> oeff;
-
     private Button bestätigungsknopf;
-
-    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
-
     @Autowired
     private KundenprojektService kundenprojektServices;
 
@@ -74,10 +72,12 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         setMaxCharForFields();
 
         bestätigungsknopf.addClickListener(e -> {
-            if(kundenprojektDTOBinder.validate().isOk()){
+            if (kundenprojektDTOBinder.validate().isOk()) {
                 saveKundenprojekt(createKundenprojekt());
                 navigateToAppView();
-            }else{Notification.show("Bitte überprüfen Sie die Eingaben.");}
+            } else {
+                Notification.show("Bitte überprüfen Sie die Eingaben.");
+            }
         });
 
     }
@@ -117,7 +117,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         VerticalLayout formLayout = new VerticalLayout();
         title = new H2("Erstelle ein neues Projekt.");
         projektname = new TextField("Projektname");
-        projektname.setPlaceholder("Projektname");projektname.setWidth("550px");
+        projektname.setPlaceholder("Projektname");
+        projektname.setWidth("550px");
 
         skills = new TextArea("Skills");
         skills.setWidthFull();
@@ -136,7 +137,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
         bestätigungsknopf = new Button("Jetzt Erstellen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-     //   bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
+        //   bestätigungsknopf.addClickListener(saveKundenprojekt(createKundenprojekt()));
         RouterLink appView = new RouterLink("Zu meiner Projektübersicht", ProjectsOverview.class);
         formLayout.add(title, projektname, skills, projektbeschreibung, oeff, bestätigungsknopf, appView);
 
@@ -152,7 +153,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
      * @return Kundenprojekt
      */
     private Kundenprojekt createKundenprojekt() {
-        log.info("Das ist die Rückgabe in create:"+ UI.getCurrent().getSession().getAttribute(CURRENT_USER));
+        log.info("Das ist die Rückgabe in create:" + UI.getCurrent().getSession().getAttribute(CURRENT_USER));
         UUID userId = (UUID) UI.getCurrent().getSession().getAttribute(CURRENT_USER);
 
         Manager m = null;
@@ -161,10 +162,10 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         if (this.managerService != null) {
             m = this.managerService.getByUserId(userId);
         }
-        if(m==null){
+        if (m == null) {
             log.info("Manager is Null...");
-        }else {
-            log.info("Manager with ID " +m.getId().toString());
+        } else {
+            log.info("Manager with ID " + m.getId().toString());
         }
         return Kundenprojekt.builder().manager(m)
                 .projektbeschreibung(this.projektbeschreibung.getValue())

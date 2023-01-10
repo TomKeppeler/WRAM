@@ -1,8 +1,7 @@
 /**
- * @outhor  Salah
+ * @outhor Salah
  * @vision 1.0
  * @Zuletzt bearbeiret: 06.12.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes;
 

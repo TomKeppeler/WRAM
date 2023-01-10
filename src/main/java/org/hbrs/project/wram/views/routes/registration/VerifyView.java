@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @PageTitle("Verifizieren")
-@Route(value = Constants.Pages.VERIFY_VIEW,layout = AppViewOutside.class)
+@Route(value = Constants.Pages.VERIFY_VIEW, layout = AppViewOutside.class)
 @Slf4j
 public class VerifyView extends Div implements HasUrlParameter<String> {
 
@@ -28,8 +28,9 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
 
     /**
      * * Übergabe des durch die URL transferierten Verificationcodes
-     * @param   beforeEvent   aktueller benutzer
-     * @param   s übergabeparameter für verificationcode
+     *
+     * @param beforeEvent aktueller benutzer
+     * @param s           übergabeparameter für verificationcode
      */
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
@@ -63,8 +64,10 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
         div.add(field);
         layout.add(header, div);
     }
+
     /**
      * * Schaue ob code valide ist
+     *
      * @param code verifikationscode
      */
     private boolean verifyUser(String code) {

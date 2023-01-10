@@ -2,17 +2,15 @@
  * @outhor Tom
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.model.kundenprojekt;
-
-import java.util.UUID;
-
-import org.hbrs.project.wram.model.manager.Manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hbrs.project.wram.model.manager.Manager;
+
+import java.util.UUID;
 
 /** Data Transfer Object für Kundenprojekte*/
 

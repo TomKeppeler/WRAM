@@ -7,18 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class UserRoundTripTest {
 
+    User user = new User();
     @Autowired
     private UserService userService;
 
-    User user = new User();
-
     @BeforeEach
-    void setUp(){
+    void setUp() {
         user = User.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
     }
 
@@ -27,7 +26,7 @@ class UserRoundTripTest {
         //create
         userService.doCreateUser(user);
         //read
-        User user2 = userService.findUserByUsernameAndPassword("maxMuster","testpw12");
+        User user2 = userService.findUserByUsernameAndPassword("maxMuster", "testpw12");
         //compare
         assertEquals(user, user2);
         assertEquals(user.hashCode(), user.hashCode());

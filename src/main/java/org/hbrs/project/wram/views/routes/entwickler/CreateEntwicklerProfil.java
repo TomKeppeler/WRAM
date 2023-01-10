@@ -2,19 +2,27 @@
  * @outhor Lukas
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes.entwickler;
 
-import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
-
-import java.util.UUID;
-import java.util.stream.Stream;
-
-import javax.annotation.PostConstruct;
-
+import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.LoginControl;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
 import org.hbrs.project.wram.control.user.UserService;
@@ -28,27 +36,11 @@ import org.hbrs.project.wram.views.common.layouts.components.UploadButton;
 import org.hbrs.project.wram.views.routes.main.LandingView;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.flow.component.HasValueAndElement;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
+import javax.annotation.PostConstruct;
+import java.util.UUID;
+import java.util.stream.Stream;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 
 /**
  * Diese View dient dazu einem als Entwickler eingeloggtem User ein Profil erstellen können.
@@ -63,6 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
 
+    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
     private H2 title;
     private TextField firstname;
     private TextField name;
@@ -70,14 +63,9 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
     private TextField username;
     private TextField phone;
     private TextArea skills;
-
     private Image image = new Image("images/defaultP.png", "Profile Picture");
     private UploadButton uploadButton;
-    
     private Button bestätigungsknopf;
-    
-    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
-    
     @Autowired
     private EntwicklerService entwicklerService;
 
@@ -93,11 +81,11 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         validateFields();
         setMaxCharForFields();
 
-        bestätigungsknopf.addClickListener(e ->{
-            if(entwicklerDTOBinder.validate().isOk()){
+        bestätigungsknopf.addClickListener(e -> {
+            if (entwicklerDTOBinder.validate().isOk()) {
                 saveEntwicklerProfil(createEntwicklerProfil());
                 navigateToAppView();
-            }else {
+            } else {
                 Notification.show("Bitte überprüfen Sie die Eingaben.");
             }
         });
@@ -141,17 +129,17 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         email.setReadOnly(true);
         username.setValue(aktuellerEntwickler.getUser().getUsername());
         username.setReadOnly(true);
-        if(aktuellerEntwickler.getImage() != null){
+        if (aktuellerEntwickler.getImage() != null) {
             setProfileImage();
         }
-        if(aktuellerEntwickler.getPhone()==null || aktuellerEntwickler.getPhone().length()==0){
+        if (aktuellerEntwickler.getPhone() == null || aktuellerEntwickler.getPhone().length() == 0) {
             phone.setPlaceholder("Telefonnummer");
-        }else {
+        } else {
             phone.setValue(aktuellerEntwickler.getPhone());
         }
-        if(aktuellerEntwickler.getSkills()==null || aktuellerEntwickler.getSkills().length()==0){
+        if (aktuellerEntwickler.getSkills() == null || aktuellerEntwickler.getSkills().length() == 0) {
             skills.setPlaceholder("Skills");
-        }else{
+        } else {
             skills.setValue(aktuellerEntwickler.getSkills());
         }
 
@@ -160,6 +148,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         formLayout.setMaxWidth("900px");
         return formLayout;
     }
+
     /**
      * This method sets the style for the upload button.
      * @author: @tkeppe2s (Tom Keppeler)
@@ -235,7 +224,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
      * Diese Methode dient dazu, die Pflichtfelder zu markieren und mit einem
      * Helpertext zu versehen, wenn diese leer gelassen worden sind.
      */
-    private void validateFields(){
+    private void validateFields() {
         entwicklerDTOBinder.forField(firstname)
                 .withValidator(binderFirstname -> !binderFirstname.isEmpty(), "Bitte Vorname angeben").asRequired()
                 .bind(EntwicklerDTO::getFirstname, EntwicklerDTO::setFirstname);
@@ -283,7 +272,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
                 new Button("Ok", e -> {
                     confirm.close();
                     UI.getCurrent().getPage().reload();
-                    }
+                }
                 )
         );
         dialoglayout.setId("confirm-dialog-layout");

@@ -2,22 +2,15 @@
  * @outhor Lukas, Tom & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes.registration;
 
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.HasValueAndElement;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -26,30 +19,22 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-import java.io.UnsupportedEncodingException;
-import java.util.stream.Stream;
-
-import javax.annotation.PostConstruct;
-import javax.mail.MessagingException;
-
-
-import com.vaadin.flow.router.RouterLink;
 import lombok.extern.slf4j.Slf4j;
 import org.hbrs.project.wram.control.RegisterControl;
 import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.entwickler.EntwicklerDTO;
 import org.hbrs.project.wram.model.manager.ManagerDTO;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;
-import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Encryption;
 import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
-import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+import java.util.stream.Stream;
 
 /**
  * Diese View dient dazu, sich Registrieren zu können.
@@ -67,22 +52,20 @@ public class RegistrationForm extends VerticalLayout {
     String rolleProjektmanager = "Projektmanager";
     String rolleReviewer = "Reviewer";
     String rolleEntwickler = "Entwickler";
+    RadioButtonGroup<String> rolle;
     private H3 title;
-
     private TextField firstname;
     private TextField name;
     private TextField username;
     private EmailField email;
     private PasswordField passwort;
     private PasswordField passwortWiederholung;
-    RadioButtonGroup<String> rolle;
-
     private Button bestätigungsknopf;
 
-    private Binder<UserDTO> userDTOBinder = new Binder<>(UserDTO.class);
-    private Binder<ManagerDTO> managerDTOBinder = new Binder<>(ManagerDTO.class);
-    private Binder<ReviewerDTO> reviewerDTOBinder = new Binder<>(ReviewerDTO.class);
-    private Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
+    private final Binder<UserDTO> userDTOBinder = new Binder<>(UserDTO.class);
+    private final Binder<ManagerDTO> managerDTOBinder = new Binder<>(ManagerDTO.class);
+    private final Binder<ReviewerDTO> reviewerDTOBinder = new Binder<>(ReviewerDTO.class);
+    private final Binder<EntwicklerDTO> entwicklerDTOBinder = new Binder<>(EntwicklerDTO.class);
 
     @Autowired
     private UserService userService;
@@ -100,14 +83,14 @@ public class RegistrationForm extends VerticalLayout {
         bestätigungsknopf.addClickListener(createUserAndRollEventListener());
     }
 
-    
+
     /**
      * Diese Methode dient dazu einen EventListener zu erzeugen, welcher intern alle
      * Methoden prüft, die bei der Registrierung wichtig sind.
      * Sollte alles ok sein, wird der User mit dem dazugehörigen zweiten Datensatz
      * mithilfe der Controlklasse in der Datenbank gespeichert.
      *
-     * @return ComponentEventListener<ClickEvent<Button>>
+     * @return ComponentEventListener<ClickEvent < Button>>
      */
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
@@ -179,7 +162,7 @@ public class RegistrationForm extends VerticalLayout {
      * @return boolean
      */
     private boolean validateFields() {
-        return (entwicklerDTOBinder.validate().isOk()||managerDTOBinder.validate().isOk()||reviewerDTOBinder.validate().isOk())&userDTOBinder.validate().isOk();
+        return (entwicklerDTOBinder.validate().isOk() || managerDTOBinder.validate().isOk() || reviewerDTOBinder.validate().isOk()) & userDTOBinder.validate().isOk();
     }
 
 

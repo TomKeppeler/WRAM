@@ -2,7 +2,6 @@
  * @outhor Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes.reviewer;
 
@@ -14,30 +13,24 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.control.manager.ManagerService;
-import org.hbrs.project.wram.control.user.UserService;
-import org.hbrs.project.wram.model.entwickler.Entwickler;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Diese View dient dazu einem als Reviwer eingeloggtem User alle öffentlichen Kundenprojekte anzuzeigen.
@@ -55,10 +48,16 @@ public class ReviewerProjektView extends Div {
     @Autowired
     private KundenprojektService kundenprojektService;
 
+    private static ComponentRenderer<ReviewerProjektView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
+        return new ComponentRenderer<>(
+                ReviewerProjektView.ProjektDetailsFormLayout::new,
+                ReviewerProjektView.ProjektDetailsFormLayout::setProjekt);
+    }
+
     @PostConstruct
     public void init() {
         header = new H2("Alle Kundenprojekte.");
-        kundenprojektDTOS =  kundenprojektService.findAllPublicKundenprojekt();
+        kundenprojektDTOS = kundenprojektService.findAllPublicKundenprojekt();
         VerticalLayout layout = new VerticalLayout();
         layout.add(header, setUpGrid());
         add(layout);
@@ -84,7 +83,7 @@ public class ReviewerProjektView extends Div {
 
         // Entwickler zuweisen
         Grid.Column<Kundenprojekt> entwicklerAnfragenColumn = grid.addComponentColumn(kundenprojekt -> {
-            Button bearbeiten = new Button( VaadinIcon.PLUS_CIRCLE.create());
+            Button bearbeiten = new Button(VaadinIcon.PLUS_CIRCLE.create());
             bearbeiten.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
             bearbeiten.addClickListener(e ->
                     entwicklerAnfragen(kundenprojekt)
@@ -107,12 +106,6 @@ public class ReviewerProjektView extends Div {
         UI.getCurrent().navigate(Constants.Pages.REVIEWERENTWICKLERZUWEISEN);
     }
 
-    private static ComponentRenderer<ReviewerProjektView.ProjektDetailsFormLayout, Kundenprojekt> createProjektDetailsRenderer() {
-        return new ComponentRenderer<>(
-                ReviewerProjektView.ProjektDetailsFormLayout::new,
-                ReviewerProjektView.ProjektDetailsFormLayout::setProjekt);
-    }
-
     private static class ProjektDetailsFormLayout extends FormLayout {
         private final TextField projektname = new TextField("Projektname");
         private final TextArea projektbeschreibung = new TextArea("Projektbeschreibung");
@@ -131,9 +124,21 @@ public class ReviewerProjektView extends Div {
         }
 
         public void setProjekt(Kundenprojekt kundenprojekt) {
-            if(kundenprojekt.getProjektname()!=null){projektname.setValue(kundenprojekt.getProjektname());}else{projektname.setValue("-");}
-            if(kundenprojekt.getProjektbeschreibung()!=null){projektbeschreibung.setValue(kundenprojekt.getProjektbeschreibung());}else{projektbeschreibung.setValue("-");}
-            if(kundenprojekt.getSkills()!=null){skills.setValue(kundenprojekt.getSkills());}else{skills.setValue("-");}
+            if (kundenprojekt.getProjektname() != null) {
+                projektname.setValue(kundenprojekt.getProjektname());
+            } else {
+                projektname.setValue("-");
+            }
+            if (kundenprojekt.getProjektbeschreibung() != null) {
+                projektbeschreibung.setValue(kundenprojekt.getProjektbeschreibung());
+            } else {
+                projektbeschreibung.setValue("-");
+            }
+            if (kundenprojekt.getSkills() != null) {
+                skills.setValue(kundenprojekt.getSkills());
+            } else {
+                skills.setValue("-");
+            }
         }
 
     }

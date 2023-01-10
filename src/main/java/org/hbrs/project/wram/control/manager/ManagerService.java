@@ -2,7 +2,6 @@
  * @outhor Lukas, Tom & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 17.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.control.manager;
 
@@ -13,6 +12,7 @@ import org.hbrs.project.wram.model.manager.ManagerRepository;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.UUID;
 
 /** Diese Klasse ist eine Serviceklasse für Manager*/
@@ -41,7 +41,7 @@ public class ManagerService {
      * @return
      */
     public Manager getByUserId(UUID userId) {
-        if(userId == null) {
+        if (userId == null) {
             new Notification("userId is null!!!");
             return null;
         }

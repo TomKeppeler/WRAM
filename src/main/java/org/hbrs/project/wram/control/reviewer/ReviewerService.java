@@ -2,18 +2,16 @@
  * @outhor Salah, Tom & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 17.11.22 by Salah
- *
  */
 
 package org.hbrs.project.wram.control.reviewer;
 
 import com.vaadin.flow.component.notification.Notification;
+import lombok.RequiredArgsConstructor;
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.reviewer.ReviewerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
@@ -38,7 +36,7 @@ public class ReviewerService {
      * @return Reviewer
      */
     public Reviewer getByUserId(UUID id) {
-        if(id == null) {
+        if (id == null) {
             new Notification("userId is null!!!");
             return null;
         }

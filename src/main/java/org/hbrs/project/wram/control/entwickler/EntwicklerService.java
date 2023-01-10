@@ -2,27 +2,22 @@
  * @outhor Lukas, Tom & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 17.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.control.entwickler;
 
-import java.util.List;
-import java.util.UUID;
+import com.vaadin.flow.component.notification.Notification;
+import lombok.RequiredArgsConstructor;
+import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
+import org.hbrs.project.wram.model.entwickler.Entwickler;
+import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-
-import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
-import org.hbrs.project.wram.model.entwickler.Entwickler;
-import org.hbrs.project.wram.model.entwickler.EntwicklerRepository;
-import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.vaadin.flow.component.notification.Notification;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -46,7 +41,7 @@ public class EntwicklerService {
      * @return : corresponding Entwickler Entity for given UUID
      */
     public Entwickler getByUserId(UUID userId) {
-        if(userId == null) {
+        if (userId == null) {
             new Notification("userId is null!!!");
             return null;
         }
@@ -74,7 +69,7 @@ public class EntwicklerService {
      * Diese Methode dient dazu mithilfe eines Repositorys alle Entwickler aus der Datenbank auszulesen.
      * @return Eine Liste aller Entwickler
      */
-    public List<Entwickler> findAllEntwickler(){
+    public List<Entwickler> findAllEntwickler() {
         return entwicklerRepository.findAll();
     }
 
@@ -89,6 +84,7 @@ public class EntwicklerService {
         entwickler.setImage(image);
         this.entwicklerRepository.save(entwickler);
     }
+
     @Transactional
     public @Nullable byte[] getImage(UUID id) {
         Entwickler entwickler = this.entwicklerRepository.findById(id).orElseGet(null);

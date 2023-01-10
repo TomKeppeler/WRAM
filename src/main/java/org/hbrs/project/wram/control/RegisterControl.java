@@ -21,9 +21,7 @@ import org.hbrs.project.wram.model.user.UserDTO;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -54,10 +52,11 @@ public class RegisterControl {
 
     /**
      * Prüfe ob passwort >8 und ein grossen und kein Buchstabe hat
+     *
      * @param passwort
      * @return gibt True falls alle Anforderungen erfüllt sind
      */
-    public static boolean passwortCheck(String passwort){
+    public static boolean passwortCheck(String passwort) {
         boolean longEnough = passwort.length() > 7;
         boolean hasNumber = Utils.hasNumber(passwort);
         boolean hasUppercaseLetter = Utils.hasUpperCaseLetter(passwort);
@@ -66,8 +65,9 @@ public class RegisterControl {
 
     /**
      * user und Entwickler werden mittels Repository in DB gespeichert
-     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
-     * @param entwicklerDTO  wird vorher mittels  createEntwickler() zu Entity umgewandelt
+     *
+     * @param userDTO       wird vorher mittels  createUser() zu Entity umgewandelt
+     * @param entwicklerDTO wird vorher mittels  createEntwickler() zu Entity umgewandelt
      * @return true falls beide Entity erfolgreich gespeichert
      */
     public boolean saveUserAndEntwickler(UserDTO userDTO, EntwicklerDTO entwicklerDTO) {
@@ -81,11 +81,12 @@ public class RegisterControl {
 
     /**
      * * user und Manager werden mittels Repository in DB gespeichert
-     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
+     *
+     * @param userDTO    wird vorher mittels  createUser() zu Entity umgewandelt
      * @param managerDTO wird vorher mittels  createManager() zu Entity umgewandelt
      * @return true falls beide Entity erfolgreich gespeichert
      */
-    public boolean saveUserAndManager(UserDTO userDTO, ManagerDTO managerDTO){
+    public boolean saveUserAndManager(UserDTO userDTO, ManagerDTO managerDTO) {
 
         Manager manager = EntityFactory.createManager(managerDTO, saveUser(userDTO));
         managerRepository.save(manager);
@@ -94,11 +95,12 @@ public class RegisterControl {
 
     /**
      * * user und Reviewer werden mittels Repository in DB gespeichert
-     * @param userDTO wird vorher mittels  createUser() zu Entity umgewandelt
+     *
+     * @param userDTO     wird vorher mittels  createUser() zu Entity umgewandelt
      * @param reviewerDTO wird vorher mittels  createReviewer() zu Entity umgewandelt
      * @return true falls beide Entity erfolgreich gespeichert
      */
-    public boolean saveUserAndReviewer(UserDTO userDTO, ReviewerDTO reviewerDTO){
+    public boolean saveUserAndReviewer(UserDTO userDTO, ReviewerDTO reviewerDTO) {
 
         Reviewer reviewer = EntityFactory.createReviewer(reviewerDTO, saveUser(userDTO));
         reviewerRepository.save(reviewer);
@@ -107,15 +109,16 @@ public class RegisterControl {
 
     /**
      * * user wird mittels Repository in DB gespeichert und registriert
+     *
      * @param userDTO wird vorher mittels  createUser() zu Entity umgewandel
      * @return User Instanz
      */
-    private User saveUser(UserDTO userDTO){
+    private User saveUser(UserDTO userDTO) {
         User user = EntityFactory.createUser(userDTO);
         userRepository.save(user);
         try {
             userService.register(user, "sepp-test.inf.h-brs.de:8080/WAC-0.0.1-SNAPSHOT");
-        }catch (UnsupportedEncodingException| MessagingException e){
+        } catch (UnsupportedEncodingException | MessagingException e) {
 
         }
         return user;

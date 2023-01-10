@@ -10,23 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ManagerRoundTripTest {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ManagerService managerService;
-
     User user = new User();
     User userInDB;
     Manager manager = new Manager();
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ManagerService managerService;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         user = User.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
         userService.doCreateUser(user);
         userInDB = userService.findUserByUsernameAndPassword("maxMuster", "testpw12");

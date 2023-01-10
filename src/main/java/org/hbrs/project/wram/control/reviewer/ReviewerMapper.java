@@ -2,8 +2,8 @@
  * @outhor Salah & Tom
  * @vision 1.0
  * @Zuletzt bearbeitet: 14.11.22 by Salah
- *
- */package org.hbrs.project.wram.control.reviewer;
+ */
+package org.hbrs.project.wram.control.reviewer;
 
 import org.hbrs.project.wram.model.reviewer.Reviewer;
 import org.hbrs.project.wram.model.reviewer.ReviewerDTO;

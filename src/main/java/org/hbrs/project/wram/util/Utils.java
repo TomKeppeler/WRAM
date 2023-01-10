@@ -2,18 +2,15 @@
  * @outhor Salah & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.server.StreamResource;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
-import java.util.UUID;
 
 /* Utility Klasse welche Methoden enthält, die Eigenschaften von eingegebenen Strings überprüft.*/
 
@@ -24,9 +21,9 @@ public class Utils {
      * @param text
      * @return
      */
-    public static boolean hasNumber(String text){
-        for(char c : text.toCharArray())
-            if( Character.isDigit(c) ) return true;
+    public static boolean hasNumber(String text) {
+        for (char c : text.toCharArray())
+            if (Character.isDigit(c)) return true;
 
         return false;
     }
@@ -62,13 +59,13 @@ public class Utils {
             retValue = false;
         }
 
-        if (j == -1)  { // Prüft ob kein Punkt nach dem @ Zeichen kommt
+        if (j == -1) { // Prüft ob kein Punkt nach dem @ Zeichen kommt
             retValue = false;
         }
-        if ((j - i) < 2)  { // Prüft Anzahl der Zeichen zwischen dem @ und dem .
+        if ((j - i) < 2) { // Prüft Anzahl der Zeichen zwischen dem @ und dem .
             retValue = false;
         }
-        if (j == (emailadresse.length()-1)) { // Mail Adresse muss länger sein, als die Stelle vom Punkt
+        if (j == (emailadresse.length() - 1)) { // Mail Adresse muss länger sein, als die Stelle vom Punkt
             retValue = false;
         }
         return retValue;
@@ -80,10 +77,12 @@ public class Utils {
      * @return
      */
     public static boolean isAlpha(String text) {
-        if(text.length()==0){return false;}
+        if (text.length() == 0) {
+            return false;
+        }
         for (char c : text.toCharArray()) {
             // a - z                    // A - Z                       // ö, ü, ä, ß
-            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü' )
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü')
                 continue;
             return false;
         }
@@ -110,7 +109,7 @@ public class Utils {
      * @param text
      * @return
      */
-    public static boolean isNumber(String text){
+    public static boolean isNumber(String text) {
         return StringUtils.isNumeric(text);
     }
 
@@ -119,10 +118,13 @@ public class Utils {
      * @param telefonnummer
      * @return
      */
-    public static boolean telefonnummerCheck(String telefonnummer){
-        if(telefonnummer.length()==0){return true;}
-        if(telefonnummer.length() <= 6 || telefonnummer.length() >= 15) return false; // Länge 9-13
-        else if(telefonnummer.charAt(0)=='+' && isNumber(telefonnummer.substring(1, telefonnummer.length()-1))) return true;
+    public static boolean telefonnummerCheck(String telefonnummer) {
+        if (telefonnummer.length() == 0) {
+            return true;
+        }
+        if (telefonnummer.length() <= 6 || telefonnummer.length() >= 15) return false; // Länge 9-13
+        else if (telefonnummer.charAt(0) == '+' && isNumber(telefonnummer.substring(1, telefonnummer.length() - 1)))
+            return true;
         else return isNumber(telefonnummer);
     }
 

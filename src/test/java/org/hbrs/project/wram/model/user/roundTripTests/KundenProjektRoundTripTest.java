@@ -7,37 +7,29 @@ import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.kundenprojekt.KundenprojektRepository;
 import org.hbrs.project.wram.model.manager.Manager;
 import org.hbrs.project.wram.model.user.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class KundenProjektRoundTripTest {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ManagerService managerService;
-
-    @Autowired
-    private KundenprojektService kundenprojektService;
-
-    @Autowired
-    private KundenprojektRepository kundenprojektRepository;
-
-
     User user = new User();
     User userInDB;
     Manager manager = new Manager();
     Kundenprojekt kundenprojekt = new Kundenprojekt();
-
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ManagerService managerService;
+    @Autowired
+    private KundenprojektService kundenprojektService;
+    @Autowired
+    private KundenprojektRepository kundenprojektRepository;
 
     @Test
     void KundenProjektRoundTrip() {
@@ -53,7 +45,7 @@ class KundenProjektRoundTripTest {
         kundenprojektService.doCreateKundenprojekt(kundenprojekt);
         //löschen des Projektes und des Managers+Users
         List<Kundenprojekt> kid = kundenprojektService.findAllKundenprojektByManagerId(manager2.getId());
-        for(Kundenprojekt k : kid){
+        for (Kundenprojekt k : kid) {
             kundenprojektRepository.delete(k);
         }
         //delete
@@ -63,10 +55,10 @@ class KundenProjektRoundTripTest {
 
 
     @Test
-    void findAllPublicKundenprojektTest(){
+    void findAllPublicKundenprojektTest() {
         List<Kundenprojekt> k = kundenprojektService.findAllPublicKundenprojekt();
-        assertEquals(k,k);
-        assertEquals(k.hashCode(),k.hashCode());
+        assertEquals(k, k);
+        assertEquals(k.hashCode(), k.hashCode());
     }
 
 

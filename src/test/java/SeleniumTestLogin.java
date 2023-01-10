@@ -1,16 +1,3 @@
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class SeleniumTestLogin {
 /*
     private static WebDriver driver = null;

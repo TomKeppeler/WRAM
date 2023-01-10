@@ -11,10 +11,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,23 +19,18 @@ import org.hbrs.project.wram.control.user.UserService;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Constants;
-import org.hbrs.project.wram.util.Encryption;
-import org.hbrs.project.wram.views.common.layouts.AppView;
 import org.hbrs.project.wram.views.common.layouts.AppViewOutside;
 import org.hbrs.project.wram.views.routes.Notify;
 import org.hbrs.project.wram.views.routes.main.LoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 
 
 @PageTitle("Passwort bestaetigen")
 @Route(value = Constants.Pages.Confirm_Password_VIEW, layout = AppViewOutside.class)
 @Slf4j
-public class ConfirmPasswortView extends Div  implements HasUrlParameter<String> {
-
+public class ConfirmPasswortView extends Div implements HasUrlParameter<String> {
 
 
     @Autowired
@@ -62,21 +54,22 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
     }
 
 
-
     /**
      * Erstelle temporäres passwort, falls username existiert
-     * @return ComponentEventListener<ClickEvent<Button>>
+     *
+     * @return ComponentEventListener<ClickEvent < Button>>
      */
     private ComponentEventListener<ClickEvent<Button>> createUserAndRollEventListener() {
         return e -> {
-            User us=userRepository.findUserByUsername(username);
+            User us = userRepository.findUserByUsername(username);
             us.setVerified(true);
             userRepository.save(us);
             UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
-            Notify.notifyAfterUpdateWithOkay("Hallo"+us.getUsername()+"!\nSie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.");
+            Notify.notifyAfterUpdateWithOkay("Hallo" + us.getUsername() + "!\nSie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.");
 
         };
     }
+
     /**
      * Diese Methode erzeugt das Formlayout, welches Username annimmt
      *
@@ -97,6 +90,7 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
         formLayout.setColspan(bestätigungsknopf, 2);
         return formLayout;
     }
+
     private void setUpErrorLayout() {
         VerticalLayout layout = new VerticalLayout();
         H1 header = new H1("Etwas ist schief gelaufen.");
@@ -108,8 +102,8 @@ public class ConfirmPasswortView extends Div  implements HasUrlParameter<String>
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
-        if(s!=null){
-            this.username=s;
+        if (s != null) {
+            this.username = s;
         }
     }
 }

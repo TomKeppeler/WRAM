@@ -2,7 +2,6 @@
  * @outhor Salah & Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 17.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.control.factory;
 
@@ -53,7 +52,7 @@ public class EntityFactory {
      * @param user
      * @return
      */
-    public static Manager createManager(ManagerDTO managerDTO, User user){
+    public static Manager createManager(ManagerDTO managerDTO, User user) {
         Manager manager = new Manager();
         manager.setFirstname(managerDTO.getFirstname());
         manager.setName(managerDTO.getName());
@@ -67,7 +66,7 @@ public class EntityFactory {
      * @param user
      * @return
      */
-    public static Reviewer createReviewer(ReviewerDTO reviewerDTO, User user){
+    public static Reviewer createReviewer(ReviewerDTO reviewerDTO, User user) {
         Reviewer reviewer = new Reviewer();
         reviewer.setFirstname(reviewerDTO.getFirstname());
         reviewer.setName(reviewerDTO.getName());

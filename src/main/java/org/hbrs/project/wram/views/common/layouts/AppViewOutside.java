@@ -1,8 +1,7 @@
 /**
- * @outhor  Salah
+ * @outhor Salah
  * @vision 1.0
  * @Zuletzt bearbeiret: 06.12.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.common.layouts;
 
@@ -22,16 +21,17 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
-import com.vaadin.flow.router.*;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.RouterLink;
 import org.hbrs.project.wram.util.Constants;
 import org.hbrs.project.wram.util.Utils;
 import org.hbrs.project.wram.views.routes.Hilfe;
 import org.hbrs.project.wram.views.routes.UeberUns;
 
-
 import javax.annotation.PostConstruct;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 /**
@@ -42,19 +42,23 @@ import java.util.logging.Logger;
 @Route("Appviewoutside")
 @RouteAlias(value = "Appviewoutside")
 @JsModule("./styles/shared-styles.js")
-public class AppViewOutside extends AppLayout{
+public class AppViewOutside extends AppLayout {
+    private static final Logger logger = Logger.getGlobal();
     private Tabs menu;
     private H1 viewTitle;
     private H1 helloUser;
-    private static final Logger logger = Logger.getGlobal();
 
-
+    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
+        final Tab tab = new Tab();
+        tab.add(new RouterLink(text, navigationTarget));
+        ComponentUtil.setData(tab, Class.class, navigationTarget);
+        return tab;
+    }
 
     @PostConstruct
     private void init() {
         setUpUI();
     }
-
 
     /**
      * responsible for adding all generated Components to this View
@@ -70,8 +74,6 @@ public class AppViewOutside extends AppLayout{
         menu = createMenu();
         addToDrawer(createDrawerContent(menu));
     }
-
-
 
     /**
      * Erzeugung der horizontalen Leiste (Header).
@@ -106,15 +108,13 @@ public class AppViewOutside extends AppLayout{
 
         // Logout-Button am rechts-oberen Rand.
         MenuBar bar = new MenuBar();
-        bar.addItem("Registrieren", e ->  UI.getCurrent().navigate(Constants.Pages.REGISTRATION));
-        bar.addItem("Login", e ->  UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW));
+        bar.addItem("Registrieren", e -> UI.getCurrent().navigate(Constants.Pages.REGISTRATION));
+        bar.addItem("Login", e -> UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW));
 
         topRightPanel.add(bar);
         layout.add(topRightPanel);
         return layout;
     }
-
-
 
     /**
      * Hinzufügen der vertikalen Leiste (Drawer)
@@ -164,22 +164,13 @@ public class AppViewOutside extends AppLayout{
         return tabs;
     }
 
-
-
     private Component[] createMenuItems() {
 
-        Tab [] tabs = new Tab[0];
-        tabs = Utils.append( tabs , createTab("Hilfe", Hilfe.class));
-        tabs = Utils.append( tabs , createTab("Über uns ", UeberUns.class));
+        Tab[] tabs = new Tab[0];
+        tabs = Utils.append(tabs, createTab("Hilfe", Hilfe.class));
+        tabs = Utils.append(tabs, createTab("Über uns ", UeberUns.class));
 
         return tabs;
-    }
-
-    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
-        final Tab tab = new Tab();
-        tab.add(new RouterLink(text, navigationTarget));
-        ComponentUtil.setData(tab, Class.class, navigationTarget);
-        return tab;
     }
 
     @Override
@@ -193,7 +184,7 @@ public class AppViewOutside extends AppLayout{
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hello by WAC!" );
+        helloUser.setText("Hello by WAC!");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
@@ -206,9 +197,6 @@ public class AppViewOutside extends AppLayout{
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
-
-
-
 
 
 }

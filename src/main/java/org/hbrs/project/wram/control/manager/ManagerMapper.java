@@ -2,7 +2,6 @@
  * @outhor Salah & Tom
  * @vision 1.0
  * @Zuletzt bearbeitet: 15.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.control.manager;
 

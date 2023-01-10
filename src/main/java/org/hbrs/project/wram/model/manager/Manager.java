@@ -2,30 +2,17 @@
  * @outhor Tom
  * @vision 1.0
  * @Zuletzt bearbeiret: 14.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.model.manager;
 
-import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import lombok.*;
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
 import org.hbrs.project.wram.model.user.User;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /** Diese Klasse stellt die Entity Manager mit ihren Attributen dar.*/
 
@@ -35,9 +22,9 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
-@Table(name="manager", schema = "public")
-public class Manager extends BaseEntity{
-    
+@Table(name = "manager", schema = "public")
+public class Manager extends BaseEntity {
+
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
@@ -49,9 +36,9 @@ public class Manager extends BaseEntity{
     @NotNull
     @OneToOne(orphanRemoval = true, optional = false)
     @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "id",
-        foreignKey = @ForeignKey(name = "fk_user_id")
+            name = "user_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_user_id")
     )
     private User user;
 
@@ -93,11 +80,8 @@ public class Manager extends BaseEntity{
         } else if (!firstname.equals(other.firstname))
             return false;
         if (user == null) {
-            if (other.user != null)
-                return false;
-        } else if (!user.equals(other.user))
-            return false;
-        return true;
+            return other.user == null;
+        } else return user.equals(other.user);
     }
 
 }

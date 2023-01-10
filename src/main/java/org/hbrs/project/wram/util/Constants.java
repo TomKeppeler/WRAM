@@ -2,7 +2,6 @@
  * @outhor Tom, Salah & Sophia
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.util;
 
@@ -34,8 +33,8 @@ public class Constants {
         public static final String Confirm_Password_VIEW = "passwort_bestaetigen"; //Seite zur Passwortbestäetigung
 
         // für entwickler
-        public static final String CREATEENTWICKLERPROFIL="EntwicklerProfilErstellen";
-        public static final String ENTWICKLERANFRAGEVIEW="EntwicklerAnfrage";// Entwickler zugewiessene Anträge anschauen
+        public static final String CREATEENTWICKLERPROFIL = "EntwicklerProfilErstellen";
+        public static final String ENTWICKLERANFRAGEVIEW = "EntwicklerAnfrage";// Entwickler zugewiessene Anträge anschauen
 
         public static final String REVIEWERENTWICKLER = "Entwickler";
         public static final String PROJECT_DETAIL = "projektdetails";
@@ -44,8 +43,8 @@ public class Constants {
 
 
         // Sonstiges
-        public static final String HilfeOUT="HilfeOut";
-        public static final String UeberUnsOut="UeberunsOut";
+        public static final String HilfeOUT = "HilfeOut";
+        public static final String UeberUnsOut = "UeberunsOut";
     }
 
 

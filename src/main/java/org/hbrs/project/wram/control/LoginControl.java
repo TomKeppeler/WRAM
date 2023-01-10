@@ -2,7 +2,6 @@
  * @outhor Salah & Sophia
  * @vision 1.0
  * @Zuletzt bearbeiret: 14.11.22 by Salah
- *
  */
 
 package org.hbrs.project.wram.control;
@@ -10,12 +9,9 @@ package org.hbrs.project.wram.control;
 import org.hbrs.project.wram.model.user.User;
 import org.hbrs.project.wram.model.user.UserRepository;
 import org.hbrs.project.wram.util.Encryption;
-import org.hbrs.project.wram.views.routes.Notify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import javax.management.Notification;
 
 @Component
 public class LoginControl {
@@ -35,10 +31,10 @@ public class LoginControl {
      * @throws Exception wird von getUser() delegiert
      */
     public boolean authenticateUser(String username, String password) throws Exception {
-        User user = getUser(username,password);
-       // user.isVerified();
-        if (user == null||!user.isVerified() ) {
-                throw new IllegalAccessException();
+        User user = getUser(username, password);
+        // user.isVerified();
+        if (user == null || !user.isVerified()) {
+            throw new IllegalAccessException();
 
 
         } else {
@@ -58,7 +54,7 @@ public class LoginControl {
     private @Nullable User getUser(String username, String password) throws Exception {
         User user;
         try {
-          user = repository.findUserByUsernameAndPassword(username, Encryption.sha256(password));
+            user = repository.findUserByUsernameAndPassword(username, Encryption.sha256(password));
 
         } catch (org.springframework.dao.DataAccessResourceFailureException e) {
             // Todo: Create DatabaseException (inside control package?)
@@ -66,11 +62,11 @@ public class LoginControl {
         }
         return user;
     }
+
     public @Nullable boolean isUsernameInUse(String username) {
 
 
-             return  repository.isUsernameInUse(username);
-
+        return repository.isUsernameInUse(username);
 
 
     }

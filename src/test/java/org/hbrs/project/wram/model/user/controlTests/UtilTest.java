@@ -4,7 +4,8 @@ import org.hbrs.project.wram.util.Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest
@@ -12,7 +13,7 @@ class UtilTest {
 
 
     @Test
-    void UtilTest(){
+    void UtilTest() {
         assertTrue(Utils.hasNumber("Test3"));
         assertFalse(Utils.hasNumber("asd"));
         assertTrue(Utils.hasUpperCaseLetter("Hallo"));
@@ -22,7 +23,6 @@ class UtilTest {
         assertTrue(Utils.isAlpha("Hallo"));
         assertFalse(Utils.isAlpha("543fdsf-DAS"));
     }
-
 
 
 }

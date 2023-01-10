@@ -14,18 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class ReviewerRoundTripTest {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ReviewerService reviewerService;
-
     User user = new User();
     User userInDB;
     Reviewer reviewer = new Reviewer();
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ReviewerService reviewerService;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         user = User.builder().email("max@mustermann.de").password("testpw12").username("maxMuster").build();
         userService.doCreateUser(user);
         userInDB = userService.findUserByUsernameAndPassword("maxMuster", "testpw12");

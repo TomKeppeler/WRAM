@@ -2,24 +2,17 @@
  * @outhor Tom
  * @vision 1.0
  * @Zuletzt bearbeiret: 25.11.2022 by Sophia
- *
  */
 package org.hbrs.project.wram.model.user;
 
+
+import lombok.*;
+import org.hbrs.project.wram.model.common.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.hbrs.project.wram.model.common.BaseEntity;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.Objects;
 
 /** Diese Klasse stellt die Entity User mit ihren Attributen dar.*/
@@ -30,8 +23,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="User",schema = "public")
-public class User extends BaseEntity{
+@Table(name = "User", schema = "public")
+public class User extends BaseEntity {
 
     @NotNull
     @Column(name = "username", nullable = false)
@@ -40,7 +33,7 @@ public class User extends BaseEntity{
     @NotNull
     @Column(name = "email", nullable = false)
     private String email;
-    
+
     @NotNull
     @Column(name = "password", nullable = false)
     private String password;

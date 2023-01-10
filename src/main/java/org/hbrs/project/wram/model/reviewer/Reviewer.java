@@ -2,26 +2,15 @@
  * @outhor Tom
  * @vision 1.0
  * @Zuletzt bearbeiret: 14.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.model.reviewer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import lombok.*;
 import org.hbrs.project.wram.model.common.BaseEntity;
 import org.hbrs.project.wram.model.user.User;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /** Diese Klasse stellt die Entity Reviewer mit ihren Attributen dar.*/
 
@@ -33,7 +22,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "reviewer", schema = "public")
 public class Reviewer extends BaseEntity {
-    
+
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
@@ -45,9 +34,9 @@ public class Reviewer extends BaseEntity {
     @NotNull
     @OneToOne(orphanRemoval = true, optional = false)
     @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "id",
-        foreignKey = @ForeignKey(name = "fk_user_id"))
+            name = "user_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
 
 
@@ -90,11 +79,8 @@ public class Reviewer extends BaseEntity {
         } else if (!firstname.equals(other.firstname))
             return false;
         if (user == null) {
-            if (other.user != null)
-                return false;
-        } else if (!user.equals(other.user))
-            return false;
-        return true;
+            return other.user == null;
+        } else return user.equals(other.user);
     }
-    
+
 }

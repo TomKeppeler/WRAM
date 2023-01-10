@@ -2,7 +2,6 @@
  * @outhor Fabio
  * @vision 1.0
  * @Zuletzt bearbeiret: 18.11.22 by Salah
- *
  */
 package org.hbrs.project.wram.views.routes.manager;
 
@@ -50,17 +49,15 @@ import static org.hbrs.project.wram.util.Constants.CURRENT_USER;
 @Slf4j
 public class ProjectDetailView extends Div {
 
+    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
     //Kundenprojekt, mit welchem die Seite aufgerufen wurde
     Kundenprojekt aktuellesProjekt = (Kundenprojekt) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_PROJECT);
-
-    private final Binder<KundenprojektDTO> kundenprojektDTOBinder = new Binder<>(KundenprojektDTO.class);
-
+    RadioButtonGroup<String> oeff;
     private H2 header;
     private RouterLink zurueckLink;
     private TextField projektname;
     private TextArea skills;
     private TextArea projektbeschreibung;
-    RadioButtonGroup<String> oeff;
     private Button bestätigungsknopf;
 
     @Autowired
@@ -76,11 +73,12 @@ public class ProjectDetailView extends Div {
         setMaxCharForFields();
 
         bestätigungsknopf.addClickListener(e -> {
-            if(kundenprojektDTOBinder.validate().isOk()){
+            if (kundenprojektDTOBinder.validate().isOk()) {
                 saveKundenprojekt(createKundenprojekt());
                 navigateToAppView();
-            }else{
-                Notification.show("Bitte überprüfen Sie die Eingaben.");}
+            } else {
+                Notification.show("Bitte überprüfen Sie die Eingaben.");
+            }
         });
     }
 
@@ -96,7 +94,8 @@ public class ProjectDetailView extends Div {
 
         header = new H2("Kundenprojekt Infos.");
         zurueckLink = new RouterLink("Zurück zu meiner Projektübersicht", ProjectsOverview.class);
-        projektname = new TextField("Projektname");projektname.setWidth("550px");
+        projektname = new TextField("Projektname");
+        projektname.setWidth("550px");
         skills = new TextArea("Skills");
         skills.setWidthFull();
         skills.setPlaceholder("Erforderliche Skills");
@@ -110,14 +109,18 @@ public class ProjectDetailView extends Div {
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Status");
         oeff.setItems("oeffentlich", "nicht oeffentlich");
-        if(aktuellesProjekt.isPublicProjekt()){oeff.setValue("oeffentlich");}else{oeff.setValue("nicht oeffentlich");}
+        if (aktuellesProjekt.isPublicProjekt()) {
+            oeff.setValue("oeffentlich");
+        } else {
+            oeff.setValue("nicht oeffentlich");
+        }
         oeff.setEnabled(true);
 
         bestätigungsknopf = new Button("Projekt updaten");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
-        layout.add(header,projektname,skills,projektbeschreibung,oeff, bestätigungsknopf,zurueckLink);
+        layout.add(header, projektname, skills, projektbeschreibung, oeff, bestätigungsknopf, zurueckLink);
         layout.setMaxWidth("900px");
         return layout;
     }
