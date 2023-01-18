@@ -98,7 +98,7 @@ public class ZuweisungSenden extends Div {
 
         for (Anfrage a : anfrageList) {
             if (a.getKundenprojekt().getManager().getId().equals(this.managerService.findManagerByUserId(userID).getId())) {
-                anfrage.add(a);
+                if(!a.isBearbeitet())anfrage.add(a);
             }
         }
         VerticalLayout layout = new VerticalLayout();
@@ -139,30 +139,37 @@ public class ZuweisungSenden extends Div {
         Grid.Column<Anfrage> annhemenColumn = grid.addComponentColumn(anfrageP -> {
             Button anfrageSendenButton = new Button();
             if (anfrageP.isEntwicklerpublic()) {
-
-                Icon lumoIcon = new Icon("lumo", "cross");
-                lumoIcon.setColor("Red");
-                anfrageSendenButton.setText("Anfrage nicht senden");
-
+                anfrageSendenButton.setText("Anfrage zurücknehmen");
             } else {
-                Icon lumoIcon = new Icon("lumo", "checkmark");
-                lumoIcon.setColor("Green");
                 anfrageSendenButton.setText("Anfrage senden");
             }
             if (anfrageP.isAccepted()) {
                 anfrageSendenButton.setEnabled(false);
                 anfrageSendenButton.setText("Anfrage angenommen");
             }
-
             anfrageSendenButton.addClickListener(event -> {
                         senden(anfrageP);
                         UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW);
                         UI.getCurrent().navigate(Constants.Pages.ZUWEISUNGSENDEN);
                     }
-
             );
-
             return anfrageSendenButton;
+        }).setAutoWidth(true).setFlexGrow(0);
+
+        //anfrage nicht senden, sondern löschen
+        Grid.Column<Anfrage> ablehnenColumn = grid.addComponentColumn(anfrageP -> {
+            Button anfrageLöschenButton = new Button("Anfrage löschen");
+            if (anfrageP.isEntwicklerpublic()) {
+                anfrageLöschenButton.setEnabled(false);
+            }
+            anfrageLöschenButton.addClickListener(event -> {
+                        anfrageService.deleteById(anfrageP.getId());
+                        Notify.notifyAfterUpdateWithOkay("Anfrage gelöscht!");
+                        UI.getCurrent().navigate(Constants.Pages.PROJECTS_OVERVIEW);
+                        UI.getCurrent().navigate(Constants.Pages.ZUWEISUNGSENDEN);
+                    }
+            );
+            return anfrageLöschenButton;
         }).setAutoWidth(true).setFlexGrow(0);
 
         // navigiere zu ENTWICKLER_PROFIL_BY_MANAGER

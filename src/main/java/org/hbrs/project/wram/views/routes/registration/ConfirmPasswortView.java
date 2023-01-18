@@ -1,3 +1,8 @@
+/**
+ * @outhor lukas
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 06.12.22 by Salah
+ */
 package org.hbrs.project.wram.views.routes.registration;
 
 
@@ -27,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
 
-@PageTitle("Passwort bestaetigen")
+@PageTitle("Passwort bestätigen")
 @Route(value = Constants.Pages.Confirm_Password_VIEW, layout = AppViewOutside.class)
 @Slf4j
 public class ConfirmPasswortView extends Div implements HasUrlParameter<String> {
@@ -65,7 +70,7 @@ public class ConfirmPasswortView extends Div implements HasUrlParameter<String> 
             us.setVerified(true);
             userRepository.save(us);
             UI.getCurrent().navigate(Constants.Pages.LOGIN_VIEW); // Login-View
-            Notify.notifyAfterUpdateWithOkay("Hallo" + us.getUsername() + "!\nSie haben das Passwort erfolgreich upgedatet und können sich nun einloggen.");
+            Notify.notifyAfterUpdateWithOkay("Hallo " + us.getUsername() + "!\nDein Passwort wurde erfolgreich aktualisiert. Du kannst dich nun einloggen.");
 
         };
     }
@@ -77,7 +82,7 @@ public class ConfirmPasswortView extends Div implements HasUrlParameter<String> 
      */
     public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        title = new H3("Bestätigen Sie das neue Passwort");
+        title = new H3("Bitte bestätige das neue Passwort");
 
         bestätigungsknopf = new Button("Jetzt Passwort bestätigen");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -95,7 +100,7 @@ public class ConfirmPasswortView extends Div implements HasUrlParameter<String> 
         VerticalLayout layout = new VerticalLayout();
         H1 header = new H1("Etwas ist schief gelaufen.");
         Div div = new Div();
-        TextField field = new TextField("Gegebenenfalls sind Sie schon verifiziert.\nLoggen Sie sich in diesem Fall ein.");
+        TextField field = new TextField("Gegebenenfalls bist du schon verifiziert.\nLogge dich in diesem Fall ein.");
         div.add(field);
         layout.add(header, div);
     }

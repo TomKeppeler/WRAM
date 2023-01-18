@@ -1,7 +1,7 @@
 /**
  * @outhor Tom, Salah & Sophia
  * @vision 1.0
- * @Zuletzt bearbeiret: 18.11.22 by Salah
+ * @Zuletzt bearbeitet: 10.01.22 by Leon
  */
 package org.hbrs.project.wram.views.common.layouts;
 
@@ -268,7 +268,7 @@ public class AppView extends AppLayout implements BeforeEnterObserver {
         viewTitle.setText(getCurrentPageTitle());
 
         // Setzen des Vornamens von dem aktuell eingeloggten Benutzer
-        helloUser.setText("Hallo " + getname() + " by WAC!");
+        helloUser.setText("Willkommen, " + getname() + " bei WAC!");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {

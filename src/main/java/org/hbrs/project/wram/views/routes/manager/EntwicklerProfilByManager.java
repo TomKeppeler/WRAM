@@ -74,7 +74,7 @@ public class EntwicklerProfilByManager extends Div {
 
 
         title = new H2("Entwickler Profil von " + aktuellerEntwickler.getFirstname() + " " + aktuellerEntwickler.getName());
-        email = new TextField("Email");
+        email = new TextField("E-Mail");
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
         skills.setWidthFull();

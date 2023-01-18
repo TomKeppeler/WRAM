@@ -77,7 +77,7 @@ public class ProjectDetailView extends Div {
                 saveKundenprojekt(createKundenprojekt());
                 navigateToAppView();
             } else {
-                Notification.show("Bitte überprüfen Sie die Eingaben.");
+                Notification.show("Bitte überprüfe deine Eingaben.");
             }
         });
     }
@@ -108,15 +108,15 @@ public class ProjectDetailView extends Div {
 
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Status");
-        oeff.setItems("oeffentlich", "nicht oeffentlich");
+        oeff.setItems("öffentlich", "nicht öffentlich");
         if (aktuellesProjekt.isPublicProjekt()) {
-            oeff.setValue("oeffentlich");
+            oeff.setValue("öffentlich");
         } else {
-            oeff.setValue("nicht oeffentlich");
+            oeff.setValue("nicht öffentlich");
         }
         oeff.setEnabled(true);
 
-        bestätigungsknopf = new Button("Projekt updaten");
+        bestätigungsknopf = new Button("Projekt aktualisieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
@@ -167,7 +167,7 @@ public class ProjectDetailView extends Div {
                 .projektbeschreibung(this.projektbeschreibung.getValue())
                 .projektname(this.projektname.getValue())
                 .skills(this.skills.getValue())
-                .publicProjekt(this.oeff.getValue().equals("oeffentlich")).build();
+                .publicProjekt(this.oeff.getValue().equals("öffentlich")).build();
         //alte ID, damit Datensatz in der DB überschreiben wird
         k.setId(aktuellesProjekt.getId());
         return k;
@@ -208,13 +208,13 @@ public class ProjectDetailView extends Div {
      */
     private void validateFields() {
         kundenprojektDTOBinder.forField(projektname)
-                .withValidator(binderProjektname -> !binderProjektname.isEmpty(), "Bitte Projektname angeben").asRequired()
+                .withValidator(binderProjektname -> !binderProjektname.isEmpty(), "Bitte Projektnamen angeben").asRequired()
                 .bind(KundenprojektDTO::getProjektname, KundenprojektDTO::setProjektname);
         kundenprojektDTOBinder.forField(skills)
                 .withValidator(binderSkills -> !binderSkills.isEmpty(), "Bitte Skills angeben").asRequired()
                 .bind(KundenprojektDTO::getSkills, KundenprojektDTO::setSkills);
         kundenprojektDTOBinder.forField(projektbeschreibung)
-                .withValidator(binderProjektbeschreibung -> !binderProjektbeschreibung.isEmpty(), "Bitte Projekteschreibung angeben").asRequired()
+                .withValidator(binderProjektbeschreibung -> !binderProjektbeschreibung.isEmpty(), "Bitte Projektbeschreibung angeben").asRequired()
                 .bind(KundenprojektDTO::getProjektbeschreibung, KundenprojektDTO::setProjektbeschreibung);
     }
 
@@ -231,7 +231,7 @@ public class ProjectDetailView extends Div {
         confirm.open();
 
         VerticalLayout dialoglayout = new VerticalLayout(
-                new Text("Projekt wurde erfolgreich geupdated."),
+                new Text("Dein Projekt wurde erfolgreich aktualisiert."),
                 new Button("Ok", e ->
                         confirm.close()
                 )

@@ -21,6 +21,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.hbrs.project.wram.control.kundenprojekt.KundenprojektService;
 import org.hbrs.project.wram.model.kundenprojekt.Kundenprojekt;
@@ -38,6 +39,7 @@ import java.util.List;
  */
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.REVIEWERPROJEKTE, layout = AppView.class)
+@PageTitle("Kundenprojekte")
 public class ReviewerProjektView extends Div {
 
 

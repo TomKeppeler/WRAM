@@ -1,13 +1,14 @@
 /**
  * @outhor Salah
  * @vision 1.0
- * @Zuletzt bearbeiret: 06.12.22 by Salah
+ * @Zuletzt bearbeiret: 08.01.23 by Leon
  */
 package org.hbrs.project.wram.views.routes;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -40,9 +41,15 @@ public class UeberUns extends Div {
         VerticalLayout formLayout = new VerticalLayout();
 
 
-        title = new H2("Es gibt nichts über uns :$");
+        title = new H2("WAC");
+        Label heading = new Label("Über uns");
+        heading.addClassName("about-us-heading");
+        Label text = new Label("WAC ist eine Firma, die sich auf die Erstellung moderner Web-Applikationen spezialisiert hat. \n Unser agiles, junges Team passt sich jeder Herausforderung an und strebt stets danach die Wünsche des Kunden zu erfüllen. \n Kontaktieren Sie uns unter wac.wram@web.de damit wir uns darüber austauschen können, wie wir auch Ihrem Unternehmen helfen können!");
+        text.addClassName("about-us-text");
+        Label footer = new Label("Copyright 2022. All rights reserved.");
+        footer.addClassName("about-us-footer");
 
-        formLayout.add(title);
+        formLayout.add(title, heading, text, footer);
         formLayout.setMaxWidth("900px");
         return formLayout;
     }

@@ -1,3 +1,8 @@
+/**
+ * @outhor sophia
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 06.12.22 by Salah
+ */
 package org.hbrs.project.wram.views.routes.registration;
 
 
@@ -48,7 +53,7 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
             setUpErrorLayout();
         }
         VerticalLayout layout = new VerticalLayout();
-        H1 header = new H1("Sie sind erfolgreich verifiziert!.");
+        H1 header = new H1("Du bist erfolgreich verifiziert!.");
         layout.add(header);
         RouterLink link = new RouterLink("Jetzt einloggen.", LoginView.class);
         layout.add(link);
@@ -60,7 +65,7 @@ public class VerifyView extends Div implements HasUrlParameter<String> {
         VerticalLayout layout = new VerticalLayout();
         H1 header = new H1("Etwas ist schief gelaufen.");
         Div div = new Div();
-        TextField field = new TextField("Gegebenenfalls sind Sie schon verifiziert.\nLoggen Sie sich in diesem Fall ein.");
+        TextField field = new TextField("Gegebenenfalls bist du schon verifiziert.\nLogge dich in diesem Fall einfach ein.");
         div.add(field);
         layout.add(header, div);
     }

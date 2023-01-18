@@ -86,7 +86,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
                 saveEntwicklerProfil(createEntwicklerProfil());
                 navigateToAppView();
             } else {
-                Notification.show("Bitte überprüfen Sie die Eingaben.");
+                Notification.show("Bitte überprüfe deine Eingaben.");
             }
         });
     }
@@ -112,7 +112,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         title = new H2("Entwicklerprofil");
         firstname = new TextField("Vorname");
         name = new TextField("Nachname");
-        email = new TextField("Email");
+        email = new TextField("E-Mail");
         username = new TextField("Username");
         phone = new TextField("Telefonnummer");
         skills = new TextArea("Skills");
@@ -120,9 +120,9 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         this.uploadButton = new UploadButton(aktuellerEntwickler.getId(), this.entwicklerService);
         styleUploadButton();
 
-        bestätigungsknopf = new Button("Jetzt Erstellen/Updaten");
+        bestätigungsknopf = new Button("Profil aktualisieren");
         bestätigungsknopf.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        RouterLink backlink = new RouterLink("Zurück zur Uebersicht", LandingView.class);
+        RouterLink backlink = new RouterLink("Zurück zur Übersicht", LandingView.class);
         firstname.setValue(aktuellerEntwickler.getFirstname());
         name.setValue(aktuellerEntwickler.getName());
         email.setValue(aktuellerEntwickler.getUser().getEmail());
@@ -232,7 +232,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
                 .withValidator(binderName -> !binderName.isEmpty(), "Bitte Nachname angeben").asRequired()
                 .bind(EntwicklerDTO::getName, EntwicklerDTO::setName);
         entwicklerDTOBinder.forField(phone)
-                .withValidator(Utils::telefonnummerCheck, "Bitte korrekte Nummer angeben")
+                .withValidator(Utils::telefonnummerCheck, "Bitte eine gültige Telefonnummer angeben")
                 .bind(EntwicklerDTO::getPhone, EntwicklerDTO::setPhone);
 
     }
@@ -268,7 +268,7 @@ public class CreateEntwicklerProfil extends Div implements BeforeEnterObserver {
         confirm.open();
 
         VerticalLayout dialoglayout = new VerticalLayout(
-                new Text("Dein Profil wurde erfolgreich erstellt/ geupdated."),
+                new Text("Dein Profil wurde erfolgreich erstellt bzw. aktualisiert."),
                 new Button("Ok", e -> {
                     confirm.close();
                     UI.getCurrent().getPage().reload();

@@ -1,3 +1,8 @@
+/**
+ * @outhor Lukas
+ * @vision 1.0
+ * @Zuletzt bearbeiret: 06.12.22 by Salah
+ */
 package org.hbrs.project.wram.views.routes.registration;
 
 
@@ -45,12 +50,12 @@ public class UpdatePasswordView extends Div {
     @Autowired
     private UserRepository userRepository;
 
-    private final H3 title = new H3("Erstellen und bestätigen sie ein neues passwort");
+    private final H3 title = new H3("Passwort ändern? Kein Problem.");
     private final TextField username = new TextField("Username");
     private final PasswordField passwort = new PasswordField("Passwort");
-    private final PasswordField passwortWiederholung = new PasswordField("Wiederholen Sie Ihr Passwort");
+    private final PasswordField passwortWiederholung = new PasswordField("Wiederhole dein Passwort");
 
-    private final Button bestätigungsknopf = new Button("Abschicken");
+    private final Button bestätigungsknopf = new Button("Jetzt ändern");
     private boolean added = false;
 
 
@@ -91,10 +96,10 @@ public class UpdatePasswordView extends Div {
                 }
 
             } else if (!passwortWiederholung.getValue().equals(passwort.getValue())) {
-                Notify.notifyAfterUpdateWithOkay("Passwort stimmt nicht überein");
+                Notify.notifyAfterUpdateWithOkay("Deine Passwort Eingaben stimmen nicht überein");
             } else {
                 //Todo
-                Notification.show("passwort exisitert schon oder ist null");
+                Notification.show("Das Passwort existiert schon oder ist leer");
             }
         };
     }
@@ -125,7 +130,7 @@ public class UpdatePasswordView extends Div {
         VerticalLayout layout = new VerticalLayout();
         H1 header = new H1("Etwas ist schief gelaufen.");
         Div div = new Div();
-        TextField field = new TextField("Gegebenenfalls sind Sie schon verifiziert.\nLoggen Sie sich in diesem Fall ein.");
+        TextField field = new TextField("Gegebenenfalls bist du schon verifiziert.\nLogge dich in diesem Fall einfach ein.");
         div.add(field);
         layout.add(header, div);
     }

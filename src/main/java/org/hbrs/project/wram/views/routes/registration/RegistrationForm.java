@@ -99,7 +99,7 @@ public class RegistrationForm extends VerticalLayout {
                 userDTO.setPassword(Encryption.sha256(userDTO.getPassword()));
                 if (this.userService.isEmailAlreadyInDatabase(userDTO)) {
                     Notification
-                            .show("Es existiert bereits ein Account mit der E-mail adresse " + userDTO
+                            .show("Es existiert bereits ein Account mit der E-Mail Adresse " + userDTO
                                     .getEmail(), 5000, Notification.Position.MIDDLE);
                 } else if (this.userService.isUsernameAlreadyInDatabase(userDTO)) {
                     Notification.show("Es existiert bereits ein Account mit dem Username " + userDTO
@@ -152,7 +152,7 @@ public class RegistrationForm extends VerticalLayout {
                     }
                 }
             } else {
-                Notification.show("Bitte überprüfen Sie Ihre Eingaben!", 3000, Notification.Position.MIDDLE);
+                Notification.show("Bitte überprüfe deine Eingaben!", 3000, Notification.Position.MIDDLE);
             }
         };
     }
@@ -175,7 +175,7 @@ public class RegistrationForm extends VerticalLayout {
     private void setAttributeAndNavigate(UserDTO userDTO) {
         UI.getCurrent().getSession().setAttribute(Constants.CURRENT_USER, userDTO.getId());
         UI.getCurrent().navigate(""); // Login-View
-        Notification.show("Sie haben sich erfolgreich registriert und können sich nun einloggen.", 3000,
+        Notification.show("Du hast dich erfolgreich registriert!", 3000,
                 Notification.Position.MIDDLE);
     }
 
@@ -187,16 +187,16 @@ public class RegistrationForm extends VerticalLayout {
      */
     public Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        title = new H3("Registrieren Sie sich");
+        title = new H3("Willkommen bei WRAM.  ");
         firstname = new TextField("Vorname");
         name = new TextField("Nachname");
-        email = new EmailField("Email");
+        email = new EmailField("E-Mail");
         username = new TextField("Username");
         passwort = new PasswordField("Passwort");
-        passwortWiederholung = new PasswordField("Wiederholen Sie Ihr Passwort");
+        passwortWiederholung = new PasswordField("Wiederhole dein Passwort");
         // Radiobutton für rolle
         rolle = new RadioButtonGroup<>();
-        rolle.setLabel("Wählen Sie Ihre Rolle");
+        rolle.setLabel("Wähle deine Rolle");
         rolle.setItems(rolleProjektmanager, rolleReviewer, rolleEntwickler);
         rolle.setValue(rolleProjektmanager);
         rolle.setEnabled(true);
@@ -224,29 +224,29 @@ public class RegistrationForm extends VerticalLayout {
     private void bindFields() {
         entwicklerDTOBinder.forField(firstname)
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
-                .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Vorname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getFirstname, EntwicklerDTO::setFirstname);
         entwicklerDTOBinder.forField(name)
                 .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
-                .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Nachname darf nur Buchstaben enthalten")
                 .bind(EntwicklerDTO::getName, EntwicklerDTO::setName);
 
         managerDTOBinder.forField(firstname)
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
-                .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Vorname darf nur Buchstaben enthalten")
                 .bind(ManagerDTO::getFirstname, ManagerDTO::setFirstname);
         managerDTOBinder.forField(name)
                 .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
-                .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Nachname darf nur Buchstaben enthalten")
                 .bind(ManagerDTO::getName, ManagerDTO::setName);
 
         reviewerDTOBinder.forField(firstname)
                 .withValidator(binderfirstname -> binderfirstname.length() > 0, "Bitte Vorname angeben")
-                .withValidator(Utils::isAlpha, "Vorname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Vorname darf nur Buchstaben enthalten")
                 .bind(ReviewerDTO::getFirstname, ReviewerDTO::setFirstname);
         reviewerDTOBinder.forField(name)
                 .withValidator(bindername -> bindername.length() > 0, "Bitte Nachname angeben")
-                .withValidator(Utils::isAlpha, "Nachname darf nur Buchstaben enthalten")
+                .withValidator(Utils::isAlpha, "Dein Nachname darf nur Buchstaben enthalten")
                 .bind(ReviewerDTO::getName, ReviewerDTO::setName);
 
         userDTOBinder.forField(username)
@@ -264,8 +264,8 @@ public class RegistrationForm extends VerticalLayout {
                         "Passwörter stimmen nicht überein")
                 .bind(UserDTO::getPassword, UserDTO::setPassword);
         userDTOBinder.forField(email)
-                .withValidator(e -> e.length() > 0, "Bitte Email angeben")
-                .withValidator(Utils::emailadresseCheck, "Email Muster ungültig")
+                .withValidator(e -> e.length() > 0, "Bitte E-Mail angeben")
+                .withValidator(Utils::emailadresseCheck, "Deine E-Mail ist ungültig")
                 .bind(UserDTO::getEmail, UserDTO::setEmail);
     }
 

@@ -81,7 +81,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
                         confirm.open();
 
                         VerticalLayout dialoglayout = new VerticalLayout(
-                                new Text("Bitte Verifizieren Sie sich über den Link in Ihrem Email"),
+                                new Text("Bitte verifiziere dich über den Link, den du als E-Mail erhalten hast."),
                                 new Button("Ok", x -> {
                                     confirm.close();
                                     UI.getCurrent().getPage().reload();
@@ -106,7 +106,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
                     Dialog dialog = new Dialog();
                     VerticalLayout layoutDialog = new VerticalLayout();
                     layoutDialog.add(new Header(new H1("Jetzt registrieren.")));
-                    layoutDialog.add(new Text("Sie scheinen noch nicht registriert bzw. verifiziert zu sein."));
+                    layoutDialog.add(new Text("Du scheinst noch nicht registriert bzw. verifiziert zu sein."));
                     dialog.add(layoutDialog);
                     dialog.setWidth("320px");
                     dialog.setHeight("400px");

@@ -173,13 +173,13 @@ public class EntwicklerAnfrageView extends Div {
 
             ablehnenButton = new Button("Ablehnen", lumoIcon);
             if (anfrage.isBearbeitet() && anfrage.isAccepted()) {
-                ablehnenButton.setText("Projekt Verlassen");
+                ablehnenButton.setText("Projekt verlassen");
                 ablehnenButton.addClickListener(event -> {
                     Entwickler currentEntwickler = entwicklerService.getByUserId((UUID) UI.getCurrent().getSession().getAttribute(Constants.CURRENT_USER));
                     currentEntwickler.setKundenprojekt(null);
                     ablehnen(anfrage);
                     entwicklerService.doCreatEntwickler(currentEntwickler);
-                    //UI.getCurrent().getPage().reload();
+
                 });
                 return ablehnenButton;
             }
@@ -188,7 +188,7 @@ public class EntwicklerAnfrageView extends Div {
             }
             ablehnenButton.addClickListener(event -> {
                         ablehnen(anfrage);
-                        //UI.getCurrent().navigate(Constants.Pages.CREATEENTWICKLERPROFIL);
+
                     }
             );
 
@@ -220,7 +220,7 @@ public class EntwicklerAnfrageView extends Div {
             UI.getCurrent().getPage().reload();
             //Notification.show("Sie haben die Anfrage angenommen!",4000,"");
         } else {
-            Notify.notifyAfterUpdateWithOkay("Sie sind schon einem Kundenprojekt zugeteilt!");
+            Notify.notifyAfterUpdateWithOkay("Du bist bereits einem Kundenprojekt zugeteilt!");
 
         }
     }
@@ -244,15 +244,14 @@ public class EntwicklerAnfrageView extends Div {
         Boolean ablehnenn = false;
         Dialog dialog = new Dialog();
         // dialog grosse
-        //dialog.setHeight("calc(50vh - (2*var(--lumo-space-m)))");
-        //dialog.setWidth("calc(50vw - (4*var(--lumo-space-m)))");
+
         dialog.setHeight("130px");
         dialog.setWidth("400px");
 
         dialog.open();
 
         // Feld um bei Ablehnung eine Begründung einzugeben
-        TextArea textArea = new TextArea("Bitte Ablehnungsbegründung eingeben!");
+        TextArea textArea = new TextArea("Bitte eine Ablehnungsbegründung eingeben!");
         textArea.setWidth("350px");
 
 
@@ -266,12 +265,12 @@ public class EntwicklerAnfrageView extends Div {
             ablehnenn = true;
         }
 
-        Boolean finalAblehnenn = ablehnenn;
+
         dialoglayout.add(new Text(benachrichtigung),
 
                 new Button("Speichern", e -> {
-                    if (textArea.getValue().equals("") /*&& finalAblehnenn*/) {
-                        Notify.notifyAfterUpdateWithOkay("Bitte Ablehnungsbegründung angeben");
+                    if (textArea.getValue().equals("") ) {
+                        Notify.notifyAfterUpdateWithOkay("Bitte eine Ablehnungsbegründung angeben");
                     } else {
                         anfrage.setReason(textArea.getValue());
                         anfrageService.doCreatAnfrage(anfrage);
@@ -285,12 +284,7 @@ public class EntwicklerAnfrageView extends Div {
 
 
         );
-        /*if (finalAblehnenn){
-            dialoglayout.add( new Button("Abbrechen", e ->{
-                dialog.close();
-            }));
 
-        }*/
 
 
         dialog.add(
@@ -301,6 +295,9 @@ public class EntwicklerAnfrageView extends Div {
         dialog.setCloseOnOutsideClick(false);
     }
 
+    /**
+     * FormLayout
+     */
     private static class ProjektDetailsFormLayout extends FormLayout {
         private final TextField projektname = new TextField("Projektname");
         private final TextArea projektbeschreibung = new TextArea("Projektbeschreibung");
@@ -309,7 +306,7 @@ public class EntwicklerAnfrageView extends Div {
         @Autowired
         private AnfrageRepository anfrageService;
 
-        //private Button begruendungButton = new Button("Speichern");
+
 
 
         public ProjektDetailsFormLayout() {
@@ -349,14 +346,7 @@ public class EntwicklerAnfrageView extends Div {
             } else {
                 reason.setValue("-");
             }
-            // Begründung bearbeiten
-            /*begruendungButton.addClickListener(event ->{
-                anfrage.setReason(reason.getValue());
-                anfrageService.save(anfrage);
-                Notify.notifyAfterUpdateWithOkay("Begründung gespeichert!");
-            }
 
-            );*/
 
         }
 

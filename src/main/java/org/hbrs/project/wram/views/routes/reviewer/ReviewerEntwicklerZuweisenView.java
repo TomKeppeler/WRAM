@@ -21,6 +21,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,7 @@ import static org.hbrs.project.wram.views.routes.reviewer.ReviewerEntwicklerView
  */
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.REVIEWERENTWICKLERZUWEISEN, layout = AppView.class)
+@PageTitle("Entwickler zuweisen")
 public class ReviewerEntwicklerZuweisenView extends Div {
 
     //Kundenprojekt, mit welchem die Seite aufgerufen wurde
@@ -171,7 +173,7 @@ public class ReviewerEntwicklerZuweisenView extends Div {
                     .reviewer(aktuellerReviewer)
                     .build();
             anfrageService.doCreatAnfrage(a);
-            Notify.notifyAfterUpdateWithOkay("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " gesendent.");
+            Notify.notifyAfterUpdateWithOkay("Anfrage für " + aktuellesProjekt.getProjektname() + " an " + entwickler.getFirstname() + " wurde gesendet.");
         }
     }
 

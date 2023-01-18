@@ -76,7 +76,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
                 saveKundenprojekt(createKundenprojekt());
                 navigateToAppView();
             } else {
-                Notification.show("Bitte überprüfen Sie die Eingaben.");
+                Notification.show("Bitte überprüfe deine Eingaben.");
             }
         });
 
@@ -94,7 +94,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
                 .withValidator(binderSkills -> !binderSkills.isEmpty(), "Bitte Skills angeben").asRequired()
                 .bind(KundenprojektDTO::getSkills, KundenprojektDTO::setSkills);
         kundenprojektDTOBinder.forField(projektbeschreibung)
-                .withValidator(binderProjektbeschreibung -> !binderProjektbeschreibung.isEmpty(), "Bitte Projekteschreibung angeben").asRequired()
+                .withValidator(binderProjektbeschreibung -> !binderProjektbeschreibung.isEmpty(), "Bitte Projektbeschreibung angeben").asRequired()
                 .bind(KundenprojektDTO::getProjektbeschreibung, KundenprojektDTO::setProjektbeschreibung);
     }
 
@@ -130,8 +130,8 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
         // Radiobutton für rolle
         oeff = new RadioButtonGroup<>();
         oeff.setLabel("Soll das Projekt veröffentlicht werden?");
-        oeff.setItems("veroeffentlichen", "noch nicht veroeffentlichen");
-        oeff.setValue("veroeffentlichen");
+        oeff.setItems("veröffentlichen", "noch nicht veröffentlichen");
+        oeff.setValue("veröffentlichen");
         oeff.setEnabled(true);
 
         setRequiredIndicatorVisible(projektname, skills, projektbeschreibung);
@@ -171,7 +171,7 @@ public class CreateProjectForm extends Div implements BeforeEnterObserver {
                 .projektbeschreibung(this.projektbeschreibung.getValue())
                 .projektname(this.projektname.getValue())
                 .skills(this.skills.getValue())
-                .publicProjekt(this.oeff.getValue().equals("veroeffentlichen")).build();
+                .publicProjekt(this.oeff.getValue().equals("veröffentlichen")).build();
     }
 
     /**

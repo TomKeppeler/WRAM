@@ -45,4 +45,5 @@ public class AnfrageService {
         return anfrageRepository.findAll();
     }
 
+    public void deleteById(UUID id){anfrageRepository.deleteById(id);}
 }

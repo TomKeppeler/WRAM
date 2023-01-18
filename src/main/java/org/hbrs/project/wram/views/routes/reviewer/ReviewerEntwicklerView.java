@@ -22,6 +22,7 @@ import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.function.SerializableBiConsumer;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.apache.commons.lang3.StringUtils;
 import org.hbrs.project.wram.control.entwickler.EntwicklerService;
@@ -41,6 +42,7 @@ import java.util.List;
  */
 @CssImport("./styles/views/main/main-view.css")
 @Route(value = Constants.Pages.REVIEWERENTWICKLER, layout = AppView.class)
+@PageTitle("Entwickler")
 public class ReviewerEntwicklerView extends Div {
 
 
@@ -153,10 +155,10 @@ public class ReviewerEntwicklerView extends Div {
     protected static class EntwicklerDetailsFormLayout extends FormLayout {
         private final TextField vorname = new TextField("Vorname");
         private final TextField nachname = new TextField("Nachname");
-        private final TextField email = new TextField("Email");
+        private final TextField email = new TextField("E-Mail");
         private final TextField telefonnummer = new TextField("Telefonnummer");
         private final TextArea skills = new TextArea("Skills");
-        private Image image = new Image("images/defaultP.png", "Profile Picture");
+        private Image image = new Image("images/defaultP.png", "Profilbild");
         private final Span placeholder = new Span();
 
         public EntwicklerDetailsFormLayout() {
